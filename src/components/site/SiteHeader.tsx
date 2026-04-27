@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -9,6 +9,7 @@ export const SiteHeader = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDept, setOpenDept] = useState(false);
+  const deptRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -20,7 +21,27 @@ export const SiteHeader = () => {
 
   useEffect(() => {
     setOpen(false);
+    setOpenDept(false);
   }, [pathname]);
+
+  // Close department dropdown when clicking outside or pressing Escape
+  useEffect(() => {
+    if (!openDept) return;
+    const onDown = (e: MouseEvent) => {
+      if (deptRef.current && !deptRef.current.contains(e.target as Node)) {
+        setOpenDept(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpenDept(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [openDept]);
 
   return (
     <header
@@ -46,13 +67,16 @@ export const SiteHeader = () => {
           {NAV.filter((n) => n.label !== "Departments").slice(0, 4).map((n) => (
             <NavItem key={n.to} to={n.to} label={n.label} active={pathname === n.to} />
           ))}
-          <div
-            className="relative"
-            onMouseEnter={() => setOpenDept(true)}
-            onMouseLeave={() => setOpenDept(false)}
-          >
-            <button className="flex items-center gap-1 px-2 2xl:px-2.5 py-2 text-[13px] 2xl:text-sm font-medium text-foreground/80 hover:text-foreground transition-colors whitespace-nowrap">
-              Departments <ChevronDown className="size-3.5" />
+          <div ref={deptRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setOpenDept((o) => !o)}
+              aria-expanded={openDept}
+              aria-haspopup="true"
+              className="flex items-center gap-1 px-2 2xl:px-2.5 py-2 text-[13px] 2xl:text-sm font-medium text-foreground/80 hover:text-foreground transition-colors whitespace-nowrap"
+            >
+              Departments
+              <ChevronDown className={cn("size-3.5 transition-transform", openDept && "rotate-180")} />
             </button>
             {openDept && (
               <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-72">
@@ -61,6 +85,7 @@ export const SiteHeader = () => {
                     <Link
                       key={d.slug}
                       to={`/departments/${d.slug}`}
+                      onClick={() => setOpenDept(false)}
                       className="block rounded px-3 py-2 text-sm text-foreground/80 hover:bg-secondary hover:text-foreground transition-colors"
                     >
                       <div className="font-medium">{d.code}</div>
