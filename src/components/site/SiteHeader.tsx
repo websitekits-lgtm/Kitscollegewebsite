@@ -63,7 +63,7 @@ export const SiteHeader = () => {
           </div>
         </Link>
 
-        <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 flex-1 justify-center min-w-0 overflow-hidden">
+        <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 flex-1 justify-center min-w-0">
           {NAV.filter((n) => n.label !== "Departments").slice(0, 4).map((n) => (
             <NavItem key={n.to} to={n.to} label={n.label} active={pathname === n.to} />
           ))}
@@ -79,7 +79,7 @@ export const SiteHeader = () => {
               <ChevronDown className={cn("size-3.5 transition-transform", openDept && "rotate-180")} />
             </button>
             {openDept && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-72">
+              <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-72 z-50">
                 <div className="rounded-md border border-border bg-popover shadow-[var(--shadow-elegant)] p-2 animate-fade-in">
                   {DEPARTMENTS.map((d) => (
                     <Link
