@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* KITS Design System — Logo-Inspired (Navy + Green + Cyan)
+   All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 200 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 200 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 30% 15%;
+
+    /* Brand: deep navy (professional, technical) */
+    --primary: 200 48% 22%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Accent 1: vibrant green (from logo — energy, growth) */
+    --accent: 135 56% 55%;
+    --accent-foreground: 200 30% 15%;
+    --accent-glow: 135 65% 65%;
+
+    /* Secondary: cyan blue (from logo — technology) */
+    --secondary: 201 68% 60%;
+    --secondary-foreground: 200 30% 15%;
+
+    --muted: 0 0% 95%;
+    --muted-foreground: 200 15% 45%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 200 20% 88%;
+    --input: 200 20% 88%;
+    --ring: 135 56% 55%;
+
+    --radius: 0.25rem;
+
+    /* Brand gradients & shadows */
+    --gradient-gold: linear-gradient(135deg, hsl(135 56% 55%), hsl(135 65% 65%));
+    --gradient-ink: linear-gradient(180deg, hsl(200 48% 22%) 0%, hsl(200 48% 16%) 100%);
+    --gradient-hero: radial-gradient(ellipse at top, hsl(200 48% 30% / 0.4), hsl(200 48% 16% / 0.95));
+    --shadow-elegant: 0 30px 60px -30px hsl(200 48% 16% / 0.5);
+    --shadow-gold: 0 20px 50px -20px hsl(135 56% 55% / 0.45);
+    --shadow-card: 0 1px 2px 0 hsl(200 48% 16% / 0.05), 0 8px 24px -8px hsl(200 48% 16% / 0.08);
+
+    --transition-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 200 48% 22%;
+    --sidebar-primary: 200 48% 22%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 135 56% 55%;
+    --sidebar-accent-foreground: 200 48% 22%;
+    --sidebar-border: 200 20% 88%;
+    --sidebar-ring: 135 56% 55%;
+  }
+
+  .dark {
+    --background: 200 48% 12%;
+    --foreground: 0 0% 100%;
+
+    --card: 200 48% 18%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 200 48% 18%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 200 48% 22%;
+
+    --accent: 135 65% 60%;
+    --accent-foreground: 200 48% 22%;
+    --accent-glow: 135 70% 70%;
+
+    --secondary: 201 75% 65%;
+    --secondary-foreground: 200 48% 22%;
+
+    --muted: 200 48% 25%;
+    --muted-foreground: 0 0% 85%;
+
+    --border: 200 48% 25%;
+    --input: 200 48% 25%;
+    --ring: 135 65% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.3);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer utilities {
+  .container-tight {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gold-text {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .ink-bg {
+    background: var(--gradient-ink);
+  }
+
+  .hero-veil {
+    background: var(--gradient-hero);
+  }
+
+  .marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .underline-grow {
+    @apply relative inline-block;
+  }
+  .underline-grow::after {
+    content: "";
+    @apply absolute left-0 -bottom-0.5 h-px w-full bg-current origin-right scale-x-0 transition-transform duration-500;
+  }
+  .underline-grow:hover::after {
+    @apply origin-left scale-x-100;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Subtle section background tints — designed to layer on top of white background */
+  .bg-tint-accent {
+    background-image:
+      radial-gradient(ellipse 80% 60% at 0% 0%, hsl(var(--accent) / 0.05), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 100% 100%, hsl(var(--secondary) / 0.04), transparent 60%);
+  }
+
+  .bg-tint-secondary {
+    background-image:
+      radial-gradient(ellipse 70% 60% at 100% 0%, hsl(var(--secondary) / 0.05), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 0% 100%, hsl(var(--accent) / 0.04), transparent 60%);
+  }
+
+  .bg-tint-soft {
+    background-image:
+      linear-gradient(180deg, hsl(var(--muted) / 0.4) 0%, transparent 30%, transparent 70%, hsl(var(--muted) / 0.3) 100%);
+  }
+
+  .bg-tint-glow {
+    background-image:
+      radial-gradient(ellipse 50% 40% at 50% 0%, hsl(var(--accent) / 0.07), transparent 70%);
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes board-scroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+.animate-board-scroll {
+  animation: board-scroll 24s linear infinite;
+}
+
+/* About KITS — floating orbs background animation */
+@keyframes orb-float-1 {
+  0%, 100% { transform: translate(0, 0); }
+  33%      { transform: translate(40px, -60px); }
+  66%      { transform: translate(-30px, 70px); }
+}
+
+@keyframes orb-float-2 {
+  0%, 100% { transform: translate(0, 0); }
+  33%      { transform: translate(-50px, 80px); }
+  66%      { transform: translate(60px, -40px); }
+}
+
+@keyframes orb-float-3 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(40px, 50px); }
+}
+
+.animate-orb-1 { animation: orb-float-1 18s ease-in-out infinite; }
+.animate-orb-2 { animation: orb-float-2 22s ease-in-out infinite; }
+.animate-orb-3 { animation: orb-float-3 26s ease-in-out infinite; }
+
+/* Placement partners — scroll, pause, scroll pattern */
+@keyframes partner-scroll {
+  0%    { transform: translateX(0%); }
+  10%   { transform: translateX(-12.5%); }   /* scroll 1 (0 → -12.5%) */
+  25%   { transform: translateX(-12.5%); }   /* pause 1 */
+  35%   { transform: translateX(-25%); }     /* scroll 2 */
+  50%   { transform: translateX(-25%); }     /* pause 2 */
+  60%   { transform: translateX(-37.5%); }   /* scroll 3 */
+  75%   { transform: translateX(-37.5%); }   /* pause 3 */
+  85%   { transform: translateX(-50%); }     /* scroll 4 (reaches duplicate start) */
+  100%  { transform: translateX(-50%); }     /* pause 4 → loops to 0 seamlessly */
+}
+
+.animate-partner-scroll {
+  animation: partner-scroll 16s ease-in-out infinite;
+}
