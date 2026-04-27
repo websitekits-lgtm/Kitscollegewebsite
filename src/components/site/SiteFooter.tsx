@@ -9,7 +9,7 @@ export const SiteFooter = () => {
         <div>
           <div className="flex items-center gap-3 mb-4 sm:mb-5">
             <img
-              src="/Kits logo.png"
+              src="/kits-logo.png"
               alt="KITS Markapur Logo"
               className="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 object-contain shrink-0"
             />

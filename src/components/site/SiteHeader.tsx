@@ -32,7 +32,7 @@ export const SiteHeader = () => {
       <div className="w-full px-4 sm:px-5 lg:px-8 flex items-center justify-between gap-2 sm:gap-3 py-3 sm:py-5">
         <Link to="/" className="flex items-center gap-2 group shrink-0 min-w-0" aria-label="KITS Home">
           <img
-            src="/Kits logo.png"
+            src="/kits-logo.png"
             alt="KITS Markapur Logo"
             className="h-10 w-10 sm:h-14 sm:w-14 object-contain shrink-0"
           />
