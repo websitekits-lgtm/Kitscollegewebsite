@@ -64,14 +64,14 @@ export const SiteHeader = () => {
         scrolled && "shadow-[0_2px_8px_-2px_hsl(var(--border))]",
       )}
     >
-      <div className="w-full px-4 sm:px-5 lg:px-8 flex items-center justify-between gap-2 sm:gap-3 py-3 sm:py-5">
-        <Link to="/" className="flex items-center gap-2 group shrink-0 min-w-0" aria-label="KITS Home">
+      <div className="w-full px-4 sm:px-5 lg:px-6 flex items-center justify-between gap-3 lg:gap-4 py-3 sm:py-5">
+        <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="KITS Home">
           <img
             src="/kits-logo.png"
             alt="KITS Markapur Logo"
-            className="h-10 w-10 sm:h-14 sm:w-14 object-contain shrink-0"
+            className="h-10 w-10 sm:h-12 sm:w-12 xl:h-14 xl:w-14 object-contain shrink-0"
           />
-          <div className="leading-tight block xl:hidden 2xl:block">
+          <div className="leading-tight block xl:hidden">
             <div className="font-display text-sm font-semibold text-foreground whitespace-nowrap">{COLLEGE.shortName} Markapur</div>
             <div className="text-[9px] uppercase tracking-[0.14em] text-muted-foreground whitespace-nowrap hidden sm:block">Krishna Chaitanya</div>
           </div>
@@ -87,7 +87,7 @@ export const SiteHeader = () => {
               onClick={() => setOpenDept((o) => !o)}
               aria-expanded={openDept}
               aria-haspopup="true"
-              className="flex items-center gap-1 px-2.5 2xl:px-3 py-2 text-sm 2xl:text-base font-medium text-foreground/80 hover:text-foreground transition-colors whitespace-nowrap"
+              className="flex items-center gap-1 px-2 2xl:px-2.5 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors whitespace-nowrap"
             >
               Departments
               <ChevronDown className={cn("size-3.5 transition-transform", openDept && "rotate-180")} />
@@ -184,11 +184,11 @@ const NavItem = ({ to, label, active }: { to: string; label: string; active: boo
   <Link
     to={to}
     className={cn(
-      "px-2.5 2xl:px-3 py-2 text-sm 2xl:text-base font-medium transition-colors relative whitespace-nowrap",
+      "px-2 2xl:px-2.5 py-2 text-sm font-medium transition-colors relative whitespace-nowrap",
       active ? "text-foreground" : "text-foreground/70 hover:text-foreground",
     )}
   >
     {label}
-    {active && <span className="absolute left-2.5 right-2.5 -bottom-0.5 h-px bg-accent" />}
+    {active && <span className="absolute left-2 right-2 -bottom-0.5 h-px bg-accent" />}
   </Link>
 );
