@@ -27,7 +27,18 @@ export const AboutSnapshot = () => {
 
       <SectionReveal className="container-tight relative z-10" staggerChildren>
         <div className="grid lg:grid-cols-12 gap-8 md:gap-12 items-center">
-          <div className="lg:col-span-5 lg:sticky lg:top-28">
+          {/* Images on the left */}
+          <div className="lg:col-span-7 lg:order-1 grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 items-start">
+            <div data-reveal className="rounded-2xl sm:rounded-3xl overflow-hidden border border-border bg-muted/30 shadow-[var(--shadow-card)]">
+              <img src={chairmanImg} alt="Chairman of KITS Markapur" loading="lazy" className="w-full h-auto block" />
+            </div>
+            <div data-reveal className="rounded-2xl sm:rounded-3xl overflow-hidden border border-border bg-muted/30 shadow-[var(--shadow-card)]">
+              <img src={secretaryImg} alt="Secretary of KITS Markapur" loading="lazy" className="w-full h-auto block" />
+            </div>
+          </div>
+
+          {/* Content on the right */}
+          <div className="lg:col-span-5 lg:order-2 lg:sticky lg:top-28">
             <p data-reveal className="text-xs uppercase tracking-[0.25em] text-accent mb-3">About KITS</p>
             <h2 data-reveal className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-balance">
               Driven by vision. <span className="italic font-light text-muted-foreground">Built on excellence.</span>
@@ -45,15 +56,6 @@ export const AboutSnapshot = () => {
               <Button asChild variant="outline" className="rounded-sm">
                 <Link to="/academics">Academic Approach</Link>
               </Button>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 grid grid-cols-2 gap-3 sm:gap-4 md:gap-5 items-start">
-            <div data-reveal className="rounded-2xl sm:rounded-3xl overflow-hidden border border-border bg-muted/30 shadow-[var(--shadow-card)]">
-              <img src={chairmanImg} alt="Chairman of KITS Markapur" loading="lazy" className="w-full h-auto block" />
-            </div>
-            <div data-reveal className="rounded-2xl sm:rounded-3xl overflow-hidden border border-border bg-muted/30 shadow-[var(--shadow-card)]">
-              <img src={secretaryImg} alt="Secretary of KITS Markapur" loading="lazy" className="w-full h-auto block" />
             </div>
           </div>
         </div>
