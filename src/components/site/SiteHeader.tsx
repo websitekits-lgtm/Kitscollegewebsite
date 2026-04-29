@@ -71,9 +71,9 @@ export const SiteHeader = () => {
             alt="KITS Markapur Logo"
             className="h-10 w-10 sm:h-12 sm:w-12 xl:h-14 xl:w-14 object-contain shrink-0"
           />
-          <div className="leading-tight block xl:hidden">
+          <div className="leading-tight block">
             <div className="font-display text-sm font-semibold text-foreground whitespace-nowrap">{COLLEGE.shortName} Markapur</div>
-            <div className="text-[9px] uppercase tracking-[0.14em] text-muted-foreground whitespace-nowrap hidden sm:block">Krishna Chaitanya</div>
+            <div className="text-[9px] uppercase tracking-[0.14em] text-muted-foreground whitespace-nowrap hidden sm:block xl:hidden 2xl:block">Krishna Chaitanya</div>
           </div>
         </Link>
 
@@ -87,7 +87,7 @@ export const SiteHeader = () => {
               onClick={() => setOpenDept((o) => !o)}
               aria-expanded={openDept}
               aria-haspopup="true"
-              className="flex items-center gap-1 px-2 2xl:px-2.5 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors whitespace-nowrap"
+              className="flex items-center gap-1 px-2 2xl:px-3 py-2 text-[14px] 2xl:text-[15px] font-medium text-foreground/80 hover:text-foreground transition-colors whitespace-nowrap"
             >
               Departments
               <ChevronDown className={cn("size-3.5 transition-transform", openDept && "rotate-180")} />
@@ -184,7 +184,7 @@ const NavItem = ({ to, label, active }: { to: string; label: string; active: boo
   <Link
     to={to}
     className={cn(
-      "px-2 2xl:px-2.5 py-2 text-sm font-medium transition-colors relative whitespace-nowrap",
+      "px-2 2xl:px-3 py-2 text-[14px] 2xl:text-[15px] font-medium transition-colors relative whitespace-nowrap",
       active ? "text-foreground" : "text-foreground/70 hover:text-foreground",
     )}
   >
