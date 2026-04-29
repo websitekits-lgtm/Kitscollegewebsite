@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { COLLEGE, NAV, DEPARTMENTS } from "@/lib/college";
 import { Button } from "@/components/ui/button";
+import { SearchOverlay } from "@/components/site/SearchOverlay";
 
 export const SiteHeader = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDept, setOpenDept] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const deptRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
 
@@ -42,6 +44,18 @@ export const SiteHeader = () => {
       document.removeEventListener("keydown", onKey);
     };
   }, [openDept]);
+
+  // Cmd/Ctrl+K to open search
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
     <header
@@ -102,6 +116,14 @@ export const SiteHeader = () => {
         </nav>
 
         <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Open search"
+            className="inline-flex size-9 sm:size-10 items-center justify-center rounded-sm border border-border text-foreground/80 hover:text-foreground hover:bg-secondary/30 transition-colors shrink-0"
+          >
+            <Search className="size-4 sm:size-[18px]" />
+          </button>
           <Button asChild size="sm" className="hidden sm:inline-flex bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm font-medium whitespace-nowrap">
             <Link to="/admissions">Apply Now</Link>
           </Button>
@@ -114,6 +136,8 @@ export const SiteHeader = () => {
           </button>
         </div>
       </div>
+
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
 
       {open && (
         <div className="xl:hidden border-t border-border bg-background animate-fade-in max-h-[calc(100vh-72px)] overflow-y-auto">
