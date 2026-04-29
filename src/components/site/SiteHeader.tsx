@@ -87,7 +87,7 @@ export const SiteHeader = () => {
               onClick={() => setOpenDept((o) => !o)}
               aria-expanded={openDept}
               aria-haspopup="true"
-              className="flex items-center gap-1 px-2 2xl:px-2.5 py-2 text-[13px] 2xl:text-sm font-medium text-foreground/80 hover:text-foreground transition-colors whitespace-nowrap"
+              className="flex items-center gap-1 px-2.5 2xl:px-3 py-2 text-sm 2xl:text-base font-medium text-foreground/80 hover:text-foreground transition-colors whitespace-nowrap"
             >
               Departments
               <ChevronDown className={cn("size-3.5 transition-transform", openDept && "rotate-180")} />
@@ -184,11 +184,11 @@ const NavItem = ({ to, label, active }: { to: string; label: string; active: boo
   <Link
     to={to}
     className={cn(
-      "px-2 2xl:px-2.5 py-2 text-[13px] 2xl:text-sm font-medium transition-colors relative whitespace-nowrap",
+      "px-2.5 2xl:px-3 py-2 text-sm 2xl:text-base font-medium transition-colors relative whitespace-nowrap",
       active ? "text-foreground" : "text-foreground/70 hover:text-foreground",
     )}
   >
     {label}
-    {active && <span className="absolute left-2 right-2 -bottom-0.5 h-px bg-accent" />}
+    {active && <span className="absolute left-2.5 right-2.5 -bottom-0.5 h-px bg-accent" />}
   </Link>
 );

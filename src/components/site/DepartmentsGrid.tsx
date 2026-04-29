@@ -105,18 +105,18 @@ export const DepartmentsGrid = () => {
             );
           })}
 
-          {/* Navigation arrows — bottom-right on desktop, smaller on mobile */}
+          {/* Navigation arrows — clearly clickable buttons with solid background */}
           <button
             onClick={goPrev}
             aria-label="Previous department"
-            className="absolute right-14 sm:right-20 bottom-3 sm:bottom-6 md:right-24 md:bottom-8 z-20 grid size-9 sm:size-11 place-items-center rounded-full bg-primary-foreground/10 backdrop-blur-md border border-primary-foreground/20 text-primary-foreground hover:bg-accent hover:border-accent transition-colors"
+            className="absolute right-14 sm:right-20 bottom-3 sm:bottom-6 md:right-24 md:bottom-8 z-20 grid size-9 sm:size-11 place-items-center rounded-full bg-background text-foreground shadow-lg hover:bg-accent hover:text-accent-foreground hover:scale-110 transition-all duration-200"
           >
             <ChevronLeft className="size-4 sm:size-5" />
           </button>
           <button
             onClick={goNext}
             aria-label="Next department"
-            className="absolute right-3 sm:right-6 bottom-3 sm:bottom-6 md:right-8 md:bottom-8 z-20 grid size-9 sm:size-11 place-items-center rounded-full bg-primary-foreground/10 backdrop-blur-md border border-primary-foreground/20 text-primary-foreground hover:bg-accent hover:border-accent transition-colors"
+            className="absolute right-3 sm:right-6 bottom-3 sm:bottom-6 md:right-8 md:bottom-8 z-20 grid size-9 sm:size-11 place-items-center rounded-full bg-background text-foreground shadow-lg hover:bg-accent hover:text-accent-foreground hover:scale-110 transition-all duration-200"
           >
             <ChevronRight className="size-4 sm:size-5" />
           </button>

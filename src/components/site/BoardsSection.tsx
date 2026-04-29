@@ -2,30 +2,43 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, ClipboardList, Bell } from "lucide-react";
 import { SectionReveal } from "@/components/site/SectionReveal";
 
+type BoardTag = "New" | "Schedule" | "Results" | "Syllabus" | "Notice" | "Update" | "Event";
+
 interface BoardItem {
   id: number;
   title: string;
   date: string;
+  tag: BoardTag;
   href?: string;
 }
 
 const examinations: BoardItem[] = [
-  { id: 1, title: "B.Tech IV-Year I-Sem regular/supplementary exam timetable released", date: "2025-04-22" },
-  { id: 2, title: "II B.Tech II-Sem mid-2 exam schedule", date: "2025-04-18" },
-  { id: 3, title: "Lab external exam allotment notice — All branches", date: "2025-04-12" },
-  { id: 4, title: "Revaluation results for III-Year I-Sem", date: "2025-04-05" },
-  { id: 5, title: "Hall-tickets download link active for all students", date: "2025-03-28" },
-  { id: 6, title: "Supplementary exam fee notification (last date extended)", date: "2025-03-20" },
+  { id: 1, title: "B.Tech IV-Year I-Sem regular/supplementary exam timetable released", date: "2025-04-22", tag: "Schedule" },
+  { id: 2, title: "II B.Tech II-Sem mid-2 exam schedule", date: "2025-04-18", tag: "Schedule" },
+  { id: 3, title: "Lab external exam allotment notice — All branches", date: "2025-04-12", tag: "Notice" },
+  { id: 4, title: "Revaluation results for III-Year I-Sem", date: "2025-04-05", tag: "Results" },
+  { id: 5, title: "Hall-tickets download link active for all students", date: "2025-03-28", tag: "New" },
+  { id: 6, title: "Supplementary exam fee notification (last date extended)", date: "2025-03-20", tag: "Update" },
 ];
 
 const notifications: BoardItem[] = [
-  { id: 1, title: "Admissions open for B.Tech 2025–26 academic year — Apply now", date: "2025-04-25" },
-  { id: 2, title: "TCS, Infosys, Wipro on-campus drive scheduled for May", date: "2025-04-20" },
-  { id: 3, title: "Annual sports & cultural fest — KITS Spandana 2025", date: "2025-04-15" },
-  { id: 4, title: "Faculty Development Programme on AI & ML — May 5–10", date: "2025-04-08" },
-  { id: 5, title: "Anti-ragging committee meeting — All departments", date: "2025-03-30" },
-  { id: 6, title: "Holiday notice for Ugadi & Sri Rama Navami celebrations", date: "2025-03-25" },
+  { id: 1, title: "Admissions open for B.Tech 2025–26 academic year — Apply now", date: "2025-04-25", tag: "New" },
+  { id: 2, title: "TCS, Infosys, Wipro on-campus drive scheduled for May", date: "2025-04-20", tag: "Event" },
+  { id: 3, title: "Annual sports & cultural fest — KITS Spandana 2025", date: "2025-04-15", tag: "Event" },
+  { id: 4, title: "Faculty Development Programme on AI & ML — May 5–10", date: "2025-04-08", tag: "Event" },
+  { id: 5, title: "Anti-ragging committee meeting — All departments", date: "2025-03-30", tag: "Notice" },
+  { id: 6, title: "Holiday notice for Ugadi & Sri Rama Navami celebrations", date: "2025-03-25", tag: "Notice" },
 ];
+
+const TAG_STYLES: Record<BoardTag, string> = {
+  New:      "bg-accent/15 text-accent border-accent/30",
+  Schedule: "bg-secondary/15 text-secondary border-secondary/30",
+  Results:  "bg-emerald-500/15 text-emerald-700 border-emerald-500/30",
+  Syllabus: "bg-purple-500/15 text-purple-700 border-purple-500/30",
+  Notice:   "bg-amber-500/15 text-amber-700 border-amber-500/30",
+  Update:   "bg-blue-500/15 text-blue-700 border-blue-500/30",
+  Event:    "bg-pink-500/15 text-pink-700 border-pink-500/30",
+};
 
 const formatDate = (iso: string) => {
   const d = new Date(iso);
@@ -71,10 +84,17 @@ const Board = ({
             href={item.href ?? "#"}
             className="block px-4 sm:px-5 py-3 sm:py-4 border-b border-border hover:bg-secondary/10 transition-colors"
           >
+            <div className="flex items-start gap-2 mb-1.5">
+              <span
+                className={`inline-flex items-center px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.1em] rounded-full border shrink-0 ${TAG_STYLES[item.tag]}`}
+              >
+                {item.tag}
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground mt-0.5">
+                {formatDate(item.date)}
+              </span>
+            </div>
             <p className="text-sm text-foreground leading-snug line-clamp-2">{item.title}</p>
-            <span className="mt-1 inline-block text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-              {formatDate(item.date)}
-            </span>
           </a>
         ))}
       </div>
