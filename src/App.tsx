@@ -17,6 +17,19 @@ import StudentCorner from "./pages/StudentCorner.tsx";
 import Research from "./pages/Research.tsx";
 import Contact from "./pages/Contact.tsx";
 import EventDetail from "./pages/EventDetail.tsx";
+import VisionMission from "./pages/VisionMission.tsx";
+import OrganizationChart from "./pages/OrganizationChart.tsx";
+import CollegeLocation from "./pages/CollegeLocation.tsx";
+import Chairman from "./pages/Chairman.tsx";
+import Secretary from "./pages/Secretary.tsx";
+import Principal from "./pages/Principal.tsx";
+import GoverningBody from "./pages/GoverningBody.tsx";
+import CodeOfEthics from "./pages/CodeOfEthics.tsx";
+import CodeOfConduct from "./pages/CodeOfConduct.tsx";
+import AnnualReport from "./pages/AnnualReport.tsx";
+import AuditReport from "./pages/AuditReport.tsx";
+import Alumni from "./pages/Alumni.tsx";
+import GrievanceCell from "./pages/GrievanceCell.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -50,6 +63,24 @@ const App = () => (
           <Route path="/research" element={<Research />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/events/:slug" element={<EventDetail />} />
+
+          {/* About / Administration sub-pages */}
+          <Route path="/about/vision-mission" element={<VisionMission />} />
+          <Route path="/about/organization-chart" element={<OrganizationChart />} />
+          <Route path="/about/college-location" element={<CollegeLocation />} />
+          <Route path="/about/chairman" element={<Chairman />} />
+          <Route path="/about/secretary" element={<Secretary />} />
+          <Route path="/about/principal" element={<Principal />} />
+          <Route path="/about/governing-body" element={<GoverningBody />} />
+          <Route path="/about/code-of-ethics" element={<CodeOfEthics />} />
+          <Route path="/about/code-of-conduct" element={<CodeOfConduct />} />
+          <Route path="/about/annual-report" element={<AnnualReport />} />
+          <Route path="/about/audit-report" element={<AuditReport />} />
+
+          {/* Alumni & Grievance */}
+          <Route path="/alumni" element={<Alumni />} />
+          <Route path="/grievance-cell" element={<GrievanceCell />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -26,6 +26,21 @@ const pages: SearchResult[] = [
   { type: "page", title: "Student Corner", description: "Notices, exam results, downloads and grievance redressal", url: "/student-corner", keywords: ["notices", "results", "exams", "downloads", "anti-ragging", "grievance"] },
   { type: "page", title: "Research & NAAC", description: "Research, IQAC and accreditation disclosures", url: "/research", keywords: ["research", "iqac", "naac", "nba", "publications", "mou"] },
   { type: "page", title: "Contact", description: "Phone, email and campus address", url: "/contact", keywords: ["phone", "email", "address", "location", "reach", "map"] },
+  // About / Administration sub-pages
+  { type: "page", title: "Vision & Mission", description: "Our institutional vision, mission and core values", url: "/about/vision-mission", keywords: ["vision", "mission", "values", "philosophy"] },
+  { type: "page", title: "Organization Chart", description: "Institutional hierarchy from governing body to students", url: "/about/organization-chart", keywords: ["hierarchy", "structure", "organization"] },
+  { type: "page", title: "College Location", description: "Campus address, map and how to reach", url: "/about/college-location", keywords: ["address", "map", "directions", "markapur", "location"] },
+  { type: "page", title: "Chairman", description: "Sri Anna Venkata Rambabu — Chairman's message", url: "/about/chairman", keywords: ["chairman", "anna venkata rambabu", "founder", "leadership"] },
+  { type: "page", title: "Secretary & Correspondent", description: "Secretary's welcome message", url: "/about/secretary", keywords: ["secretary", "correspondent", "leadership"] },
+  { type: "page", title: "Principal", description: "Dr. K. Sridhar — Principal's message", url: "/about/principal", keywords: ["principal", "sridhar", "academic head"] },
+  { type: "page", title: "Governing Body", description: "Members of the apex governing body", url: "/about/governing-body", keywords: ["governing body", "council", "board", "members"] },
+  { type: "page", title: "Code of Ethics", description: "Institutional code of ethics and integrity", url: "/about/code-of-ethics", keywords: ["ethics", "integrity", "values", "policy"] },
+  { type: "page", title: "Code of Conduct", description: "Behavioural and disciplinary guidelines", url: "/about/code-of-conduct", keywords: ["conduct", "discipline", "rules", "policy"] },
+  { type: "page", title: "Annual Report", description: "Yearly performance and achievements report", url: "/about/annual-report", keywords: ["annual report", "yearly", "performance"] },
+  { type: "page", title: "Audit Report", description: "Audited financial statements", url: "/about/audit-report", keywords: ["audit", "financial", "report", "statements"] },
+  // Alumni & Grievance
+  { type: "page", title: "Alumni Association", description: "KITS alumni network, registration and committee", url: "/alumni", keywords: ["alumni", "graduates", "ex students", "network"] },
+  { type: "page", title: "Grievance Redressal Cell", description: "Submit grievances — academic, hostel, transport and more", url: "/grievance-cell", keywords: ["grievance", "complaint", "redressal", "anti-ragging"] },
 ];
 
 const departmentResults: SearchResult[] = DEPARTMENTS.map((d) => ({
