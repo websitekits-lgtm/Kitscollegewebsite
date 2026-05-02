@@ -1,94 +1,71 @@
-import { SiteLayout } from "@/components/site/SiteLayout";
-import { PageHeader } from "@/components/site/PageHeader";
-import { SectionReveal } from "@/components/site/SectionReveal";
-import { CTABand } from "@/components/site/CTABand";
-import { FileDown, Microscope, BookMarked, Building2, Award } from "lucide-react";
+import { Microscope, Lightbulb, Award, BookOpen, FileText, Rocket, Users2, GraduationCap, Briefcase, Target, ScrollText } from "lucide-react";
+import { InfoPage } from "@/components/site/InfoPage";
+import { LinkCardGrid, type LinkCard } from "@/components/site/LinkCardGrid";
+import { RND_OVERVIEW } from "@/lib/researchContent";
 
-const focus = [
-  { t: "Artificial Intelligence", d: "Applied ML, NLP, computer vision, agentic systems." },
-  { t: "Renewable Energy", d: "Solar, smart grids, sustainable power systems." },
-  { t: "Smart Infrastructure", d: "Civil tech, IoT-enabled buildings, sustainable materials." },
-  { t: "Embedded & IoT", d: "Edge devices, sensor networks, low-power systems." },
-  { t: "Manufacturing 4.0", d: "Robotics, automation, additive manufacturing." },
-  { t: "Cybersecurity", d: "Network defence, secure software, applied cryptography." },
-];
-
-const disclosures = [
-  "AICTE Mandatory Disclosure 2025–26",
-  "NAAC Self-Study Report (SSR)",
-  "NBA Accreditation Status — All UG Programs",
-  "IQAC Annual Quality Assurance Report (AQAR)",
-  "Audited Financial Statements",
-  "Anti-Ragging Compliance Certificate",
-];
-
-const Research = () => {
-  return (
-    <SiteLayout>
-      <PageHeader
-        eyebrow="Research, NAAC & Compliance"
-        title="A culture of inquiry. A commitment to quality."
-        subtitle="Active research focus areas, an empowered IQAC, and full transparency through mandatory disclosures."
-        breadcrumb={[{ label: "Research" }]}
-      />
-
-      <section className="py-20 md:py-28 bg-background">
-        <SectionReveal className="container-tight" staggerChildren>
-          <div className="max-w-2xl mb-12">
-            <p data-reveal className="text-xs uppercase tracking-[0.25em] text-accent mb-3">Focus Areas</p>
-            <h2 data-reveal className="font-display text-3xl md:text-5xl font-semibold">Research that matters.</h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-md overflow-hidden">
-            {focus.map((f) => (
-              <div data-reveal key={f.t} className="bg-card p-6">
-                <Microscope className="size-5 text-accent mb-3" />
-                <h3 className="font-display text-lg font-semibold mb-1.5">{f.t}</h3>
-                <p className="text-sm text-muted-foreground">{f.d}</p>
-              </div>
-            ))}
-          </div>
-        </SectionReveal>
-      </section>
-
-      <section className="py-20 md:py-28 bg-secondary">
-        <SectionReveal className="container-tight grid md:grid-cols-3 gap-6" staggerChildren>
-          {[
-            { icon: BookMarked, n: "180+", l: "Publications" },
-            { icon: Building2, n: "25+", l: "Industry MoUs" },
-            { icon: Award, n: "12", l: "Patents Filed" },
-          ].map((s) => (
-            <div data-reveal key={s.l} className="rounded-md border border-border bg-background p-8 text-center">
-              <s.icon className="size-6 text-accent mx-auto mb-3" />
-              <div className="font-display text-4xl font-semibold gold-text">{s.n}</div>
-              <div className="mt-1 text-xs uppercase tracking-[0.18em] text-muted-foreground">{s.l}</div>
-            </div>
-          ))}
-        </SectionReveal>
-      </section>
-
-      <section className="py-20 md:py-28 bg-background">
-        <SectionReveal className="container-tight" staggerChildren>
-          <div className="max-w-2xl mb-10">
-            <p data-reveal className="text-xs uppercase tracking-[0.25em] text-accent mb-3">Mandatory Disclosures</p>
-            <h2 data-reveal className="font-display text-3xl md:text-5xl font-semibold">Transparency by default.</h2>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {disclosures.map((d) => (
-              <a data-reveal key={d} href="#" className="flex items-center justify-between p-5 rounded-md border border-border bg-card hover:bg-secondary transition-colors">
-                <div className="flex items-center gap-3">
-                  <FileDown className="size-5 text-accent" />
-                  <span className="font-medium">{d}</span>
-                </div>
-                <span className="text-xs text-muted-foreground">Download</span>
-              </a>
-            ))}
-          </div>
-        </SectionReveal>
-      </section>
-
-      <CTABand />
-    </SiteLayout>
-  );
+const sidebar = {
+  heading: "R & D",
+  links: [
+    { label: "Research Committee", to: "/research/committee" },
+    { label: "Recent Activities", to: "/research/activities" },
+    { label: "Research Incentives", to: "/research/incentives" },
+    { label: "Patents", to: "/research/patents" },
+    { label: "R&D Policy", to: "/research/policy" },
+    { label: "Faculty Publications", to: "/research/publications" },
+    { label: "Innovation Council (IIC)", to: "/research/iic" },
+    { label: "Ph.D Supervisors", to: "/research/phd-supervisors" },
+    { label: "Faculty FDP / Workshops", to: "/research/fdp-attendance" },
+    { label: "Entrepreneurship Cell (EDC)", to: "/research/edc" },
+    { label: "Consultancy Policy", to: "/research/consultancy-policy" },
+  ],
 };
+
+const cards: LinkCard[] = [
+  { label: "Research Committee",         description: "Apex committee that drives research direction and reviews proposals.",                  to: "/research/committee",         icon: Users2 },
+  { label: "Recent Activities",           description: "Latest workshops, MoUs, sponsored projects, and conference participation.",              to: "/research/activities",        icon: Lightbulb },
+  { label: "Research Incentives",         description: "Faculty rewards for publications, patents, and externally-funded research.",             to: "/research/incentives",        icon: Award },
+  { label: "Patents",                     description: "Filed, published, and granted patents from KITS faculty and students.",                  to: "/research/patents",           icon: FileText },
+  { label: "R&D Policy",                  description: "Guiding principles for research integrity, IP, and faculty support.",                    to: "/research/policy",            icon: ScrollText },
+  { label: "Faculty Publications",        description: "Journals, conferences, books, and book chapters by KITS faculty.",                       to: "/research/publications",      icon: BookOpen },
+  { label: "Innovation Council (IIC)",    description: "Driven by the Ministry of Education's MIC for innovation, IPR, and entrepreneurship.",   to: "/research/iic",               icon: Lightbulb },
+  { label: "Ph.D Supervisors",            description: "Recognised research supervisors guiding doctoral scholars.",                              to: "/research/phd-supervisors",   icon: GraduationCap },
+  { label: "Faculty FDPs / Workshops",    description: "Records of faculty participation in FDPs, workshops, and refresher courses.",             to: "/research/fdp-attendance",    icon: Target },
+  { label: "Entrepreneurship Cell (EDC)", description: "Pre-incubation, mentorship, and startup support for student innovators.",                 to: "/research/edc",               icon: Rocket },
+  { label: "Consultancy Policy",          description: "Framework for industry consultancy projects routed through the institution.",            to: "/research/consultancy-policy",icon: Briefcase },
+];
+
+const Research = () => (
+  <InfoPage
+    eyebrow="Research & Development"
+    title="R & D"
+    subtitle="A campus-wide ecosystem for research, innovation, IPR, sponsored projects, consultancy, and entrepreneurship."
+    breadcrumb={[{ label: "Research" }]}
+    sidebar={sidebar}
+  >
+    <p className="not-prose text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
+      {RND_OVERVIEW.intro}
+    </p>
+
+    <div className="not-prose mb-10 rounded-2xl border border-border bg-card p-6">
+      <div className="flex items-center gap-3 mb-4">
+        <Microscope className="size-5 text-accent" />
+        <h2 className="font-display text-xl font-semibold m-0">Focus Areas</h2>
+      </div>
+      <ul className="grid sm:grid-cols-2 gap-3">
+        {RND_OVERVIEW.focusAreas.map((f, i) => (
+          <li key={i} className="flex items-start gap-3 text-foreground/85">
+            <span className="mt-1.5 size-2 rounded-full bg-accent shrink-0" />
+            <span className="text-sm leading-relaxed">{f}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="not-prose">
+      <h2 className="font-display text-xl sm:text-2xl font-semibold mb-5">Explore R&D</h2>
+      <LinkCardGrid cards={cards} />
+    </div>
+  </InfoPage>
+);
 
 export default Research;

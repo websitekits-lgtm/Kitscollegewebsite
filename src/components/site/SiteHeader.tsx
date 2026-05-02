@@ -2,16 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { COLLEGE, NAV, DEPARTMENTS } from "@/lib/college";
+import { COLLEGE } from "@/lib/college";
+import { TOP_NAV, type NavItem } from "@/lib/navigation";
 import { Button } from "@/components/ui/button";
 import { SearchOverlay } from "@/components/site/SearchOverlay";
 
 export const SiteHeader = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [openDept, setOpenDept] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
-  const deptRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -21,21 +23,23 @@ export const SiteHeader = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close everything on route change
   useEffect(() => {
     setOpen(false);
-    setOpenDept(false);
+    setOpenDropdown(null);
+    setOpenMobileSection(null);
   }, [pathname]);
 
-  // Close department dropdown when clicking outside or pressing Escape
+  // Click-outside / Escape closes desktop dropdown
   useEffect(() => {
-    if (!openDept) return;
+    if (!openDropdown) return;
     const onDown = (e: MouseEvent) => {
-      if (deptRef.current && !deptRef.current.contains(e.target as Node)) {
-        setOpenDept(false);
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
       }
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpenDept(false);
+      if (e.key === "Escape") setOpenDropdown(null);
     };
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
@@ -43,9 +47,9 @@ export const SiteHeader = () => {
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [openDept]);
+  }, [openDropdown]);
 
-  // Cmd/Ctrl+K to open search
+  // Cmd/Ctrl+K opens search
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -57,6 +61,13 @@ export const SiteHeader = () => {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  const isActive = (item: NavItem): boolean => {
+    if (item.to && pathname === item.to) return true;
+    if (item.links?.some((l) => pathname === l.to)) return true;
+    if (item.groups?.some((g) => g.links.some((l) => pathname === l.to))) return true;
+    return false;
+  };
+
   return (
     <header
       className={cn(
@@ -65,6 +76,7 @@ export const SiteHeader = () => {
       )}
     >
       <div className="w-full px-4 sm:px-5 lg:px-6 flex items-center justify-between gap-3 lg:gap-4 py-3 sm:py-5">
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="KITS Home">
           <img
             src="/kits-logo.png"
@@ -73,48 +85,30 @@ export const SiteHeader = () => {
           />
           <div className="leading-tight block">
             <div className="font-display text-sm font-semibold text-foreground whitespace-nowrap">{COLLEGE.shortName} Markapur</div>
-            <div className="text-[9px] uppercase tracking-[0.14em] text-muted-foreground whitespace-nowrap hidden sm:block xl:hidden 2xl:block">Krishna Chaitanya</div>
+            <div className="text-[9px] uppercase tracking-[0.14em] text-muted-foreground whitespace-nowrap hidden sm:block xl:hidden 2xl:block">
+              Krishna Chaitanya
+            </div>
           </div>
         </Link>
 
-        <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 flex-1 justify-center min-w-0">
-          {NAV.filter((n) => n.label !== "Departments").slice(0, 4).map((n) => (
-            <NavItem key={n.to} to={n.to} label={n.label} active={pathname === n.to} />
-          ))}
-          <div ref={deptRef} className="relative">
-            <button
-              type="button"
-              onClick={() => setOpenDept((o) => !o)}
-              aria-expanded={openDept}
-              aria-haspopup="true"
-              className="flex items-center gap-1 px-2 2xl:px-3 py-2 text-[14px] 2xl:text-[15px] font-medium text-foreground/80 hover:text-foreground transition-colors whitespace-nowrap"
-            >
-              Departments
-              <ChevronDown className={cn("size-3.5 transition-transform", openDept && "rotate-180")} />
-            </button>
-            {openDept && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-72 z-50">
-                <div className="rounded-md border border-border bg-popover shadow-[var(--shadow-elegant)] p-2 animate-fade-in">
-                  {DEPARTMENTS.map((d) => (
-                    <Link
-                      key={d.slug}
-                      to={`/departments/${d.slug}`}
-                      onClick={() => setOpenDept(false)}
-                      className="block rounded px-3 py-2 text-sm text-foreground/80 hover:bg-secondary hover:text-foreground transition-colors"
-                    >
-                      <div className="font-medium">{d.code}</div>
-                      <div className="text-xs text-muted-foreground">{d.name}</div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-          {NAV.filter((n) => n.label !== "Departments").slice(4).map((n) => (
-            <NavItem key={n.to} to={n.to} label={n.label} active={pathname === n.to} />
+        {/* Desktop nav */}
+        <nav ref={navRef} className="hidden xl:flex items-center gap-0.5 2xl:gap-1 flex-1 justify-center min-w-0">
+          {TOP_NAV.map((item) => (
+            <NavItemDesktop
+              key={item.label}
+              item={item}
+              active={isActive(item)}
+              isOpen={openDropdown === item.label}
+              onToggle={() =>
+                setOpenDropdown((prev) => (prev === item.label ? null : item.label))
+              }
+              onClose={() => setOpenDropdown(null)}
+              currentPath={pathname}
+            />
           ))}
         </nav>
 
+        {/* Right side: search + apply + hamburger */}
         <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
@@ -137,37 +131,21 @@ export const SiteHeader = () => {
         </div>
       </div>
 
-      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
-
+      {/* Mobile nav */}
       {open && (
         <div className="xl:hidden border-t border-border bg-background animate-fade-in max-h-[calc(100vh-72px)] overflow-y-auto">
           <div className="container-tight py-4 space-y-1">
-            {NAV.map((n) => (
-              <Link
-                key={n.to}
-                to={n.to}
-                className={cn(
-                  "block rounded px-3 py-2.5 text-sm font-medium transition-colors",
-                  pathname === n.to
-                    ? "bg-secondary text-foreground"
-                    : "text-foreground/80 hover:bg-secondary hover:text-foreground",
-                )}
-              >
-                {n.label}
-              </Link>
+            {TOP_NAV.map((item) => (
+              <NavItemMobile
+                key={item.label}
+                item={item}
+                isOpen={openMobileSection === item.label}
+                onToggle={() =>
+                  setOpenMobileSection((prev) => (prev === item.label ? null : item.label))
+                }
+                currentPath={pathname}
+              />
             ))}
-            <div className="pt-3 border-t border-border mt-3">
-              <div className="px-3 text-[10px] uppercase tracking-widest text-muted-foreground mb-2">Departments</div>
-              {DEPARTMENTS.map((d) => (
-                <Link
-                  key={d.slug}
-                  to={`/departments/${d.slug}`}
-                  className="block rounded px-3 py-2 text-sm text-foreground/80 hover:bg-secondary"
-                >
-                  {d.code} — {d.name}
-                </Link>
-              ))}
-            </div>
             <div className="sm:hidden pt-3 border-t border-border mt-3">
               <Button asChild size="sm" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm font-medium">
                 <Link to="/admissions">Apply Now</Link>
@@ -176,19 +154,240 @@ export const SiteHeader = () => {
           </div>
         </div>
       )}
+
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 };
 
-const NavItem = ({ to, label, active }: { to: string; label: string; active: boolean }) => (
-  <Link
-    to={to}
-    className={cn(
-      "px-2 2xl:px-3 py-2 text-[14px] 2xl:text-[15px] font-medium transition-colors relative whitespace-nowrap",
-      active ? "text-foreground" : "text-foreground/70 hover:text-foreground",
-    )}
-  >
-    {label}
-    {active && <span className="absolute left-2 right-2 -bottom-0.5 h-px bg-accent" />}
-  </Link>
+// ===========================================================================
+// Desktop nav item — supports direct link, flat dropdown, or grouped dropdown
+// ===========================================================================
+const NavItemDesktop = ({
+  item,
+  active,
+  isOpen,
+  onToggle,
+  onClose,
+  currentPath,
+}: {
+  item: NavItem;
+  active: boolean;
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+  currentPath: string;
+}) => {
+  const baseLinkCls = cn(
+    "px-2 2xl:px-3 py-2 text-[14px] 2xl:text-[15px] font-medium transition-colors relative whitespace-nowrap",
+    active ? "text-foreground" : "text-foreground/70 hover:text-foreground",
+  );
+  const accentLine = (
+    <span className="absolute left-2 right-2 -bottom-0.5 h-px bg-accent" />
+  );
+
+  // 1) Direct link, no dropdown
+  if (item.to && !item.links && !item.groups) {
+    return (
+      <Link to={item.to} className={baseLinkCls}>
+        {item.label}
+        {active && accentLine}
+      </Link>
+    );
+  }
+
+  // 2) Has dropdown (flat or grouped)
+  const hasGroups = !!item.groups?.length;
+  const wide = hasGroups || (item.links?.length ?? 0) > 8;
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        className={cn(
+          baseLinkCls,
+          "flex items-center gap-1",
+          (active || isOpen) && "text-foreground",
+        )}
+      >
+        {item.label}
+        <ChevronDown
+          className={cn("size-3.5 transition-transform", isOpen && "rotate-180")}
+        />
+        {active && accentLine}
+      </button>
+      {isOpen && (
+        <div
+          className={cn(
+            "absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50",
+            wide ? "w-[640px]" : "w-72",
+          )}
+        >
+          <div className="rounded-md border border-border bg-popover shadow-[var(--shadow-elegant)] p-2 animate-fade-in">
+            {hasGroups ? (
+              <div className="grid grid-cols-2 gap-1">
+                {item.groups!.map((g) => (
+                  <div key={g.label}>
+                    <p className="px-3 py-2 text-[10px] uppercase tracking-[0.18em] text-accent font-semibold">
+                      {g.label}
+                    </p>
+                    <ul>
+                      {g.links.map((l) => (
+                        <DropdownLink
+                          key={l.to}
+                          to={l.to}
+                          label={l.label}
+                          active={currentPath === l.to}
+                          onClick={onClose}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <ul className={cn(wide && "grid grid-cols-2 gap-1")}>
+                {item.links!.map((l) => (
+                  <DropdownLink
+                    key={l.to}
+                    to={l.to}
+                    label={l.label}
+                    active={currentPath === l.to}
+                    onClick={onClose}
+                  />
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const DropdownLink = ({
+  to,
+  label,
+  active,
+  onClick,
+}: {
+  to: string;
+  label: string;
+  active: boolean;
+  onClick: () => void;
+}) => (
+  <li>
+    <Link
+      to={to}
+      onClick={onClick}
+      className={cn(
+        "block rounded px-3 py-2 text-sm transition-colors",
+        active
+          ? "bg-secondary/40 text-foreground font-medium"
+          : "text-foreground/80 hover:bg-secondary/30 hover:text-foreground",
+      )}
+    >
+      {label}
+    </Link>
+  </li>
 );
+
+// ===========================================================================
+// Mobile nav item
+// ===========================================================================
+const NavItemMobile = ({
+  item,
+  isOpen,
+  onToggle,
+  currentPath,
+}: {
+  item: NavItem;
+  isOpen: boolean;
+  onToggle: () => void;
+  currentPath: string;
+}) => {
+  // Direct link
+  if (item.to && !item.links && !item.groups) {
+    return (
+      <Link
+        to={item.to}
+        className={cn(
+          "block rounded px-3 py-2.5 text-sm font-medium transition-colors",
+          currentPath === item.to
+            ? "bg-secondary text-foreground"
+            : "text-foreground/80 hover:bg-secondary",
+        )}
+      >
+        {item.label}
+      </Link>
+    );
+  }
+
+  // Has dropdown — flat or grouped
+  const flatLinks = item.links ?? item.groups?.flatMap((g) => g.links) ?? [];
+  const hasActiveChild = flatLinks.some((l) => currentPath === l.to);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        className={cn(
+          "w-full flex items-center justify-between rounded px-3 py-2.5 text-sm font-medium transition-colors",
+          hasActiveChild
+            ? "bg-secondary text-foreground"
+            : "text-foreground/80 hover:bg-secondary",
+        )}
+      >
+        {item.label}
+        <ChevronDown
+          className={cn("size-4 transition-transform", isOpen && "rotate-180")}
+        />
+      </button>
+      {isOpen && (
+        <div className="ml-3 pl-3 border-l border-border my-1 space-y-0.5">
+          {item.groups
+            ? item.groups.map((g) => (
+                <div key={g.label}>
+                  <p className="px-3 pt-2 pb-1 text-[10px] uppercase tracking-[0.16em] text-accent font-semibold">
+                    {g.label}
+                  </p>
+                  {g.links.map((l) => (
+                    <Link
+                      key={l.to}
+                      to={l.to}
+                      className={cn(
+                        "block rounded px-3 py-2 text-sm",
+                        currentPath === l.to
+                          ? "bg-secondary text-foreground font-medium"
+                          : "text-foreground/75 hover:bg-secondary/40",
+                      )}
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                </div>
+              ))
+            : item.links!.map((l) => (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className={cn(
+                    "block rounded px-3 py-2 text-sm",
+                    currentPath === l.to
+                      ? "bg-secondary text-foreground font-medium"
+                      : "text-foreground/75 hover:bg-secondary/40",
+                  )}
+                >
+                  {l.label}
+                </Link>
+              ))}
+        </div>
+      )}
+    </div>
+  );
+};

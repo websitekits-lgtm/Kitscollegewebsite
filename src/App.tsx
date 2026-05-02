@@ -44,6 +44,85 @@ import FeeStructure from "./pages/FeeStructure.tsx";
 import FeeRefundPolicy from "./pages/FeeRefundPolicy.tsx";
 import ReservationRoster from "./pages/ReservationRoster.tsx";
 import Brochure from "./pages/Brochure.tsx";
+
+// R&D pages
+import ResearchCommittee from "./pages/research/ResearchCommittee.tsx";
+import ResearchActivities from "./pages/research/ResearchActivities.tsx";
+import ResearchIncentives from "./pages/research/ResearchIncentives.tsx";
+import Patents from "./pages/research/Patents.tsx";
+import RndPolicy from "./pages/research/RndPolicy.tsx";
+import Publications from "./pages/research/Publications.tsx";
+import IIC from "./pages/research/IIC.tsx";
+import PhdSupervisors from "./pages/research/PhdSupervisors.tsx";
+import FdpAttendance from "./pages/research/FdpAttendance.tsx";
+import EDC from "./pages/research/EDC.tsx";
+import ConsultancyPolicy from "./pages/research/ConsultancyPolicy.tsx";
+
+// Placement pages
+import PlacementDetails from "./pages/placement/PlacementDetails.tsx";
+import CareerGuidance from "./pages/placement/CareerGuidance.tsx";
+import CapacityDevelopment from "./pages/placement/CapacityDevelopment.tsx";
+import InternshipDetails from "./pages/placement/InternshipDetails.tsx";
+import Recruiters from "./pages/placement/Recruiters.tsx";
+import SoftSkills from "./pages/placement/SoftSkills.tsx";
+import PlacementContact from "./pages/placement/PlacementContact.tsx";
+
+// Student Life pages
+import StudentLife from "./pages/StudentLife.tsx";
+import Sports from "./pages/studentlife/Sports.tsx";
+import NSS from "./pages/studentlife/NSS.tsx";
+import Hostel from "./pages/studentlife/Hostel.tsx";
+import AntiRagging from "./pages/studentlife/AntiRagging.tsx";
+import Canteen from "./pages/studentlife/Canteen.tsx";
+import Health from "./pages/studentlife/Health.tsx";
+import SEDG from "./pages/studentlife/SEDG.tsx";
+import EqualOpportunity from "./pages/studentlife/EqualOpportunity.tsx";
+import BarrierFree from "./pages/studentlife/BarrierFree.tsx";
+
+// Phase 4 — Library
+import Library from "./pages/library/Library.tsx";
+import AboutLibrary from "./pages/library/AboutLibrary.tsx";
+import DigitalLibrary from "./pages/library/DigitalLibrary.tsx";
+import LibraryResources from "./pages/library/LibraryResources.tsx";
+import LibraryStaff from "./pages/library/LibraryStaff.tsx";
+import LibraryGallery from "./pages/library/LibraryGallery.tsx";
+
+// Phase 4 — NAAC
+import Naac from "./pages/naac/Naac.tsx";
+import NaacCriteriaPage from "./pages/naac/NaacCriteriaPage.tsx";
+import Ssr from "./pages/naac/Ssr.tsx";
+import Dvv from "./pages/naac/Dvv.tsx";
+
+// Phase 4 — IQAC
+import Iqac from "./pages/iqac/Iqac.tsx";
+import AboutIqac from "./pages/iqac/AboutIqac.tsx";
+import IqacCommittee from "./pages/iqac/IqacCommittee.tsx";
+import IqacMinutes from "./pages/iqac/IqacMinutes.tsx";
+import QualityInitiatives from "./pages/iqac/QualityInitiatives.tsx";
+import BestPractices from "./pages/iqac/BestPractices.tsx";
+import IqacPolicies from "./pages/iqac/IqacPolicies.tsx";
+import Distinctiveness from "./pages/iqac/Distinctiveness.tsx";
+import StudentSatisfactionSurvey from "./pages/iqac/StudentSatisfactionSurvey.tsx";
+import AqarReports from "./pages/iqac/AqarReports.tsx";
+
+// Phase 4 — AICTE / Committees / Misc
+import Aicte from "./pages/Aicte.tsx";
+import Committees from "./pages/Committees.tsx";
+import MandatoryDisclosure from "./pages/MandatoryDisclosure.tsx";
+import Feedback from "./pages/Feedback.tsx";
+import Careers from "./pages/Careers.tsx";
+import InfoCorner from "./pages/info/InfoCorner.tsx";
+import Rti from "./pages/info/Rti.tsx";
+import JobOpenings from "./pages/info/JobOpenings.tsx";
+import TelephoneDirectory from "./pages/info/TelephoneDirectory.tsx";
+
+// Misc / Legal — fills broken internal links
+import OfficeStaff from "./pages/OfficeStaff.tsx";
+import InternalComplaintCommittee from "./pages/InternalComplaintCommittee.tsx";
+import Privacy from "./pages/Privacy.tsx";
+import Terms from "./pages/Terms.tsx";
+import Sitemap from "./pages/Sitemap.tsx";
+
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -114,6 +193,88 @@ const App = () => (
           <Route path="/admissions/fee-refund-policy" element={<FeeRefundPolicy />} />
           <Route path="/admissions/reservation-roster" element={<ReservationRoster />} />
           <Route path="/admissions/brochure" element={<Brochure />} />
+
+          {/* R&D sub-pages */}
+          <Route path="/research/committee" element={<ResearchCommittee />} />
+          <Route path="/research/activities" element={<ResearchActivities />} />
+          <Route path="/research/incentives" element={<ResearchIncentives />} />
+          <Route path="/research/patents" element={<Patents />} />
+          <Route path="/research/policy" element={<RndPolicy />} />
+          <Route path="/research/publications" element={<Publications />} />
+          <Route path="/research/iic" element={<IIC />} />
+          <Route path="/research/phd-supervisors" element={<PhdSupervisors />} />
+          <Route path="/research/fdp-attendance" element={<FdpAttendance />} />
+          <Route path="/research/edc" element={<EDC />} />
+          <Route path="/research/consultancy-policy" element={<ConsultancyPolicy />} />
+
+          {/* Placement sub-pages */}
+          <Route path="/placements/details" element={<PlacementDetails />} />
+          <Route path="/placements/career-guidance" element={<CareerGuidance />} />
+          <Route path="/placements/capacity-development" element={<CapacityDevelopment />} />
+          <Route path="/placements/internships" element={<InternshipDetails />} />
+          <Route path="/placements/recruiters" element={<Recruiters />} />
+          <Route path="/placements/soft-skills" element={<SoftSkills />} />
+          <Route path="/placements/contact" element={<PlacementContact />} />
+
+          {/* Student Life */}
+          <Route path="/student-life" element={<StudentLife />} />
+          <Route path="/student-life/sports" element={<Sports />} />
+          <Route path="/student-life/nss" element={<NSS />} />
+          <Route path="/student-life/hostel" element={<Hostel />} />
+          <Route path="/student-life/anti-ragging" element={<AntiRagging />} />
+          <Route path="/student-life/canteen" element={<Canteen />} />
+          <Route path="/student-life/health" element={<Health />} />
+          <Route path="/student-life/sedg" element={<SEDG />} />
+          <Route path="/student-life/equal-opportunity" element={<EqualOpportunity />} />
+          <Route path="/student-life/barrier-free" element={<BarrierFree />} />
+
+          {/* Central Library */}
+          <Route path="/library" element={<Library />} />
+          <Route path="/library/about" element={<AboutLibrary />} />
+          <Route path="/library/digital" element={<DigitalLibrary />} />
+          <Route path="/library/resources" element={<LibraryResources />} />
+          <Route path="/library/staff" element={<LibraryStaff />} />
+          <Route path="/library/gallery" element={<LibraryGallery />} />
+
+          {/* NAAC */}
+          <Route path="/naac" element={<Naac />} />
+          <Route path="/naac/criteria-:number" element={<NaacCriteriaPage />} />
+          <Route path="/naac/ssr" element={<Ssr />} />
+          <Route path="/naac/dvv" element={<Dvv />} />
+
+          {/* IQAC */}
+          <Route path="/iqac" element={<Iqac />} />
+          <Route path="/iqac/about" element={<AboutIqac />} />
+          <Route path="/iqac/committee" element={<IqacCommittee />} />
+          <Route path="/iqac/minutes" element={<IqacMinutes />} />
+          <Route path="/iqac/quality-initiatives" element={<QualityInitiatives />} />
+          <Route path="/iqac/best-practices" element={<BestPractices />} />
+          <Route path="/iqac/policies" element={<IqacPolicies />} />
+          <Route path="/iqac/distinctiveness" element={<Distinctiveness />} />
+          <Route path="/iqac/sss" element={<StudentSatisfactionSurvey />} />
+          <Route path="/iqac/aqar" element={<AqarReports />} />
+
+          {/* AICTE / Committees / Misc */}
+          <Route path="/aicte" element={<Aicte />} />
+          <Route path="/committees" element={<Committees />} />
+          <Route path="/mandatory-disclosure" element={<MandatoryDisclosure />} />
+          <Route path="/feedback" element={<Feedback />} />
+          <Route path="/careers" element={<Careers />} />
+
+          {/* Information Corner */}
+          <Route path="/info" element={<InfoCorner />} />
+          <Route path="/info/rti" element={<Rti />} />
+          <Route path="/info/jobs" element={<JobOpenings />} />
+          <Route path="/info/directory" element={<TelephoneDirectory />} />
+
+          {/* Misc / About sub-pages added later */}
+          <Route path="/about/office-staff" element={<OfficeStaff />} />
+          <Route path="/about/icc" element={<InternalComplaintCommittee />} />
+
+          {/* Legal */}
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/sitemap" element={<Sitemap />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
