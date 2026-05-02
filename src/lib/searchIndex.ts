@@ -41,6 +41,23 @@ const pages: SearchResult[] = [
   // Alumni & Grievance
   { type: "page", title: "Alumni Association", description: "KITS alumni network, registration and committee", url: "/alumni", keywords: ["alumni", "graduates", "ex students", "network"] },
   { type: "page", title: "Grievance Redressal Cell", description: "Submit grievances — academic, hostel, transport and more", url: "/grievance-cell", keywords: ["grievance", "complaint", "redressal", "anti-ragging"] },
+  // Examination
+  { type: "page", title: "Examination", description: "Timetables, results, question papers, forms and contacts", url: "/examination", keywords: ["exam", "examination", "timetable", "results", "papers", "forms"] },
+  { type: "page", title: "External Exams Timetables", description: "JNTUK semester exam schedules", url: "/examination/external-timetables", keywords: ["external", "jntuk", "timetable", "regular", "supplementary", "schedule"] },
+  { type: "page", title: "Internal Exams Timetables", description: "Mid-term and lab internal schedules", url: "/examination/internal-timetables", keywords: ["internal", "mid", "mid-term", "midterm", "lab", "schedule"] },
+  { type: "page", title: "Academic Calendars", description: "Year-wise academic calendars for B.Tech and M.Tech", url: "/examination/academic-calendars", keywords: ["calendar", "academic year", "schedule"] },
+  { type: "page", title: "Previous Question Papers", description: "Branch and subject-wise question papers archive", url: "/examination/question-papers", keywords: ["question paper", "papers", "previous", "archive", "subject"] },
+  { type: "page", title: "Examination Forms", description: "Application, revaluation, certificate and migration forms", url: "/examination/forms-download", keywords: ["forms", "application", "revaluation", "transcripts", "migration", "certificate", "download"] },
+  { type: "page", title: "Examination Contact", description: "Contact the Examination Cell", url: "/examination/contact", keywords: ["exam contact", "controller of examinations", "exam help"] },
+  // Academics sub-pages
+  { type: "page", title: "Syllabus & Regulations", description: "JNTUK regulations and AICTE-aligned curriculum", url: "/academics/syllabus-regulations", keywords: ["syllabus", "regulation", "r23", "r20", "curriculum", "obe"] },
+  { type: "page", title: "Academic Collaborations", description: "Industry MoUs and university partnerships", url: "/academics/collaborations", keywords: ["mou", "memorandum", "collaboration", "partnership", "industry"] },
+  // Admissions sub-pages
+  { type: "page", title: "Courses & Intake", description: "All B.Tech and M.Tech programmes with annual intake", url: "/admissions/courses-intake", keywords: ["courses", "intake", "seats", "branches", "programs", "btech", "mtech"] },
+  { type: "page", title: "Fee Structure", description: "Tuition, examination and other charges", url: "/admissions/fee-structure", keywords: ["fee", "fees", "tuition", "scholarship", "convener", "management quota"] },
+  { type: "page", title: "Fee Refund Policy", description: "UGC and AICTE refund norms", url: "/admissions/fee-refund-policy", keywords: ["refund", "fee refund", "cancellation"] },
+  { type: "page", title: "Reservation Roster", description: "Category-wise seat reservation as per government norms", url: "/admissions/reservation-roster", keywords: ["reservation", "roster", "sc", "st", "bc", "ews", "category"] },
+  { type: "page", title: "College Brochure", description: "Downloadable brochure with everything about KITS", url: "/admissions/brochure", keywords: ["brochure", "prospectus", "download", "info"] },
 ];
 
 const departmentResults: SearchResult[] = DEPARTMENTS.map((d) => ({

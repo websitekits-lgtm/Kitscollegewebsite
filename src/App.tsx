@@ -30,6 +30,20 @@ import AnnualReport from "./pages/AnnualReport.tsx";
 import AuditReport from "./pages/AuditReport.tsx";
 import Alumni from "./pages/Alumni.tsx";
 import GrievanceCell from "./pages/GrievanceCell.tsx";
+import Examination from "./pages/Examination.tsx";
+import ExternalExamsTimetables from "./pages/ExternalExamsTimetables.tsx";
+import InternalExamsTimetables from "./pages/InternalExamsTimetables.tsx";
+import AcademicCalendars from "./pages/AcademicCalendars.tsx";
+import QuestionPapers from "./pages/QuestionPapers.tsx";
+import FormsDownload from "./pages/FormsDownload.tsx";
+import ExamContact from "./pages/ExamContact.tsx";
+import SyllabusRegulations from "./pages/SyllabusRegulations.tsx";
+import AcademicCollaborations from "./pages/AcademicCollaborations.tsx";
+import CoursesIntake from "./pages/CoursesIntake.tsx";
+import FeeStructure from "./pages/FeeStructure.tsx";
+import FeeRefundPolicy from "./pages/FeeRefundPolicy.tsx";
+import ReservationRoster from "./pages/ReservationRoster.tsx";
+import Brochure from "./pages/Brochure.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -80,6 +94,26 @@ const App = () => (
           {/* Alumni & Grievance */}
           <Route path="/alumni" element={<Alumni />} />
           <Route path="/grievance-cell" element={<GrievanceCell />} />
+
+          {/* Examination */}
+          <Route path="/examination" element={<Examination />} />
+          <Route path="/examination/external-timetables" element={<ExternalExamsTimetables />} />
+          <Route path="/examination/internal-timetables" element={<InternalExamsTimetables />} />
+          <Route path="/examination/academic-calendars" element={<AcademicCalendars />} />
+          <Route path="/examination/question-papers" element={<QuestionPapers />} />
+          <Route path="/examination/forms-download" element={<FormsDownload />} />
+          <Route path="/examination/contact" element={<ExamContact />} />
+
+          {/* Academics sub-pages */}
+          <Route path="/academics/syllabus-regulations" element={<SyllabusRegulations />} />
+          <Route path="/academics/collaborations" element={<AcademicCollaborations />} />
+
+          {/* Admissions sub-pages */}
+          <Route path="/admissions/courses-intake" element={<CoursesIntake />} />
+          <Route path="/admissions/fee-structure" element={<FeeStructure />} />
+          <Route path="/admissions/fee-refund-policy" element={<FeeRefundPolicy />} />
+          <Route path="/admissions/reservation-roster" element={<ReservationRoster />} />
+          <Route path="/admissions/brochure" element={<Brochure />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
