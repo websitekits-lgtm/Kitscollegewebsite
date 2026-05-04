@@ -27,13 +27,16 @@ export const TOP_NAV: NavItem[] = [
       {
         label: "About KITS",
         links: [
-          { label: "Vision & Mission",      to: "/about/vision-mission" },
-          { label: "Organization Chart",     to: "/about/organization-chart" },
-          { label: "College Location",       to: "/about/college-location" },
-          { label: "Code of Ethics",         to: "/about/code-of-ethics" },
-          { label: "Code of Conduct",        to: "/about/code-of-conduct" },
-          { label: "Annual Report",          to: "/about/annual-report" },
-          { label: "Audit Report",           to: "/about/audit-report" },
+          { label: "Vision & Mission",                  to: "/about/vision-mission" },
+          { label: "Organization Chart",                 to: "/about/organization-chart" },
+          { label: "College Location",                   to: "/about/college-location" },
+          { label: "Accreditation & Ranking",            to: "/about/accreditation" },
+          { label: "Institutional Development Plan",     to: "/about/institutional-development-plan" },
+          { label: "Code of Ethics",                     to: "/about/code-of-ethics" },
+          { label: "Code of Conduct",                    to: "/about/code-of-conduct" },
+          { label: "HR Policy",                          to: "/about/hr-policy" },
+          { label: "Annual Report",                      to: "/about/annual-report" },
+          { label: "Audit Report",                       to: "/about/audit-report" },
         ],
       },
       {

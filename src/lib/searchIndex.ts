@@ -135,6 +135,14 @@ const pages: SearchResult[] = [
   { type: "page", title: "Privacy Policy", description: "How we handle your personal information", url: "/privacy", keywords: ["privacy", "policy", "data", "cookies"] },
   { type: "page", title: "Terms of Use", description: "Terms and conditions for using this website", url: "/terms", keywords: ["terms", "conditions", "usage"] },
   { type: "page", title: "Sitemap", description: "Browse every page on this website", url: "/sitemap", keywords: ["sitemap", "all pages", "navigation"] },
+  // Round-2 additions
+  { type: "page", title: "Institutional Development Plan", description: "5-year institutional development roadmap", url: "/about/institutional-development-plan", keywords: ["idp", "institutional development", "plan", "roadmap"] },
+  { type: "page", title: "HR Policy", description: "Human resources policy for KITS staff", url: "/about/hr-policy", keywords: ["hr", "human resources", "policy", "staff"] },
+  { type: "page", title: "Accreditation & Ranking", description: "NAAC, AICTE, JNTUK, ISO, ISTE, IEI certificates", url: "/about/accreditation", keywords: ["accreditation", "ranking", "naac", "aicte", "iso", "iste", "iei", "certificates", "membership"] },
+  { type: "page", title: "Code of Conduct — Students",        description: "Conduct, academic and disciplinary standards for students.",       url: "/about/code-of-conduct/students",       keywords: ["code of conduct", "students", "academic misconduct", "disciplinary"] },
+  { type: "page", title: "Code of Conduct — Teachers",         description: "Professional and ethical standards for faculty.",                  url: "/about/code-of-conduct/teachers",        keywords: ["code of conduct", "teachers", "faculty", "ethics"] },
+  { type: "page", title: "Code of Conduct — Administrators",   description: "Responsibilities for administrative leadership.",                  url: "/about/code-of-conduct/administrators",  keywords: ["code of conduct", "administrators", "admin", "leadership"] },
+  { type: "page", title: "Code of Conduct — Employees",         description: "Conduct expectations for non-teaching employees.",                url: "/about/code-of-conduct/employees",       keywords: ["code of conduct", "employees", "staff", "non-teaching"] },
 ];
 
 const departmentResults: SearchResult[] = DEPARTMENTS.map((d) => ({

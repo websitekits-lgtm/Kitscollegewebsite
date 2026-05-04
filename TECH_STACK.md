@@ -217,3 +217,12 @@ Deployment is automatic via Vercel — every push to the `main` branch triggers 
 - [ ] Multilingual support (English / Telugu)
 - [ ] Live placements ticker
 - [ ] Image gallery CMS
+
+
+
+
+Page management – creating new pages, editing existing ones, deleting old pages, and replacing outdated content
+ Post management – creating, updating, and deleting blog posts
+Media handling – uploading and deleting images and documents
+
+Basically, this involves complete website content management, including updates, cleanup, and new content creation.

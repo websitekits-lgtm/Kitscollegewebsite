@@ -46,9 +46,13 @@ const EventDetail = () => {
             {event.title}
           </h1>
 
-          {/* Hero image */}
-          <div className="relative rounded-2xl overflow-hidden border border-border shadow-[var(--shadow-elegant)] mb-10">
-            <img src={event.image} alt={event.title} className="w-full h-auto block" />
+          {/* Hero image — fixed aspect ratio, properly cropped */}
+          <div className="relative rounded-2xl overflow-hidden border border-border shadow-[var(--shadow-elegant)] mb-10 max-w-3xl mx-auto aspect-[16/9] bg-muted">
+            <img
+              src={event.image}
+              alt={event.title}
+              className="w-full h-full object-cover"
+            />
           </div>
 
           {/* Body */}

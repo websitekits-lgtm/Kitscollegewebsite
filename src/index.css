@@ -169,6 +169,90 @@
   .hide-scrollbar::-webkit-scrollbar { display: none; }
   .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+  /* ============================================================
+     UI POLISH UTILITIES — for breaking the "plain white" feeling
+     ============================================================ */
+
+  /* Subtle dot pattern — adds texture without being noisy */
+  .bg-dots {
+    background-image: radial-gradient(circle, hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Subtle grid pattern — gives a "blueprint" feel */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right,  hsl(var(--foreground) / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground) / 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Mesh gradient — soft, multi-color glow background */
+  .bg-mesh {
+    background-image:
+      radial-gradient(at 0% 0%,    hsl(var(--accent) / 0.08), transparent 50%),
+      radial-gradient(at 100% 0%,  hsl(var(--secondary) / 0.06), transparent 50%),
+      radial-gradient(at 50% 100%, hsl(var(--primary) / 0.05), transparent 50%);
+  }
+
+  /* Accent strip — a gradient bar (use as ::before on cards / sections) */
+  .accent-strip {
+    @apply relative;
+  }
+  .accent-strip::before {
+    content: "";
+    @apply absolute top-0 left-0 right-0 h-1 rounded-t-2xl;
+    background: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--secondary)));
+  }
+
+  /* Card hover lift — subtle 3D effect */
+  .card-lift {
+    @apply transition-all duration-300;
+  }
+  .card-lift:hover {
+    @apply -translate-y-0.5 shadow-[0_12px_40px_-12px_hsl(var(--primary)/0.15)] border-accent/30;
+  }
+
+  /* Eyebrow — make those small uppercase tags stand out */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.22em] text-accent;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply size-1.5 rounded-full bg-accent;
+  }
+
+  /* Section eyebrow with accent line on the right */
+  .eyebrow-line {
+    @apply inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-accent;
+  }
+  .eyebrow-line::after {
+    content: "";
+    @apply h-px w-12 bg-gradient-to-r from-accent to-transparent;
+  }
+
+  /* Heading underline — subtle accent flourish under headings */
+  .heading-flourish {
+    @apply relative inline-block;
+  }
+  .heading-flourish::after {
+    content: "";
+    @apply absolute -bottom-2 left-0 h-1 w-12 rounded-full bg-accent;
+  }
+
+  /* Decorative section divider — curved with brand accent */
+  .section-divider {
+    @apply relative flex items-center justify-center py-2;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: "";
+    @apply h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+  .section-divider > .divider-icon {
+    @apply mx-4 size-2 rounded-full bg-accent;
+  }
+
   /* Subtle section background tints — designed to layer on top of white background */
   .bg-tint-accent {
     background-image:

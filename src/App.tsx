@@ -123,6 +123,12 @@ import Privacy from "./pages/Privacy.tsx";
 import Terms from "./pages/Terms.tsx";
 import Sitemap from "./pages/Sitemap.tsx";
 
+// New About-section additions (workflow.md round 2)
+import InstitutionalDevelopmentPlan from "./pages/InstitutionalDevelopmentPlan.tsx";
+import HrPolicy from "./pages/HrPolicy.tsx";
+import Accreditation from "./pages/Accreditation.tsx";
+import CodeOfConductAudience from "./pages/CodeOfConductAudience.tsx";
+
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -270,6 +276,10 @@ const App = () => (
           {/* Misc / About sub-pages added later */}
           <Route path="/about/office-staff" element={<OfficeStaff />} />
           <Route path="/about/icc" element={<InternalComplaintCommittee />} />
+          <Route path="/about/institutional-development-plan" element={<InstitutionalDevelopmentPlan />} />
+          <Route path="/about/hr-policy" element={<HrPolicy />} />
+          <Route path="/about/accreditation" element={<Accreditation />} />
+          <Route path="/about/code-of-conduct/:audience" element={<CodeOfConductAudience />} />
 
           {/* Legal */}
           <Route path="/privacy" element={<Privacy />} />

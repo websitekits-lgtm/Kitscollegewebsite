@@ -51,6 +51,28 @@ export const YEARLY_STATS: YearlyStat[] = [
 ];
 
 // =========================================================================
+// YEAR-WISE PLACEMENT DETAIL PDFs — DYNAMIC (admin uploads each year)
+// =========================================================================
+export interface PlacementPdfEntry {
+  year: string;
+  fileName: string;
+}
+
+export const PLACEMENT_PDFS: PlacementPdfEntry[] = [
+  { year: "2024-2025", fileName: "CONSOLIDATED-LIST-of-placements-2024-25.pdf" },
+  { year: "2022-2023", fileName: "2022-2023-placement-details.pdf" },
+  { year: "2021-2022", fileName: "2021-2022-placement-details.pdf" },
+  { year: "2020-2021", fileName: "2020-2021-placement-details.pdf" },
+  { year: "2019-2020", fileName: "2019-2020-placement-details.pdf" },
+  { year: "2018-2019", fileName: "2018-2019-placement-details.pdf" },
+  { year: "2017-2018", fileName: "2017-2018-PLACEMENT-TOTAL.pdf" },
+  { year: "2016-2017", fileName: "2016-2017-PLACEMENT-TOTAL.pdf" },
+  { year: "2015-2016", fileName: "2015-2016-PLACEMENT-TOTAL.pdf" },
+];
+
+export const PLACEMENT_GALLERY_PDF = "student-placement-photos.pdf";
+
+// =========================================================================
 // CAREER GUIDANCE — STATIC
 // =========================================================================
 export const CAREER_GUIDANCE = {

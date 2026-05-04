@@ -16,16 +16,19 @@ const milestones = [
 ];
 
 const aboutCards: LinkCard[] = [
-  { label: "Vision & Mission",        description: "Our guiding principles and core values.",      to: "/about/vision-mission",    icon: Eye },
-  { label: "Organization Chart",       description: "Institutional hierarchy and structure.",        to: "/about/organization-chart", icon: Compass },
-  { label: "Governing Body",            description: "Members of the apex governing body.",          to: "/about/governing-body",     icon: Users },
-  { label: "College Location",          description: "Address, map, and how to reach KITS.",         to: "/about/college-location",   icon: Compass },
-  { label: "Office Staff",               description: "Administrative team across departments.",     to: "/about/office-staff",       icon: Users },
-  { label: "Internal Complaint Committee", description: "Confidential mechanism for harassment-related complaints.", to: "/about/icc", icon: FileText },
-  { label: "Code of Ethics",             description: "Institutional commitment to integrity.",      to: "/about/code-of-ethics",     icon: FileText, isPdf: true },
-  { label: "Code of Conduct",            description: "Behavioural and disciplinary guidelines.",    to: "/about/code-of-conduct",    icon: FileText, isPdf: true },
-  { label: "Annual Report",              description: "Yearly performance and milestones.",          to: "/about/annual-report",      icon: FileText, isPdf: true },
-  { label: "Audit Report",                description: "Audited financial statements.",              to: "/about/audit-report",       icon: FileText, isPdf: true },
+  { label: "Vision & Mission",                description: "Our guiding principles and core values.",                          to: "/about/vision-mission",                  icon: Eye },
+  { label: "Organization Chart",               description: "Institutional hierarchy and structure.",                          to: "/about/organization-chart",              icon: Compass },
+  { label: "Governing Body",                    description: "Members of the apex governing body.",                            to: "/about/governing-body",                  icon: Users },
+  { label: "College Location",                  description: "Address, map, and how to reach KITS.",                            to: "/about/college-location",                icon: Compass },
+  { label: "Office Staff",                       description: "Administrative team across departments.",                        to: "/about/office-staff",                    icon: Users },
+  { label: "Internal Complaint Committee",       description: "Confidential mechanism for harassment-related complaints.",      to: "/about/icc",                              icon: FileText },
+  { label: "Accreditation & Ranking",            description: "NAAC, AICTE, JNTUK, ISO, ISTE, IEI certificates.",                to: "/about/accreditation",                   icon: FileText },
+  { label: "Institutional Development Plan",     description: "Our 5-year roadmap for institutional growth.",                    to: "/about/institutional-development-plan",  icon: FileText, isPdf: true },
+  { label: "Code of Ethics",                     description: "Institutional commitment to integrity.",                          to: "/about/code-of-ethics",                  icon: FileText, isPdf: true },
+  { label: "Code of Conduct",                    description: "Behavioural and disciplinary guidelines for all groups.",          to: "/about/code-of-conduct",                 icon: FileText },
+  { label: "HR Policy",                          description: "Human resources policy for KITS staff.",                          to: "/about/hr-policy",                       icon: FileText, isPdf: true },
+  { label: "Annual Report",                      description: "Yearly performance and milestones.",                              to: "/about/annual-report",                   icon: FileText, isPdf: true },
+  { label: "Audit Report",                        description: "Audited financial statements.",                                  to: "/about/audit-report",                    icon: FileText, isPdf: true },
 ];
 
 const About = () => {

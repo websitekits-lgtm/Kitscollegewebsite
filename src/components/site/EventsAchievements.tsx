@@ -82,26 +82,28 @@ export const EventsAchievements = () => {
           {EVENTS.map((e) => (
             <article
               key={e.slug}
-              className="group shrink-0 snap-start flex flex-col w-[260px] sm:w-[280px] md:w-[300px] rounded-2xl overflow-hidden border border-border bg-card shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elegant)] transition-all duration-500"
+              className="group relative shrink-0 snap-start flex flex-col w-[260px] sm:w-[280px] md:w-[300px] rounded-2xl overflow-hidden border-2 border-border bg-card shadow-[0_8px_30px_-12px_hsl(var(--primary)/0.12)] hover:shadow-[0_20px_50px_-12px_hsl(var(--primary)/0.25)] hover:border-accent/40 hover:-translate-y-1 transition-all duration-500"
             >
-              <Link to={`/events/${e.slug}`} className="block aspect-[16/10] overflow-hidden bg-muted">
+              <Link to={`/events/${e.slug}`} className="block aspect-[16/10] overflow-hidden bg-muted relative">
                 <img
                   src={e.image}
                   alt={e.title}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
+                {/* Category badge floating on image */}
+                <span className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.1em] rounded-full bg-accent text-accent-foreground shadow-md">
+                  {e.category}
+                </span>
+                {/* Soft gradient at bottom of image for depth */}
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
               </Link>
 
               <div className="p-5 flex flex-col flex-grow">
                 <div className="flex items-center gap-2 text-[11px] text-muted-foreground mb-2.5">
-                  <span className="inline-flex items-center gap-1">
-                    <Calendar className="size-3 text-accent" />
-                    {formatEventDate(e.date)}
-                  </span>
-                  <span className="inline-block size-1 rounded-full bg-border" />
-                  <span className="uppercase tracking-[0.18em] text-accent font-medium">
-                    {e.category}
+                  <span className="inline-flex items-center gap-1.5">
+                    <Calendar className="size-3.5 text-accent" />
+                    <span className="font-medium">{formatEventDate(e.date)}</span>
                   </span>
                 </div>
 
@@ -117,9 +119,9 @@ export const EventsAchievements = () => {
 
                 <Link
                   to={`/events/${e.slug}`}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:gap-2 transition-all w-fit"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:gap-2 transition-all w-fit border-t border-border/50 pt-3 -mx-5 px-5 mt-auto"
                 >
-                  Read more <ArrowUpRight className="size-4" />
+                  Read more <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
               </div>
             </article>

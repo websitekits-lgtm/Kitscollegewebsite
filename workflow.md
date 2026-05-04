@@ -129,16 +129,93 @@ Others: https://kits-anna.com/grievance-cell/others/
 # About HEI
 
 About KITS
-• [Vision & Mission](https://kits-anna.com/about-us/vision-mission/)
-• [Organization Chart](https://kits-anna.com/about-us/organization-chart/)
-• [Institutional Development Plan](https://kits-anna.com/wp-content/uploads/2025/05/institutional-development-plan.pdf)
-• [Accreditation/Ranking](https://kits-anna.com/academics/institutional-membership/)
+• [Vision & Mission](https://kits-anna.com/about-us/vision-mission/)  :[about-us/vision-mission/](https://kits-anna.com/about-us/vision-mission/)
+
+- Code of ethics(pdf):https://kits-anna.com/wp-content/uploads/2023/01/Code_of_Ethics.pdf
+- Organization Chart:https://kits-anna.com/about-us/organization-chart/
+- College Location:https://kits-anna.com/about-us/college-location/
+- Governing Body:https://kits-anna.com/about-us/governing-body/
+- Hr Policy:Unable to reach the site
+
+• [Organization Chart](https://kits-anna.com/about-us/organization-chart/):https://kits-anna.com/about-us/organization-chart/
+• [Institutional Development Plan](https://kits-anna.com/wp-content/uploads/2025/05/institutional-development-plan.pdf):https://kits-anna.com/wp-content/uploads/2025/05/institutional-development-plan.pdf
+• [Accreditation/Ranking](https://kits-anna.com/academics/institutional-membership/):
+
+- Naac(pdf):https://kits-anna.com/wp-content/uploads/2025/05/NAAC-CERTIFICATE-2024-2.pdf
+- Aicte(pdf):https://kits-anna.com/wp-content/uploads/2025/05/25-26_Approval-AICTE.pdf
+- The Institutional of Engineers(pdf):https://kits-anna.com/wp-content/uploads/2025/05/The-Institution-of-Engineers-India.pdf
+- Jntu-Kakinada)pdf):https://kits-anna.com/wp-content/uploads/2025/05/Temperory-Affiliation.pdf
+- Iso:[ISO-Certificate-25-28.pdf](https://kits-anna.com/wp-content/uploads/2025/05/ISO-Certificate-25-28.pdf)
+- Iste:[ISTE_Membership_Certificate.pdf](https://kits-anna.com/wp-content/uploads/2025/05/ISTE_Membership_Certificate.pdf)
+
 • [Code Of Conduct](https://kits-anna.com/academics/admission-procedure/#)
-• [Code of Ethics](https://kits-anna.com/wp-content/uploads/2023/01/Code_of_Ethics.pdf)
-• [Annual Report](https://kits-anna.com/wp-content/uploads/2025/05/Annual-reports-2023-24.pdf)
-• [Policies](https://kits-anna.com/wp-content/uploads/2026/04/Privacy-policy-1.pdf)
-• [Audit Report](https://kits-anna.com/wp-content/uploads/2025/05/AUDIT-REPORT-FY-2023-24-FINAL.pdf)
-• [College Location](https://kits-anna.com/about-us/college-location/)
+
+- For students:[For Students – Krishna Chaitanya Institute of Technology & Sciences](https://kits-anna.com/about-us/code-of-conduct/for-students/)
+
+           **STUDENT COMMITMENT**
+
+           **ACADEMIC MISCONDUCT**
+
+           **DISCIPLINARY MISCONDUCT**
+
+           **CAUSING DISREPUTE TO OTHER STUDENTS**
+
+            **PUNISHMENT AND PENALTIES**
+
+- For Teachers:https://kits-anna.com/about-us/code-of-conduct/for-teachers/
+
+            **THE CODE OF CONDUCT TEACHERS**
+
+            **TEACHERS AND THE STUDENTS**
+
+            **TEACHERS AND THE PARENT**
+
+            **TEACHERS AND COLLEAGUES:**
+
+- For Administrators:https://kits-anna.com/about-us/code-of-conduct/for-administrators/
+
+            **Personal and Professional Responsibility**
+
+            **FUNCTIONS**
+
+            **Functions of the cell**
+
+            **FACILITY**
+
+- For Employees:https://kits-anna.com/about-us/code-of-conduct/for-employees/
+
+             **Confidentiality**
+
+             **Gifts**
+
+             **Private employment or trade and investment**
+
+             **Attendance at Meeting**
+
+             **Consumption of intoxicating drinks and drugs**
+
+             **Misconduct**
+
+             **Explanation**
+
+             **Representations**
+
+          **Interpretation**
+• [Code of Ethics](https://kits-anna.com/wp-content/uploads/2023/01/Code_of_Ethics.pdf)(pdf):https://kits-anna.com/wp-content/uploads/2023/01/Code_of_Ethics.pdf
+
+• [Annual Report](https://kits-anna.com/wp-content/uploads/2025/05/Annual-reports-2023-24.pdf)(pdf):https://kits-anna.com/wp-content/uploads/2025/05/Annual-reports-2023-24.pdf
+• [Policies](https://kits-anna.com/wp-content/uploads/2026/04/Privacy-policy-1.pdf):https://kits-anna.com/wp-content/uploads/2026/04/Privacy-policy-1.pdf
+
+- [HR Policy](https://kits-anna.com/wp-content/uploads/2024/02/KITS-HR-POLICY.pdf)
+- [R & D Policy](https://kits-anna.com/r-d/r-d-policy/)
+- [Consultancy Policy](https://kits-anna.com/r-d/consultancy-policy/)
+- [Privacy Policy](https://kits-anna.com/wp-content/uploads/2026/04/Privacy-policy-1.pdf)
+
+• [Annual Report](https://kits-anna.com/wp-content/uploads/2025/05/Annual-reports-2023-24.pdf): https://kits-anna.com/wp-content/uploads/2025/05/Annual-reports-2023-24.pdf
+
+• [Audit Report](https://kits-anna.com/wp-content/uploads/2025/05/AUDIT-REPORT-FY-2023-24-FINAL.pdf): https://kits-anna.com/wp-content/uploads/2025/05/AUDIT-REPORT-FY-2023-24-FINAL.pdf
+
+• [College Location](https://kits-anna.com/about-us/college-location/): https://kits-anna.com/about-us/college-location/
 
 
 
@@ -162,6 +239,26 @@ About KITS
 • [Academic Calendars](https://kits-anna.com/examination/academic-calendars/)
 • [Syllabus & Regulations](https://kits-anna.com/academics/academic-syllabus-regulations/)
 • [Academic Collaborations](https://kits-anna.com/wp-content/uploads/2025/05/academic-colloborations-mou.pdf)
+
+# [**Academics**](https://kits-anna.com/cac/)
+
+• [Academic Programs](https://kits-anna.com/academics/courses-and-intake/):https://kits-anna.com/academics/courses-and-intake/
+• [Academic Calendars](https://kits-anna.com/examination/academic-calendars/):https://kits-anna.com/examination/academic-calendars/
+
+- Academic Calender 2024-25 for ug:https://kits-anna.com/wp-content/uploads/2025/05/ACADEMIC-CALENDARS-24-25.pdf
+- Academic Calender 2024-25 for pg:https://kits-anna.com/wp-content/uploads/2025/05/ACADEMIC-CALENDARS-24-25-PG.pdf
+- Academic Calender 2023-24:https://kits-anna.com/wp-content/uploads/2024/02/academic-calender-23-24.pdf
+- Academic Calender 2022-23:https://kits-anna.com/wp-content/uploads/2023/01/AC-2022-23.pdf
+- Academic Calender 2021-22:https://kits-anna.com/wp-content/uploads/2023/01/AC-2021-22.pdf
+- Academic Calender 2020-21:https://kits-anna.com/wp-content/uploads/2023/01/AC-2020-21.pdf
+- Academic Calender 2019-20:https://kits-anna.com/wp-content/uploads/2023/01/AC-2019-20.pdf
+- Academic Calender 2018-19:https://kits-anna.com/wp-content/uploads/2023/01/AC-2018-19.pdf
+- Academic Calender 2017-18:https://kits-anna.com/wp-content/uploads/2023/01/AC-2017-18.pdf
+- Academic Calender 2016-17:https://kits-anna.com/wp-content/uploads/2023/01/AC-2016-17.pdf
+
+• [Syllabus & Regulations](https://kits-anna.com/academics/academic-syllabus-regulations/):https://kits-anna.com/academics/academic-syllabus-regulations/
+
+• [Academic Collaborations](https://kits-anna.com/wp-content/uploads/2025/05/academic-colloborations-mou.pdf):https://kits-anna.com/wp-content/uploads/2025/05/academic-colloborations-mou.pdf
 
 
 
@@ -213,6 +310,28 @@ About KITS
 • [Our Recruiters](https://kits-anna.com/placement-cell/our-recruiters/)
 • [Soft Skills Training](https://kits-anna.com/student-services/soft-skills-training/)
 • [Contact Details](https://kits-anna.com/contact-details/)
+
+2024-2025 - Total -Placement Details:https://kits-anna.com/wp-content/uploads/2025/03/CONSOLIDATED-LIST-of-placements-for-website-2024-25.xls.pdf
+
+2020-2021 - Total -Placement Details:https://kits-anna.com/wp-content/uploads/2023/08/2020-2021-placement-details.pdf
+
+2022-2023 - Total -Placement Details:https://kits-anna.com/wp-content/uploads/2023/08/2022-2023-placement-details.pdf
+
+2018-2019 - Total -Placement Details:https://kits-anna.com/wp-content/uploads/2023/08/2018-2019-placement-details.pdf
+
+2021-2022 - Total -Placement Details:
+
+https://kits-anna.com/wp-content/uploads/2023/08/2021-2022-placement-details.pdf
+
+2016-2017- Total-Placement Details:https://kits-anna.com/wp-content/uploads/2022/12/2016-2017-PLACEMENT-TOTAL.pdf
+
+2019-2020 - Total -Placement Details:https://kits-anna.com/wp-content/uploads/2023/08/2019-2020-plaacement-details.pdf
+
+Student placement Gallery:https://kits-anna.com/wp-content/uploads/2022/12/student-photos.pdf
+
+2017-2018 Total-Placement Details:https://kits-anna.com/wp-content/uploads/2022/12/2017-2018-PLACEMENT-TOTAL.pdf
+
+2015-2016 Total -Placement Details:https://kits-anna.com/wp-content/uploads/2022/12/2015-2016-PLACEMENT-TOTAL.pdf
 
 
 R and D and its sections:
@@ -319,12 +438,18 @@ AQAR Supporting Files
 
 
 # [**INFORMATION CORNER**](https://kits-anna.com/right-to-information-cell/)
+R T I:https://kits-anna.com/right-to-information-cell/
 
-R T I
+Job openings:https://kits-anna.com/careers/
 
-Job openings
+- [Vision & Mission](https://kits-anna.com/about-us/vision-mission/)
+- [Code Of Ethics](https://kits-anna.com/wp-content/uploads/2023/01/Code_of_Ethics.pdf)
+- [Organization Chart](https://kits-anna.com/about-us/organization-chart/)
+- [College Location](https://kits-anna.com/about-us/college-location/)
+- [Governing Body](https://kits-anna.com/about-us/governing-body/)
+- [HR Policy](http://kitsanna.in/wp-content/uploads/2022/11/KITS-HR-Policy-Final.pdf)
 
-Telephone Directory
+Telephone Directory:https://kits-anna.com/wp-content/uploads/2025/03/TELEPHONE-DIRECTORY-CONTACTS.pdf
 
 
 # [**Mandatory Disclosure**](https://kits-anna.com/wp-content/uploads/2025/11/Mandatory-disclousure-_KITS.pdf)

@@ -122,10 +122,17 @@ export const SYLLABUS_REGULATIONS = {
 // ACADEMIC CALENDARS — DYNAMIC (admin uploads each year)
 // =========================================================================
 export const ACADEMIC_CALENDARS: AcademicCalendar[] = [
-  // ADMIN: populated from dashboard — for now empty / placeholder
-  { id: "ac-1", year: "2024-25", level: "B.Tech", fileName: "B.Tech-Calendar-2024-25.pdf" },
-  { id: "ac-2", year: "2024-25", level: "M.Tech", fileName: "M.Tech-Calendar-2024-25.pdf" },
-  { id: "ac-3", year: "2023-24", level: "B.Tech", fileName: "B.Tech-Calendar-2023-24.pdf" },
+  // ADMIN: populated from dashboard
+  { id: "ac-2024-25-ug", year: "2024-25", level: "B.Tech", fileName: "ACADEMIC-CALENDAR-2024-25-UG.pdf" },
+  { id: "ac-2024-25-pg", year: "2024-25", level: "M.Tech", fileName: "ACADEMIC-CALENDAR-2024-25-PG.pdf" },
+  { id: "ac-2023-24-ug", year: "2023-24", level: "B.Tech", fileName: "academic-calendar-23-24.pdf" },
+  { id: "ac-2022-23-ug", year: "2022-23", level: "B.Tech", fileName: "AC-2022-23.pdf" },
+  { id: "ac-2021-22-ug", year: "2021-22", level: "B.Tech", fileName: "AC-2021-22.pdf" },
+  { id: "ac-2020-21-ug", year: "2020-21", level: "B.Tech", fileName: "AC-2020-21.pdf" },
+  { id: "ac-2019-20-ug", year: "2019-20", level: "B.Tech", fileName: "AC-2019-20.pdf" },
+  { id: "ac-2018-19-ug", year: "2018-19", level: "B.Tech", fileName: "AC-2018-19.pdf" },
+  { id: "ac-2017-18-ug", year: "2017-18", level: "B.Tech", fileName: "AC-2017-18.pdf" },
+  { id: "ac-2016-17-ug", year: "2016-17", level: "B.Tech", fileName: "AC-2016-17.pdf" },
 ];
 
 // =========================================================================
