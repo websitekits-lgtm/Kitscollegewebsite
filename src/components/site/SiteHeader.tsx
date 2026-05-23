@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, Search } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, Search, LogIn } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { COLLEGE } from "@/lib/college";
-import { TOP_NAV, type NavItem } from "@/lib/navigation";
+import { TOP_NAV, isNested, type NavItem, type NavLeaf, type NavNestedLeaf } from "@/lib/navigation";
 import { Button } from "@/components/ui/button";
 import { SearchOverlay } from "@/components/site/SearchOverlay";
 
@@ -63,8 +63,10 @@ export const SiteHeader = () => {
 
   const isActive = (item: NavItem): boolean => {
     if (item.to && pathname === item.to) return true;
-    if (item.links?.some((l) => pathname === l.to)) return true;
-    if (item.groups?.some((g) => g.links.some((l) => pathname === l.to))) return true;
+    const matchesLeaf = (l: NavLeaf | NavNestedLeaf): boolean =>
+      isNested(l) ? l.nested.some((sub) => pathname === sub.to) : pathname === l.to;
+    if (item.links?.some(matchesLeaf)) return true;
+    if (item.groups?.some((g) => g.links.some(matchesLeaf))) return true;
     return false;
   };
 
@@ -75,23 +77,25 @@ export const SiteHeader = () => {
         scrolled && "shadow-[0_2px_8px_-2px_hsl(var(--border))]",
       )}
     >
-      <div className="w-full px-4 sm:px-5 lg:px-6 flex items-center justify-between gap-3 lg:gap-4 py-3 sm:py-5">
+      <div className="w-full px-3 sm:px-5 lg:px-6 flex items-center gap-3 lg:gap-4 xl:gap-5 py-3 sm:py-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group shrink-0" aria-label="KITS Home">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 group shrink-0" aria-label="KITS Home">
           <img
             src="/kits-logo.png"
             alt="KITS Markapur Logo"
-            className="h-10 w-10 sm:h-12 sm:w-12 xl:h-14 xl:w-14 object-contain shrink-0"
+            className="h-9 w-9 sm:h-11 sm:w-11 lg:h-12 lg:w-12 xl:h-14 xl:w-14 object-contain shrink-0"
           />
-          <div className="leading-tight block">
-            <div className="font-display text-sm font-semibold text-foreground whitespace-nowrap">{COLLEGE.shortName} Markapur</div>
-            <div className="text-[9px] uppercase tracking-[0.14em] text-muted-foreground whitespace-nowrap hidden sm:block xl:hidden 2xl:block">
+          <div className="leading-tight">
+            <div className="font-display text-sm sm:text-base font-semibold text-foreground whitespace-nowrap">
+              {COLLEGE.shortName} <span className="hidden sm:inline">Markapur</span>
+            </div>
+            <div className="text-[9px] uppercase tracking-[0.14em] text-muted-foreground whitespace-nowrap hidden sm:block">
               Krishna Chaitanya
             </div>
           </div>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop nav — single row inline */}
         <nav ref={navRef} className="hidden xl:flex items-center gap-0.5 2xl:gap-1 flex-1 justify-center min-w-0">
           {TOP_NAV.map((item) => (
             <NavItemDesktop
@@ -108,8 +112,11 @@ export const SiteHeader = () => {
           ))}
         </nav>
 
-        {/* Right side: search + apply + hamburger */}
-        <div className="flex items-center gap-2 shrink-0">
+        {/* Spacer for narrow widths (when nav hidden) */}
+        <div className="flex-1 xl:hidden" aria-hidden />
+
+        {/* Right side actions */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
@@ -118,9 +125,31 @@ export const SiteHeader = () => {
           >
             <Search className="size-4 sm:size-[18px]" />
           </button>
+
+          {/* Login — icon-only on small, full label on md+ */}
+          <Link
+            to="/login"
+            className="hidden sm:inline-flex md:hidden size-10 items-center justify-center rounded-sm border border-border text-foreground/80 hover:text-accent hover:border-accent/40 transition-colors"
+            aria-label="Login"
+          >
+            <LogIn className="size-4" />
+          </Link>
+          <Button
+            asChild
+            size="sm"
+            variant="outline"
+            className="hidden md:inline-flex rounded-sm font-medium whitespace-nowrap border-border hover:border-accent/40 hover:text-accent"
+          >
+            <Link to="/login">
+              <LogIn className="size-4" /> Login
+            </Link>
+          </Button>
+
           <Button asChild size="sm" className="hidden sm:inline-flex bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm font-medium whitespace-nowrap">
             <Link to="/admissions">Apply Now</Link>
           </Button>
+
+          {/* Hamburger — visible until full nav (xl) shows */}
           <button
             className="xl:hidden inline-flex size-9 sm:size-10 items-center justify-center rounded-sm border border-border text-foreground shrink-0"
             onClick={() => setOpen((o) => !o)}
@@ -131,7 +160,7 @@ export const SiteHeader = () => {
         </div>
       </div>
 
-      {/* Mobile nav */}
+      {/* Mobile nav drawer — shown below xl when hamburger clicked */}
       {open && (
         <div className="xl:hidden border-t border-border bg-background animate-fade-in max-h-[calc(100vh-72px)] overflow-y-auto">
           <div className="container-tight py-4 space-y-1">
@@ -146,8 +175,13 @@ export const SiteHeader = () => {
                 currentPath={pathname}
               />
             ))}
-            <div className="sm:hidden pt-3 border-t border-border mt-3">
-              <Button asChild size="sm" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm font-medium">
+            <div className="sm:hidden pt-3 border-t border-border mt-3 grid grid-cols-2 gap-2">
+              <Button asChild size="sm" variant="outline" className="rounded-sm font-medium">
+                <Link to="/login">
+                  <LogIn className="size-4" /> Login
+                </Link>
+              </Button>
+              <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm font-medium">
                 <Link to="/admissions">Apply Now</Link>
               </Button>
             </div>
@@ -179,7 +213,7 @@ const NavItemDesktop = ({
   currentPath: string;
 }) => {
   const baseLinkCls = cn(
-    "px-2 2xl:px-3 py-2 text-[14px] 2xl:text-[15px] font-medium transition-colors relative whitespace-nowrap",
+    "px-2 2xl:px-3 py-2 text-[13px] 2xl:text-[14px] font-medium transition-colors relative whitespace-nowrap",
     active ? "text-foreground" : "text-foreground/70 hover:text-foreground",
   );
   const accentLine = (
@@ -236,12 +270,11 @@ const NavItemDesktop = ({
                     </p>
                     <ul>
                       {g.links.map((l) => (
-                        <DropdownLink
-                          key={l.to}
-                          to={l.to}
-                          label={l.label}
-                          active={currentPath === l.to}
-                          onClick={onClose}
+                        <DropdownEntry
+                          key={l.label}
+                          link={l}
+                          currentPath={currentPath}
+                          onClose={onClose}
                         />
                       ))}
                     </ul>
@@ -251,12 +284,11 @@ const NavItemDesktop = ({
             ) : (
               <ul className={cn(wide && "grid grid-cols-2 gap-1")}>
                 {item.links!.map((l) => (
-                  <DropdownLink
-                    key={l.to}
-                    to={l.to}
-                    label={l.label}
-                    active={currentPath === l.to}
-                    onClick={onClose}
+                  <DropdownEntry
+                    key={l.label}
+                    link={l}
+                    currentPath={currentPath}
+                    onClose={onClose}
                   />
                 ))}
               </ul>
@@ -265,6 +297,76 @@ const NavItemDesktop = ({
         </div>
       )}
     </div>
+  );
+};
+
+/**
+ * One entry inside a dropdown.
+ * - A regular leaf renders a Link.
+ * - A nested-leaf renders a button that expands to show its child links inline below.
+ */
+const DropdownEntry = ({
+  link,
+  currentPath,
+  onClose,
+}: {
+  link: NavLeaf | NavNestedLeaf;
+  currentPath: string;
+  onClose: () => void;
+}) => {
+  const [expanded, setExpanded] = useState(false);
+
+  if (isNested(link)) {
+    const anyChildActive = link.nested.some((c) => currentPath === c.to);
+    return (
+      <li>
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
+          className={cn(
+            "w-full flex items-center justify-between rounded px-3 py-2 text-sm transition-colors",
+            anyChildActive
+              ? "bg-secondary/40 text-foreground font-medium"
+              : "text-foreground/80 hover:bg-secondary/30 hover:text-foreground",
+          )}
+        >
+          <span>{link.label}</span>
+          <ChevronRight
+            className={cn("size-3.5 transition-transform", expanded && "rotate-90")}
+          />
+        </button>
+        {expanded && (
+          <ul className="ml-3 mt-1 mb-1 pl-3 border-l border-border space-y-0.5">
+            {link.nested.map((sub) => (
+              <li key={sub.to}>
+                <Link
+                  to={sub.to}
+                  onClick={onClose}
+                  className={cn(
+                    "block rounded px-3 py-1.5 text-sm transition-colors",
+                    currentPath === sub.to
+                      ? "bg-secondary/40 text-foreground font-medium"
+                      : "text-foreground/75 hover:bg-secondary/30 hover:text-foreground",
+                  )}
+                >
+                  {sub.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    );
+  }
+
+  return (
+    <DropdownLink
+      to={link.to}
+      label={link.label}
+      active={currentPath === link.to}
+      onClick={onClose}
+    />
   );
 };
 
@@ -326,8 +428,9 @@ const NavItemMobile = ({
     );
   }
 
-  // Has dropdown — flat or grouped
-  const flatLinks = item.links ?? item.groups?.flatMap((g) => g.links) ?? [];
+  // Has dropdown — flat or grouped. Flatten for "active child" detection (skip nested for now).
+  const flatLinks: NavLeaf[] = (item.links ?? item.groups?.flatMap((g) => g.links) ?? [])
+    .flatMap((l) => (isNested(l) ? l.nested : [l]));
   const hasActiveChild = flatLinks.some((l) => currentPath === l.to);
 
   return (
@@ -357,37 +460,78 @@ const NavItemMobile = ({
                     {g.label}
                   </p>
                   {g.links.map((l) => (
-                    <Link
-                      key={l.to}
-                      to={l.to}
-                      className={cn(
-                        "block rounded px-3 py-2 text-sm",
-                        currentPath === l.to
-                          ? "bg-secondary text-foreground font-medium"
-                          : "text-foreground/75 hover:bg-secondary/40",
-                      )}
-                    >
-                      {l.label}
-                    </Link>
+                    <MobileEntry key={l.label} link={l} currentPath={currentPath} />
                   ))}
                 </div>
               ))
             : item.links!.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  className={cn(
-                    "block rounded px-3 py-2 text-sm",
-                    currentPath === l.to
-                      ? "bg-secondary text-foreground font-medium"
-                      : "text-foreground/75 hover:bg-secondary/40",
-                  )}
-                >
-                  {l.label}
-                </Link>
+                <MobileEntry key={l.label} link={l} currentPath={currentPath} />
               ))}
         </div>
       )}
     </div>
+  );
+};
+
+/** Renders either a regular Link or an expandable nested-section in the mobile drawer. */
+const MobileEntry = ({
+  link,
+  currentPath,
+}: {
+  link: NavLeaf | NavNestedLeaf;
+  currentPath: string;
+}) => {
+  const [expanded, setExpanded] = useState(false);
+
+  if (isNested(link)) {
+    const anyActive = link.nested.some((c) => currentPath === c.to);
+    return (
+      <div>
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
+          className={cn(
+            "w-full flex items-center justify-between rounded px-3 py-2 text-sm",
+            anyActive ? "bg-secondary text-foreground font-medium" : "text-foreground/75 hover:bg-secondary/40",
+          )}
+        >
+          <span>{link.label}</span>
+          <ChevronRight className={cn("size-4 transition-transform", expanded && "rotate-90")} />
+        </button>
+        {expanded && (
+          <div className="ml-3 pl-3 border-l border-border my-1 space-y-0.5">
+            {link.nested.map((sub) => (
+              <Link
+                key={sub.to}
+                to={sub.to}
+                className={cn(
+                  "block rounded px-3 py-1.5 text-sm",
+                  currentPath === sub.to
+                    ? "bg-secondary text-foreground font-medium"
+                    : "text-foreground/75 hover:bg-secondary/40",
+                )}
+              >
+                {sub.label}
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      to={link.to}
+      className={cn(
+        "block rounded px-3 py-2 text-sm",
+        currentPath === link.to
+          ? "bg-secondary text-foreground font-medium"
+          : "text-foreground/75 hover:bg-secondary/40",
+      )}
+    >
+      {link.label}
+    </Link>
   );
 };

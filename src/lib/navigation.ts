@@ -6,17 +6,29 @@ export interface NavLeaf {
   to: string;
 }
 
+/** A leaf inside a group that itself expands to a nested list of links. */
+export interface NavNestedLeaf {
+  label: string;
+  /** Sub-links revealed when this nested item is expanded. */
+  nested: NavLeaf[];
+}
+
 export interface NavGroup {
   label: string;
-  links: NavLeaf[];
+  /** Mix of direct links and nested-expandable items. */
+  links: (NavLeaf | NavNestedLeaf)[];
 }
 
 export interface NavItem {
   label: string;
   to?: string;                 // direct link (no dropdown)
   groups?: NavGroup[];         // grouped dropdown (each group has its own heading)
-  links?: NavLeaf[];           // simple flat dropdown
+  links?: (NavLeaf | NavNestedLeaf)[]; // simple flat dropdown (may also contain nested items)
 }
+
+/** Type guard — is this entry a nested-expandable item? */
+export const isNested = (x: NavLeaf | NavNestedLeaf): x is NavNestedLeaf =>
+  "nested" in x && Array.isArray((x as NavNestedLeaf).nested);
 
 export const TOP_NAV: NavItem[] = [
   { label: "Home", to: "/" },
@@ -157,23 +169,23 @@ export const TOP_NAV: NavItem[] = [
           { label: "Information Corner",    to: "/info" },
           { label: "Right to Information",  to: "/info/rti" },
           { label: "Telephone Directory",   to: "/info/directory" },
+          // Nested "More" sub-dropdown — expands inline within Quality's dropdown
+          {
+            label: "More",
+            nested: [
+              { label: "Alumni",            to: "/alumni" },
+              { label: "Central Library",   to: "/library" },
+              { label: "Gallery",           to: "/gallery" },
+              { label: "Student Corner",    to: "/student-corner" },
+              { label: "Campus Life",       to: "/campus-life" },
+              { label: "Careers",           to: "/careers" },
+              { label: "Job Openings",      to: "/info/jobs" },
+              { label: "Feedback",          to: "/feedback" },
+              { label: "Contact",           to: "/contact" },
+            ],
+          },
         ],
       },
-    ],
-  },
-
-  {
-    label: "More",
-    links: [
-      { label: "Alumni",            to: "/alumni" },
-      { label: "Central Library",   to: "/library" },
-      { label: "Gallery",            to: "/gallery" },
-      { label: "Student Corner",     to: "/student-corner" },
-      { label: "Campus Life",        to: "/campus-life" },
-      { label: "Careers",             to: "/careers" },
-      { label: "Job Openings",       to: "/info/jobs" },
-      { label: "Feedback",            to: "/feedback" },
-      { label: "Contact",             to: "/contact" },
     ],
   },
 ];
