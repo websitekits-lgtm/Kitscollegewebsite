@@ -59,7 +59,7 @@ const ParentDashboard = () => {
         <StatCard label="Pending Fees" value={formatINR(totalPendingFees)} helper={pendingFee ? `Due ${pendingFee.dueDate}` : "Cleared"} icon={Wallet} tint="from-amber-400/20 to-amber-400/5" />
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+      <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-start">
         {/* Attendance trend */}
         <ChartCard
           title="Attendance Trend"

@@ -54,20 +54,21 @@ const PrincipalDashboard = () => {
         <StatCard label="Fee Collected" value={`${institutionKPI.feeCollectedPct}%`} helper={`₹ ${institutionKPI.utilisedBudgetCr} / ${institutionKPI.annualBudgetCr} Cr`} icon={Wallet} tint="from-amber-400/20 to-amber-400/5" />
       </div>
 
-      {/* Row 1: Chart (2/3) + a STACKED right column (Quick Actions + Approvals) so no dead space */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+      {/* Row 1: Chart (2/3) + a STACKED right column (Quick Actions + Approvals) so no dead space.
+          items-start prevents the chart card from stretching to match the (taller) right column. */}
+      <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-start">
         <ChartCard
           title="Department Performance"
           description="Attendance %, Pass %, Placement %"
           action={{ label: "Open departments", to: "/portal/principal/departments" }}
           className="lg:col-span-2"
-          height="h-80"
+          height="h-72"
         >
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={performanceData} margin={{ top: 5, right: 12, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="dept" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-              <YAxis domain={[60, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+              <YAxis domain={[0, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
               <Tooltip contentStyle={tooltipStyle} />
               <Bar dataKey="attendance" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
               <Bar dataKey="pass" fill="hsl(135 60% 50%)" radius={[4, 4, 0, 0]} />

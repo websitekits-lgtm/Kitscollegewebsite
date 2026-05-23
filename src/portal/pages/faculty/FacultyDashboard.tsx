@@ -83,8 +83,8 @@ const FacultyDashboard = () => {
         />
       </div>
 
-      {/* Row 1: Today's classes (2/3) + stacked sidebar (Quick Actions + Pending Attendance) */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+      {/* Row 1: Today's classes (2/3) + stacked sidebar. items-start prevents the left card from stretching. */}
+      <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-start">
         <SectionCard
           title="Today's Classes"
           description={todayClasses.length ? `${todayClasses.length} sessions scheduled` : "No classes today."}

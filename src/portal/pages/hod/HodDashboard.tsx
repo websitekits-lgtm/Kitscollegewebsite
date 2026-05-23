@@ -48,8 +48,8 @@ const HodDashboard = () => {
         <StatCard label="Pass %" value={`${lastResult.passPct}%`} helper={`Sem ${lastResult.semester}`} icon={Award} tint="from-emerald-400/20 to-emerald-400/5" />
       </div>
 
-      {/* Row 1: chart (2/3) + stacked sidebar (Alerts above, Quick Actions below) matching chart height */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+      {/* Row 1: chart (2/3) + stacked sidebar. items-start prevents chart card from stretching */}
+      <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-start">
         <ChartCard title="Department Pass %" description="Across last 5 semesters" className="lg:col-span-2" height="h-72">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={passTrend} margin={{ top: 5, right: 8, left: -20, bottom: 0 }}>
@@ -128,14 +128,14 @@ const HodDashboard = () => {
 
       </div>
 
-      {/* Row 3: Placement chart (2/3) + 2x2 KPI stack (1/3) so no dead space */}
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+      {/* Row 3: Placement chart (2/3) + 2x2 KPI stack (1/3). items-start avoids chart-card stretch. */}
+      <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-start">
         <ChartCard title="Placement % — last 5 years" description="Yearly trend" className="lg:col-span-2" height="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={placementStats} margin={{ top: 5, right: 8, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="year" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-              <YAxis domain={[60, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+              <YAxis domain={[0, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
               <Tooltip contentStyle={tooltipStyle} />
               <Bar dataKey="placementPct" fill="hsl(var(--accent))" radius={[6, 6, 0, 0]} />
             </BarChart>

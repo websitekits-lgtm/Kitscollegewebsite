@@ -48,7 +48,7 @@ const ExamDashboard = () => {
         <StatCard label="Revaluations" value={pendingRevaluations} helper="Awaiting decision" icon={FileWarning} />
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+      <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-start">
         {/* Upcoming exams */}
         <SectionCard
           title="Upcoming Exams"

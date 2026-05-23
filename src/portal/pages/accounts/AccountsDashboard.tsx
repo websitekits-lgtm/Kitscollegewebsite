@@ -77,7 +77,7 @@ const AccountsDashboard = () => {
         <StatCard label="Pending Approvals" value={pendingExpenseApprovals.length} helper="Expense items" tint="from-rose-400/20 to-rose-400/5" />
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+      <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-start">
         {/* Department revenue chart */}
         <ChartCard
           title="Department-wise Collection (₹ Lakhs)"

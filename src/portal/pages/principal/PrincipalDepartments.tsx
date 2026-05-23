@@ -96,7 +96,7 @@ const PrincipalDepartments = () => {
                 <BarChart data={departmentSnapshots} margin={{ top: 5, right: 12, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="shortName" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                  <YAxis domain={[60, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                  <YAxis domain={[0, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
                   <Tooltip contentStyle={tooltipStyle} />
                   <Bar dataKey="attendancePct" fill="hsl(var(--accent))" radius={[6, 6, 0, 0]} />
                 </BarChart>
@@ -110,7 +110,7 @@ const PrincipalDepartments = () => {
                 <BarChart data={departmentSnapshots} margin={{ top: 5, right: 12, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                   <XAxis dataKey="shortName" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                  <YAxis domain={[80, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                  <YAxis domain={[0, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
                   <Tooltip contentStyle={tooltipStyle} />
                   <Bar dataKey="passPct" fill="hsl(135 60% 50%)" radius={[6, 6, 0, 0]} />
                 </BarChart>

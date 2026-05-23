@@ -175,7 +175,7 @@ const StudentExaminations = () => (
         </TabsContent>
 
         <TabsContent value="results">
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 lg:grid-cols-3 lg:items-start">
             <ChartCard title="SGPA Trend" description="Semester-wise performance" height="h-56" >
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={cgpaTrend} margin={{ top: 5, right: 8, left: -20, bottom: 0 }}>

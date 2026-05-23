@@ -71,7 +71,7 @@ const HodPlacements = () => {
                   <BarChart data={placementYoY} margin={{ top: 5, right: 8, left: -20, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
                     <XAxis dataKey="year" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                    <YAxis domain={[60, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                    <YAxis domain={[0, 100]} stroke="hsl(var(--muted-foreground))" fontSize={12} />
                     <Tooltip contentStyle={tooltipStyle} />
                     <Bar dataKey="pct" fill="hsl(var(--accent))" radius={[6, 6, 0, 0]} />
                   </BarChart>
