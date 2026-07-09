@@ -24,6 +24,7 @@ export interface NavItem {
   to?: string;                 // direct link (no dropdown)
   groups?: NavGroup[];         // grouped dropdown (each group has its own heading)
   links?: (NavLeaf | NavNestedLeaf)[]; // simple flat dropdown (may also contain nested items)
+  dropdownAlign?: "left" | "right"; // wide-dropdown anchor side; default centers narrow ones
 }
 
 /** Type guard — is this entry a nested-expandable item? */
@@ -35,6 +36,7 @@ export const TOP_NAV: NavItem[] = [
 
   {
     label: "About",
+    dropdownAlign: "left",
     groups: [
       {
         label: "About KITS",
@@ -54,6 +56,7 @@ export const TOP_NAV: NavItem[] = [
       {
         label: "Administration",
         links: [
+          { label: "Director",                  to: "/about/director" },
           { label: "Chairman",                  to: "/about/chairman" },
           { label: "Secretary & Correspondent", to: "/about/secretary" },
           { label: "Principal",                 to: "/about/principal" },
@@ -117,6 +120,7 @@ export const TOP_NAV: NavItem[] = [
 
   {
     label: "Research",
+    dropdownAlign: "right",
     links: [
       { label: "R&D Overview",            to: "/research" },
       { label: "Research Committee",       to: "/research/committee" },
@@ -135,6 +139,7 @@ export const TOP_NAV: NavItem[] = [
 
   {
     label: "Student Life",
+    dropdownAlign: "right",
     links: [
       { label: "Overview",                  to: "/student-life" },
       { label: "Sports & Games",            to: "/student-life/sports" },
@@ -151,41 +156,34 @@ export const TOP_NAV: NavItem[] = [
   },
 
   {
-    label: "Quality",
+    label: "Statutory",
+    dropdownAlign: "right",
     groups: [
       {
-        label: "Accreditation",
+        label: "Accreditation Bodies",
         links: [
           { label: "NAAC",                  to: "/naac" },
+          { label: "NBA",                   to: "/statutory/nba" },
           { label: "IQAC",                  to: "/iqac" },
           { label: "AICTE Approvals",       to: "/aicte" },
+          { label: "UGC",                   to: "/statutory/ugc" },
           { label: "Mandatory Disclosure",  to: "/mandatory-disclosure" },
         ],
       },
       {
-        label: "Governance",
+        label: "Statutory Cells & Committees",
         links: [
-          { label: "Committees",            to: "/committees" },
-          { label: "Information Corner",    to: "/info" },
-          { label: "Right to Information",  to: "/info/rti" },
-          { label: "Telephone Directory",   to: "/info/directory" },
-          // Nested "More" sub-dropdown — expands inline within Quality's dropdown
-          {
-            label: "More",
-            nested: [
-              { label: "Alumni",            to: "/alumni" },
-              { label: "Central Library",   to: "/library" },
-              { label: "Gallery",           to: "/gallery" },
-              { label: "Student Corner",    to: "/student-corner" },
-              { label: "Campus Life",       to: "/campus-life" },
-              { label: "Careers",           to: "/careers" },
-              { label: "Job Openings",      to: "/info/jobs" },
-              { label: "Feedback",          to: "/feedback" },
-              { label: "Contact",           to: "/contact" },
-            ],
-          },
+          { label: "Grievance Cell",                    to: "/grievance-cell" },
+          { label: "Anti-Ragging Cell",                 to: "/student-life/anti-ragging" },
+          { label: "Internal Complaints Committee",     to: "/about/icc" },
+          { label: "SC/ST Cell",                        to: "/statutory/sc-st-cell" },
+          { label: "Women Empowerment Cell",            to: "/statutory/women-empowerment-cell" },
+          { label: "OBC Cell",                          to: "/statutory/obc-cell" },
+          { label: "Minority Cell",                     to: "/statutory/minority-cell" },
+          { label: "Right to Information",              to: "/info/rti" },
         ],
       },
     ],
   },
+
 ];

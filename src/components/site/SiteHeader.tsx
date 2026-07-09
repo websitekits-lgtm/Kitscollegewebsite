@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronRight, Search, LogIn } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,21 @@ export const SiteHeader = () => {
   const [openMobileSection, setOpenMobileSection] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { pathname } = useLocation();
+
+  const openNav = useCallback((label: string) => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    setOpenDropdown(label);
+  }, []);
+
+  const closeNav = useCallback(() => {
+    closeTimerRef.current = setTimeout(() => setOpenDropdown(null), 120);
+  }, []);
+
+  const cancelClose = useCallback(() => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -96,17 +110,17 @@ export const SiteHeader = () => {
         </Link>
 
         {/* Desktop nav — single row inline */}
-        <nav ref={navRef} className="hidden xl:flex items-center gap-0.5 2xl:gap-1 flex-1 justify-center min-w-0">
+        <nav ref={navRef} className="hidden xl:flex items-center gap-0 flex-1 justify-center min-w-0 px-4 2xl:px-8">
           {TOP_NAV.map((item) => (
             <NavItemDesktop
               key={item.label}
               item={item}
               active={isActive(item)}
               isOpen={openDropdown === item.label}
-              onToggle={() =>
-                setOpenDropdown((prev) => (prev === item.label ? null : item.label))
-              }
-              onClose={() => setOpenDropdown(null)}
+              onOpen={() => openNav(item.label)}
+              onClose={closeNav}
+              onCancelClose={cancelClose}
+              onCloseImmediate={() => setOpenDropdown(null)}
               currentPath={pathname}
             />
           ))}
@@ -201,20 +215,26 @@ const NavItemDesktop = ({
   item,
   active,
   isOpen,
-  onToggle,
+  onOpen,
   onClose,
+  onCancelClose,
+  onCloseImmediate,
   currentPath,
 }: {
   item: NavItem;
   active: boolean;
   isOpen: boolean;
-  onToggle: () => void;
+  onOpen: () => void;
   onClose: () => void;
+  onCancelClose: () => void;
+  onCloseImmediate: () => void;
   currentPath: string;
 }) => {
   const baseLinkCls = cn(
-    "px-2 2xl:px-3 py-2 text-[13px] 2xl:text-[14px] font-medium transition-colors relative whitespace-nowrap",
-    active ? "text-foreground" : "text-foreground/70 hover:text-foreground",
+    "px-2.5 2xl:px-3 py-1.5 rounded-md text-[13px] 2xl:text-[13.5px] font-medium transition-all duration-150 relative whitespace-nowrap",
+    active
+      ? "text-foreground hover:bg-secondary/40"
+      : "text-foreground/70 hover:text-foreground hover:bg-secondary/40",
   );
   const accentLine = (
     <span className="absolute left-2 right-2 -bottom-0.5 h-px bg-accent" />
@@ -234,17 +254,26 @@ const NavItemDesktop = ({
   const hasGroups = !!item.groups?.length;
   const wide = hasGroups || (item.links?.length ?? 0) > 8;
 
+  const dropdownPositionCls = wide
+    ? item.dropdownAlign === "right"
+      ? "right-0 w-[620px]"
+      : "left-0 w-[620px]"
+    : "left-1/2 -translate-x-1/2 w-72";
+
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      onMouseEnter={onOpen}
+      onMouseLeave={onClose}
+    >
       <button
         type="button"
-        onClick={onToggle}
         aria-expanded={isOpen}
         aria-haspopup="true"
         className={cn(
           baseLinkCls,
           "flex items-center gap-1",
-          (active || isOpen) && "text-foreground",
+          isOpen && "text-foreground bg-secondary/40",
         )}
       >
         {item.label}
@@ -256,9 +285,11 @@ const NavItemDesktop = ({
       {isOpen && (
         <div
           className={cn(
-            "absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50",
-            wide ? "w-[640px]" : "w-72",
+            "absolute top-full pt-2 z-50",
+            dropdownPositionCls,
           )}
+          onMouseEnter={onCancelClose}
+          onMouseLeave={onClose}
         >
           <div className="rounded-md border border-border bg-popover shadow-[var(--shadow-elegant)] p-2 animate-fade-in">
             {hasGroups ? (
@@ -274,7 +305,7 @@ const NavItemDesktop = ({
                           key={l.label}
                           link={l}
                           currentPath={currentPath}
-                          onClose={onClose}
+                          onClose={onCloseImmediate}
                         />
                       ))}
                     </ul>
@@ -288,7 +319,7 @@ const NavItemDesktop = ({
                     key={l.label}
                     link={l}
                     currentPath={currentPath}
-                    onClose={onClose}
+                    onClose={onCloseImmediate}
                   />
                 ))}
               </ul>

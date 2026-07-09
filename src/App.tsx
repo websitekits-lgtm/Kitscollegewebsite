@@ -20,6 +20,8 @@ import EventDetail from "./pages/EventDetail.tsx";
 import VisionMission from "./pages/VisionMission.tsx";
 import OrganizationChart from "./pages/OrganizationChart.tsx";
 import CollegeLocation from "./pages/CollegeLocation.tsx";
+import AdmissionForm from "./pages/AdmissionForm.tsx";
+import Director from "./pages/Director.tsx";
 import Chairman from "./pages/Chairman.tsx";
 import Secretary from "./pages/Secretary.tsx";
 import Principal from "./pages/Principal.tsx";
@@ -128,6 +130,14 @@ import InstitutionalDevelopmentPlan from "./pages/InstitutionalDevelopmentPlan.t
 import HrPolicy from "./pages/HrPolicy.tsx";
 import Accreditation from "./pages/Accreditation.tsx";
 import CodeOfConductAudience from "./pages/CodeOfConductAudience.tsx";
+
+// Statutory pages
+import NBA from "./pages/statutory/NBA.tsx";
+import UGC from "./pages/statutory/UGC.tsx";
+import ScStCell from "./pages/statutory/ScStCell.tsx";
+import WomenEmpowermentCell from "./pages/statutory/WomenEmpowermentCell.tsx";
+import ObcCell from "./pages/statutory/ObcCell.tsx";
+import MinorityCell from "./pages/statutory/MinorityCell.tsx";
 
 import NotFound from "./pages/NotFound.tsx";
 
@@ -242,6 +252,7 @@ const App = () => (
           <Route path="/departments" element={<Departments />} />
           <Route path="/departments/:slug" element={<DepartmentDetail />} />
           <Route path="/admissions" element={<Admissions />} />
+          <Route path="/admissions/apply" element={<AdmissionForm />} />
           <Route path="/placements" element={<Placements />} />
           <Route path="/campus-life" element={<CampusLife />} />
           <Route path="/gallery" element={<Gallery />} />
@@ -254,6 +265,7 @@ const App = () => (
           <Route path="/about/vision-mission" element={<VisionMission />} />
           <Route path="/about/organization-chart" element={<OrganizationChart />} />
           <Route path="/about/college-location" element={<CollegeLocation />} />
+          <Route path="/about/director" element={<Director />} />
           <Route path="/about/chairman" element={<Chairman />} />
           <Route path="/about/secretary" element={<Secretary />} />
           <Route path="/about/principal" element={<Principal />} />
@@ -367,6 +379,14 @@ const App = () => (
           <Route path="/about/hr-policy" element={<HrPolicy />} />
           <Route path="/about/accreditation" element={<Accreditation />} />
           <Route path="/about/code-of-conduct/:audience" element={<CodeOfConductAudience />} />
+
+          {/* Statutory pages */}
+          <Route path="/statutory/nba" element={<NBA />} />
+          <Route path="/statutory/ugc" element={<UGC />} />
+          <Route path="/statutory/sc-st-cell" element={<ScStCell />} />
+          <Route path="/statutory/women-empowerment-cell" element={<WomenEmpowermentCell />} />
+          <Route path="/statutory/obc-cell" element={<ObcCell />} />
+          <Route path="/statutory/minority-cell" element={<MinorityCell />} />
 
           {/* Legal */}
           <Route path="/privacy" element={<Privacy />} />

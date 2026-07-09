@@ -88,6 +88,24 @@ export const COLLEGE_LOCATION = {
   ],
 };
 
+export const DIRECTOR: PersonProfile = {
+  name: "Sri [Director Name]", // client to provide full name
+  designation: "Director",
+  qualifications: "[Qualifications]", // client to provide
+  photo: "/director.jpg",
+  message: [
+    "It is a privilege to lead the academic and administrative vision of Krishna Chaitanya Institute of Technology & Sciences, Markapur.",
+    "Our commitment is to provide students with not just technical competency but the holistic skills needed to succeed in a rapidly changing world. Through strong industry partnerships, research initiatives, and a dedicated faculty, we continue to raise our standards year after year.",
+    "I warmly invite students, parents, and industry partners to engage with us and be part of the KITS journey.",
+  ],
+  highlights: [
+    "Leads the academic and strategic vision of KITS",
+    "Drives industry collaboration and placement initiatives",
+    "Champions research, innovation, and faculty development",
+    "Committed to inclusive and quality technical education",
+  ],
+};
+
 export const CHAIRMAN: PersonProfile = {
   name: "Sri Anna Venkata Rambabu",
   designation: "Chairman",

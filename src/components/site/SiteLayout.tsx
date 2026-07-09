@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { ScrollToTop } from "./ScrollToTop";
+import { FloatingSocialBar } from "./FloatingSocialBar";
 
 export const SiteLayout = ({ children, transparentHeader = false }: { children: ReactNode; transparentHeader?: boolean }) => {
   return (
@@ -10,6 +11,7 @@ export const SiteLayout = ({ children, transparentHeader = false }: { children: 
       <main className={transparentHeader ? "-mt-[68px]" : ""}>{children}</main>
       <SiteFooter />
       <ScrollToTop />
+      <FloatingSocialBar />
     </div>
   );
 };

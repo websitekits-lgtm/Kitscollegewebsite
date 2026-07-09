@@ -9,10 +9,12 @@ import { Testimonials } from "@/components/site/Testimonials";
 import { Accreditations } from "@/components/site/Accreditations";
 import { CTABand } from "@/components/site/CTABand";
 import { SiteLayout } from "@/components/site/SiteLayout";
+import { HomepagePopup } from "@/components/site/HomepagePopup";
 
 const Index = () => {
   return (
     <SiteLayout>
+      <HomepagePopup />
       <Hero />
       <AboutSnapshot />
       <BoardsSection />
@@ -20,9 +22,9 @@ const Index = () => {
       <WhyChoose />
       <EventsAchievements />
       <PlacementPartners />
-      <Testimonials />
       <Accreditations />
       <CTABand />
+      <Testimonials />
     </SiteLayout>
   );
 };
