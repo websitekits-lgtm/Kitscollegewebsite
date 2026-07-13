@@ -3,11 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronRight, Search, LogIn } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { COLLEGE } from "@/lib/college";
-import { TOP_NAV, isNested, type NavItem, type NavLeaf, type NavNestedLeaf } from "@/lib/navigation";
+import { isNested, type NavItem, type NavLeaf, type NavNestedLeaf } from "@/lib/navigation";
+import { useMergedNav } from "@/lib/useMergedNav";
 import { Button } from "@/components/ui/button";
 import { SearchOverlay } from "@/components/site/SearchOverlay";
 
 export const SiteHeader = () => {
+  const TOP_NAV = useMergedNav();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -160,7 +162,7 @@ export const SiteHeader = () => {
           </Button>
 
           <Button asChild size="sm" className="hidden sm:inline-flex bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm font-medium whitespace-nowrap">
-            <Link to="/admissions">Apply Now</Link>
+            <Link to="/admissions/apply">Apply Now</Link>
           </Button>
 
           {/* Hamburger — visible until full nav (xl) shows */}
@@ -196,7 +198,7 @@ export const SiteHeader = () => {
                 </Link>
               </Button>
               <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-sm font-medium">
-                <Link to="/admissions">Apply Now</Link>
+                <Link to="/admissions/apply">Apply Now</Link>
               </Button>
             </div>
           </div>

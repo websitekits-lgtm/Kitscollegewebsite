@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Download, IndianRupee, GraduationCap, Calendar, Layers, FileText, Wallet, Award, BookOpen } from "lucide-react";
+import { CheckCircle2, Download, IndianRupee, GraduationCap, Calendar, Layers, FileText, Wallet, Award, BookOpen, ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHeader } from "@/components/site/PageHeader";
 import { CTABand } from "@/components/site/CTABand";
@@ -9,19 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { LinkCardGrid, type LinkCard } from "@/components/site/LinkCardGrid";
-
-const STORAGE_KEY = "kits_admission_inquiries";
-
-interface InquirySubmission {
-  id: string;
-  name: string;
-  phone: string;
-  email: string;
-  program: string;
-  city: string;
-  message: string;
-  submittedAt: string;
-}
+import { supabase } from "@/lib/supabaseClient";
 
 const admissionCards: LinkCard[] = [
   { label: "Courses & Intake",     description: "All B.Tech and M.Tech programmes with intake details.", to: "/admissions/courses-intake",   icon: Layers },
@@ -34,17 +22,16 @@ const admissionCards: LinkCard[] = [
 
 const Admissions = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ name: "", phone: "", email: "", program: "", city: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const submission: InquirySubmission = {
-      id: `inq-${Date.now()}`,
-      ...form,
-      submittedAt: new Date().toISOString(),
-    };
-    const existing: InquirySubmission[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([submission, ...existing]));
+    setSubmitting(true);
+    if (supabase) {
+      await supabase.from("admission_inquiries").insert(form);
+    }
+    setSubmitting(false);
     setSubmitted(true);
     setForm({ name: "", phone: "", email: "", program: "", city: "", message: "" });
   };
@@ -52,11 +39,15 @@ const Admissions = () => {
   return (
     <SiteLayout>
       <PageHeader
-        eyebrow="Admissions 2025–26"
+        eyebrow="Admissions 2026–27"
         title="Take the next step. Build the career you've imagined."
         subtitle="Use code KCIT during EAPCET counselling. Applications open across all B.Tech and M.Tech programmes."
         breadcrumb={[{ label: "Admissions" }]}
-      />
+      >
+        <Button asChild size="lg" className="rounded-sm bg-accent text-accent-foreground hover:bg-accent/90">
+          <Link to="/admissions/apply">Apply Now <ArrowRight className="size-4" /></Link>
+        </Button>
+      </PageHeader>
 
       {/* Eligibility & Process */}
       <section className="py-16 md:py-20 bg-background">
@@ -186,18 +177,19 @@ const Admissions = () => {
               <Textarea id="msg" rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Tell us a bit about your goals (optional)" />
             </div>
             <div className="sm:col-span-2">
-              <Button type="submit" size="lg" className="w-full rounded-sm bg-accent text-accent-foreground hover:bg-accent/90">
-                Submit Inquiry
+              <Button type="submit" size="lg" disabled={submitting} className="w-full rounded-sm bg-accent text-accent-foreground hover:bg-accent/90">
+                {submitting ? "Submitting…" : "Submit Inquiry"}
               </Button>
-              <p className="mt-3 text-xs text-muted-foreground italic text-center">
-                * Submissions are saved locally for now. Admin dashboard will collect them centrally once enabled.
-              </p>
             </div>
           </form>
         </div>
       </section>
 
-      <CTABand title="Seats are limited. Don't miss your chance." description="Apply now and join the next cohort of KITS engineers." />
+      <CTABand
+        title="Seats are limited. Don't miss your chance."
+        description="Apply now and join the next cohort of KITS engineers."
+        primary={{ label: "Apply Now", to: "/admissions/apply" }}
+      />
     </SiteLayout>
   );
 };

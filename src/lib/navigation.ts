@@ -82,8 +82,8 @@ export const TOP_NAV: NavItem[] = [
   {
     label: "Admissions",
     links: [
-      { label: "Admission Procedure",  to: "/admissions" },
       { label: "Courses & Intake",     to: "/admissions/courses-intake" },
+      { label: "Admission Procedure",  to: "/admissions" },
       { label: "Fee Structure",        to: "/admissions/fee-structure" },
       { label: "Fee Refund Policy",    to: "/admissions/fee-refund-policy" },
       { label: "Reservation Roster",   to: "/admissions/reservation-roster" },

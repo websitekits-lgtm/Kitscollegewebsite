@@ -3,15 +3,12 @@ import emailjs from "@emailjs/browser";
 import { CheckCircle2, Loader2, AlertCircle, RotateCcw, Send } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHeader } from "@/components/site/PageHeader";
+import { supabase } from "@/lib/supabaseClient";
 
 // ─── EmailJS credentials ──────────────────────────────────────────────────────
-// 1. Sign up at https://www.emailjs.com
-// 2. Add an Email Service (Gmail / Outlook) and copy the Service ID below
-// 3. Create an Email Template, set To Email = admissions@kits-anna.com, copy Template ID
-// 4. Go to Account → API Keys, copy the Public Key
-const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";   // replace after EmailJS setup
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";  // replace after EmailJS setup
-const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";   // replace after EmailJS setup
+const EMAILJS_SERVICE_ID  = "service_5m42rj9";
+const EMAILJS_TEMPLATE_ID = "template_cb64pru";
+const EMAILJS_PUBLIC_KEY  = "lhsJHqEgHpIityBfQ";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const RELIGIONS = ["Hindu", "Muslim", "Christian", "Sikh", "Buddhist", "Jain", "Others"];
@@ -121,11 +118,35 @@ const AdmissionForm = () => {
       transport: form.transport,
     };
 
-    try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY);
+    const dbRow = {
+      first_name: form.firstName, last_name: form.lastName,
+      father_name: form.fatherName, mother_name: form.motherName,
+      dob: form.dob, gender: form.gender,
+      mobile: form.mobile, alternate_mobile: form.alternateMobile,
+      email: form.email, aadhaar: form.aadhaar,
+      nationality: form.nationality, religion: form.religion,
+      category: form.category, blood_group: form.bloodGroup,
+      physically_challenged: form.physicallyChallenged,
+      address: form.address, landmark: form.landmark, city: form.city,
+      district: form.district, state: form.state, pincode: form.pincode, country: form.country,
+      program_type: form.programType, course: form.course,
+      hostel: form.hostel, transport: form.transport,
+    };
+
+    // Save to the admin dashboard (Supabase) and notify by email (EmailJS) —
+    // independent channels, so a failure in one doesn't lose the application.
+    const [dbResult, emailResult] = await Promise.allSettled([
+      supabase ? supabase.from("admission_submissions").insert(dbRow) : Promise.resolve(null),
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY),
+    ]);
+
+    const dbOk = dbResult.status === "fulfilled";
+    const emailOk = emailResult.status === "fulfilled";
+
+    if (dbOk || emailOk) {
       setStatus("success");
       setForm(INITIAL_FORM);
-    } catch (err) {
+    } else {
       setStatus("error");
       setErrorMsg("Something went wrong. Please try again or contact admissions@kits-anna.com directly.");
     }

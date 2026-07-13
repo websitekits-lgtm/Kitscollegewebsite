@@ -1,6 +1,9 @@
 import { Users } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { GOVERNING_BODY } from "@/lib/aboutContent";
+import { useCommitteeMembers } from "@/lib/useCommitteeMembers";
+
+const PAGE_SLUG = "about/governing-body";
 
 const sidebar = {
   heading: "About KITS",
@@ -15,15 +18,20 @@ const sidebar = {
   ],
 };
 
-// Group members by category
-const groupBy = <T extends { category: string }>(arr: T[]): Record<string, T[]> =>
+// Group members by category (role_label doubles as category here)
+const groupBy = <T extends { role_label: string | null }>(arr: T[]): Record<string, T[]> =>
   arr.reduce<Record<string, T[]>>((acc, item) => {
-    (acc[item.category] = acc[item.category] || []).push(item);
+    const cat = item.role_label ?? "Member";
+    (acc[cat] = acc[cat] || []).push(item);
     return acc;
   }, {});
 
 const GoverningBody = () => {
-  const grouped = groupBy(GOVERNING_BODY);
+  const members = useCommitteeMembers(
+    PAGE_SLUG,
+    GOVERNING_BODY.map((m) => ({ name: m.name, designation: m.designation, role_label: m.category })),
+  );
+  const grouped = groupBy(members);
   const categories = Object.keys(grouped);
 
   return (

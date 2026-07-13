@@ -226,6 +226,21 @@ import ParentNotifications from "./portal/pages/parent/ParentNotifications.tsx";
 import ParentSupport from "./portal/pages/parent/ParentSupport.tsx";
 import ParentSettings from "./portal/pages/parent/ParentSettings.tsx";
 
+// Admin Dashboard — content management, backed by Supabase
+import { AdminAuthProvider } from "./admin/AdminAuthContext";
+import { AdminGuard } from "./admin/AdminGuard";
+import { AdminLayout } from "./admin/AdminLayout";
+import AdminLogin from "./admin/AdminLogin";
+import AdminDashboard from "./admin/pages/Dashboard";
+import AdminMenuManager from "./admin/pages/MenuManager";
+import AdminPageContentManager from "./admin/pages/PageContentManager";
+import AdminTestimonialsManager from "./admin/pages/TestimonialsManager";
+import AdminAdmissionSubmissions from "./admin/pages/AdmissionSubmissions";
+import AdminInquiriesManager from "./admin/pages/InquiriesManager";
+import AdminPopupManager from "./admin/pages/PopupManager";
+import AdminSocialLinksManager from "./admin/pages/SocialLinksManager";
+import AdminSiteSettingsManager from "./admin/pages/SiteSettingsManager";
+
 const queryClient = new QueryClient();
 
 const ScrollToTop = () => {
@@ -240,6 +255,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <PortalThemeProvider>
       <AuthProvider>
+        <AdminAuthProvider>
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -477,11 +493,24 @@ const App = () => (
           <Route path="/portal/parent/support" element={<RoleGuard allow={["parent"]}><ParentSupport /></RoleGuard>} />
           <Route path="/portal/parent/settings" element={<RoleGuard allow={["parent"]}><ParentSettings /></RoleGuard>} />
 
+          {/* Admin Dashboard */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminGuard><AdminLayout><AdminDashboard /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/menus" element={<AdminGuard><AdminLayout><AdminMenuManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/page-content" element={<AdminGuard><AdminLayout><AdminPageContentManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/testimonials" element={<AdminGuard><AdminLayout><AdminTestimonialsManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/admissions" element={<AdminGuard><AdminLayout><AdminAdmissionSubmissions /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/inquiries" element={<AdminGuard><AdminLayout><AdminInquiriesManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/popup" element={<AdminGuard><AdminLayout><AdminPopupManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/social" element={<AdminGuard><AdminLayout><AdminSocialLinksManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/settings" element={<AdminGuard><AdminLayout><AdminSiteSettingsManager /></AdminLayout></AdminGuard>} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </TooltipProvider>
+        </AdminAuthProvider>
       </AuthProvider>
     </PortalThemeProvider>
   </QueryClientProvider>

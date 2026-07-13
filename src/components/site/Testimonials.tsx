@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GraduationCap, Heart, Briefcase, Quote } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SectionReveal } from "@/components/site/SectionReveal";
+import { supabase } from "@/lib/supabaseClient";
 
 /* ------------------------------------------------------------------ */
-/*  Data                                                                */
+/*  Fallback data — used until/unless the admin adds testimonials       */
+/*  in Supabase (Admin Dashboard → Testimonials)                       */
 /* ------------------------------------------------------------------ */
 
-const alumni = [
+const alumniFallback = [
   {
     quote: "KITS gave me the technical foundation and the confidence to crack a top MNC. The faculty genuinely care about your growth — not just grades.",
     name: "Sai Krishna Reddy",
@@ -46,7 +48,7 @@ const alumni = [
   },
 ];
 
-const parents = [
+const parentsFallback = [
   {
     quote: "As a parent, I wanted a campus that was safe, disciplined, and ambitious. KITS delivered on every count. My daughter blossomed here.",
     name: "Smt. Lakshmi Devi",
@@ -79,7 +81,7 @@ const parents = [
   },
 ];
 
-const recruiters = [
+const recruitersFallback = [
   {
     quote: "KITS students consistently stand out in our campus drives — technically sound, good communicators, and eager to learn. We recruit here every year.",
     name: "Rajesh Gupta",
@@ -116,13 +118,26 @@ const recruiters = [
 /*  Tab config                                                           */
 /* ------------------------------------------------------------------ */
 
-const TABS = [
-  { id: "alumni",     label: "Alumni",     Icon: GraduationCap, data: alumni },
-  { id: "parents",    label: "Parents",    Icon: Heart,         data: parents },
-  { id: "recruiters", label: "Recruiters", Icon: Briefcase,     data: recruiters },
+interface TestimonialItem {
+  quote: string;
+  name: string;
+  role: string;
+  initials: string;
+}
+
+const FALLBACK_BY_CATEGORY: Record<TabId, TestimonialItem[]> = {
+  alumni: alumniFallback,
+  parents: parentsFallback,
+  recruiters: recruitersFallback,
+};
+
+const TAB_META = [
+  { id: "alumni",     label: "Alumni",     Icon: GraduationCap },
+  { id: "parents",    label: "Parents",    Icon: Heart },
+  { id: "recruiters", label: "Recruiters", Icon: Briefcase },
 ] as const;
 
-type TabId = typeof TABS[number]["id"];
+type TabId = typeof TAB_META[number]["id"];
 
 /* ------------------------------------------------------------------ */
 /*  Component                                                            */
@@ -130,8 +145,26 @@ type TabId = typeof TABS[number]["id"];
 
 export const Testimonials = () => {
   const [active, setActive] = useState<TabId>("alumni");
+  const [dbData, setDbData] = useState<Record<string, TestimonialItem[]>>({});
 
-  const current = TABS.find((t) => t.id === active)!;
+  useEffect(() => {
+    if (!supabase) return;
+    supabase
+      .from("testimonials")
+      .select("category, quote, name, role, initials")
+      .eq("is_active", true)
+      .order("sort_order")
+      .then(({ data }) => {
+        if (!data || data.length === 0) return;
+        const grouped: Record<string, TestimonialItem[]> = {};
+        for (const row of data) {
+          (grouped[row.category] ??= []).push(row);
+        }
+        setDbData(grouped);
+      });
+  }, []);
+
+  const currentData = dbData[active] ?? FALLBACK_BY_CATEGORY[active];
 
   return (
     <section className="bg-background border-t border-border py-10 sm:py-12 md:py-14">
@@ -146,7 +179,7 @@ export const Testimonials = () => {
           </div>
 
           <div className="flex gap-2 flex-wrap shrink-0">
-            {TABS.map(({ id, label, Icon }) => (
+            {TAB_META.map(({ id, label, Icon }) => (
               <button
                 key={id}
                 type="button"
@@ -170,7 +203,7 @@ export const Testimonials = () => {
           key={active}
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-fade-in"
         >
-          {current.data.map((t) => (
+          {currentData.map((t) => (
             <figure
               key={t.name}
               className="rounded-lg border border-border bg-secondary/40 p-4 sm:p-5 flex flex-col hover:bg-secondary/70 transition-colors duration-200"
