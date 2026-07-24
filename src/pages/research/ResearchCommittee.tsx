@@ -2,8 +2,14 @@ import { Users } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { RESEARCH_COMMITTEE } from "@/lib/researchContent";
 import { researchSidebar } from "./ResearchSidebar";
+import { useCommitteeMembers } from "@/lib/useCommitteeMembers";
 
-const ResearchCommittee = () => (
+const ResearchCommittee = () => {
+  const members = useCommitteeMembers(
+    "research/committee",
+    RESEARCH_COMMITTEE.map((m) => ({ name: m.name, designation: m.designation, role_label: m.role })),
+  );
+  return (
   <InfoPage
     eyebrow="Research & Development"
     title="Research Committee"
@@ -31,11 +37,11 @@ const ResearchCommittee = () => (
             </tr>
           </thead>
           <tbody>
-            {RESEARCH_COMMITTEE.map((m, i) => (
+            {members.map((m, i) => (
               <tr key={i} className="border-b border-border last:border-b-0 hover:bg-secondary/10">
                 <td className="px-4 py-3 font-medium">{m.name}</td>
                 <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">{m.designation}</td>
-                <td className="px-4 py-3 text-accent font-medium">{m.role}</td>
+                <td className="px-4 py-3 text-accent font-medium">{m.role_label}</td>
               </tr>
             ))}
           </tbody>
@@ -43,6 +49,7 @@ const ResearchCommittee = () => (
       </div>
     </div>
   </InfoPage>
-);
+  );
+};
 
 export default ResearchCommittee;

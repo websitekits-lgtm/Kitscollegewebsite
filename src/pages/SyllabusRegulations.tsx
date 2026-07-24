@@ -1,6 +1,7 @@
 import { BookOpen, Layers, ScrollText } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { SYLLABUS_REGULATIONS } from "@/lib/academicsContent";
+import { useTableRows } from "@/lib/useTableRows";
 
 const sidebar = {
   heading: "Academics",
@@ -14,7 +15,9 @@ const sidebar = {
   ],
 };
 
-const SyllabusRegulations = () => (
+const SyllabusRegulations = () => {
+  const regulations = useTableRows("syllabus-regulations", SYLLABUS_REGULATIONS.regulationVersions);
+  return (
   <InfoPage
     eyebrow="Academics"
     title="Syllabus & Regulations"
@@ -36,7 +39,7 @@ const SyllabusRegulations = () => (
         <h2 className="font-display text-2xl font-semibold m-0">Active Regulations</h2>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
-        {SYLLABUS_REGULATIONS.regulationVersions.map((r) => (
+        {regulations.map((r) => (
           <div
             key={r.code}
             className="rounded-2xl border border-border bg-card p-5 hover:shadow-[var(--shadow-card)] transition-shadow"
@@ -69,6 +72,7 @@ const SyllabusRegulations = () => (
       </ul>
     </div>
   </InfoPage>
-);
+  );
+};
 
 export default SyllabusRegulations;

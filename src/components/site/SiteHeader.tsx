@@ -7,6 +7,7 @@ import { isNested, type NavItem, type NavLeaf, type NavNestedLeaf } from "@/lib/
 import { useMergedNav } from "@/lib/useMergedNav";
 import { Button } from "@/components/ui/button";
 import { SearchOverlay } from "@/components/site/SearchOverlay";
+import { NotificationBell } from "@/components/site/NotificationBell";
 
 export const SiteHeader = () => {
   const TOP_NAV = useMergedNav();
@@ -141,6 +142,8 @@ export const SiteHeader = () => {
           >
             <Search className="size-4 sm:size-[18px]" />
           </button>
+
+          <NotificationBell />
 
           {/* Login — icon-only on small, full label on md+ */}
           <Link

@@ -2,11 +2,16 @@ import { Calendar } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { RND_ACTIVITIES } from "@/lib/researchContent";
 import { researchSidebar } from "./ResearchSidebar";
+import { useTableRows } from "@/lib/useTableRows";
 
-const fmt = (yyyymm: string) =>
-  new Date(yyyymm + "-01").toLocaleDateString("en-IN", { month: "long", year: "numeric" });
+const fmt = (yyyymm: string) => {
+  const d = new Date(yyyymm + "-01");
+  return isNaN(d.getTime()) ? yyyymm : d.toLocaleDateString("en-IN", { month: "long", year: "numeric" });
+};
 
-const ResearchActivities = () => (
+const ResearchActivities = () => {
+  const activities = useTableRows("rnd-activities", RND_ACTIVITIES);
+  return (
   <InfoPage
     eyebrow="Research & Development"
     title="Recent R&D Activities"
@@ -15,7 +20,7 @@ const ResearchActivities = () => (
     sidebar={researchSidebar}
   >
     <ul className="not-prose space-y-4">
-      {RND_ACTIVITIES.map((a, i) => (
+      {activities.map((a, i) => (
         <li key={i} className="rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-card)]">
           <div className="flex items-start gap-4">
             <div className="grid size-10 place-items-center rounded-md bg-accent/10 text-accent shrink-0 mt-0.5">
@@ -33,6 +38,7 @@ const ResearchActivities = () => (
       ))}
     </ul>
   </InfoPage>
-);
+  );
+};
 
 export default ResearchActivities;

@@ -2,18 +2,28 @@ import { ReactNode } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Menu as MenuIcon, MessageSquareQuote, FileSpreadsheet,
-  Sparkles, Share2, Settings, LogOut, ExternalLink, ShieldCheck, FileText, Mail,
+  Sparkles, Share2, Settings, LogOut, ExternalLink, ShieldCheck, FileText, Mail, Wallet,
+  FilePlus2, FolderUp, Bell, Users2, Lightbulb, Table2, ShieldAlert,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAdminAuth } from "./AdminAuthContext";
 
 const NAV_ITEMS = [
   { label: "Dashboard",       to: "/admin",              icon: LayoutDashboard, end: true },
-  { label: "Nav Menus",       to: "/admin/menus",         icon: MenuIcon },
+  { label: "Pages",           to: "/admin/pages",         icon: FilePlus2 },
+  { label: "Menu Order",      to: "/admin/menus",         icon: MenuIcon },
+  { label: "Documents & PDFs", to: "/admin/documents",    icon: FolderUp },
+  { label: "Notifications",   to: "/admin/notifications", icon: Bell },
   { label: "Page Content",    to: "/admin/page-content",  icon: FileText },
+  { label: "Data Tables",     to: "/admin/tables",        icon: Table2 },
+  { label: "Fee Structure",   to: "/admin/fees",          icon: Wallet },
+  { label: "Clubs",           to: "/admin/clubs",         icon: Users2 },
+  { label: "Patents",         to: "/admin/patents",       icon: Lightbulb },
   { label: "Testimonials",    to: "/admin/testimonials",  icon: MessageSquareQuote },
   { label: "Applications",    to: "/admin/admissions",    icon: FileSpreadsheet },
   { label: "Inquiries",       to: "/admin/inquiries",     icon: Mail },
+  { label: "Grievances",      to: "/admin/grievances",    icon: ShieldAlert },
+  { label: "Messages",        to: "/admin/messages",      icon: MessageSquareQuote },
   { label: "Homepage Popup",  to: "/admin/popup",         icon: Sparkles },
   { label: "Social Links",    to: "/admin/social",        icon: Share2 },
   { label: "Site Settings",   to: "/admin/settings",      icon: Settings },

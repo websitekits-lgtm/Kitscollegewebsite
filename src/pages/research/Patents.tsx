@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { PATENTS } from "@/lib/researchContent";
 import { researchSidebar } from "./ResearchSidebar";
+import { supabase } from "@/lib/supabaseClient";
 
 const STATUS_STYLE: Record<string, string> = {
   Filed:     "bg-blue-500/15 text-blue-700 border-blue-500/30",
@@ -8,7 +10,40 @@ const STATUS_STYLE: Record<string, string> = {
   Published: "bg-purple-500/15 text-purple-700 border-purple-500/30",
 };
 
-const Patents = () => (
+interface PatentRow {
+  id: string;
+  title: string;
+  inventor: string;
+  filingNo: string;
+  year: string;
+  status: string;
+}
+
+/** DB-driven with static fallback — managed from Admin → Patents. */
+const usePatents = (): PatentRow[] => {
+  const [rows, setRows] = useState<PatentRow[]>(PATENTS);
+  useEffect(() => {
+    if (!supabase) return;
+    supabase
+      .from("patents")
+      .select("id, title, inventor, filing_no, year, status")
+      .eq("is_active", true)
+      .order("sort_order")
+      .then(({ data }) => {
+        if (data && data.length > 0) {
+          setRows(data.map((p) => ({
+            id: p.id, title: p.title, inventor: p.inventor ?? "—",
+            filingNo: p.filing_no ?? "—", year: p.year ?? "—", status: p.status,
+          })));
+        }
+      });
+  }, []);
+  return rows;
+};
+
+const Patents = () => {
+  const patents = usePatents();
+  return (
   <InfoPage
     eyebrow="Research & Development"
     title="Patents"
@@ -34,7 +69,7 @@ const Patents = () => (
             </tr>
           </thead>
           <tbody>
-            {PATENTS.map((p) => (
+            {patents.map((p) => (
               <tr key={p.id} className="border-b border-border last:border-b-0 hover:bg-secondary/10">
                 <td className="px-4 py-3 font-medium">{p.title}</td>
                 <td className="px-4 py-3 text-muted-foreground">{p.inventor}</td>
@@ -52,6 +87,7 @@ const Patents = () => (
       </div>
     </div>
   </InfoPage>
-);
+  );
+};
 
 export default Patents;

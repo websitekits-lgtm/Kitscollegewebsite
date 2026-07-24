@@ -90,11 +90,6 @@ const PopupManager = () => {
           </button>
         </div>
 
-        <div>
-          <label className="block text-xs font-medium text-slate-600 mb-1">Apply Now Button Link</label>
-          <input value={form.apply_url} onChange={(e) => setForm({ ...form, apply_url: e.target.value })} className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm" />
-        </div>
-
         <button onClick={save} disabled={saving} className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent/90 disabled:opacity-50">
           {saving ? <Loader2 className="size-4 animate-spin" /> : <Check className="size-4" />}
           {saved ? "Saved!" : "Save Changes"}

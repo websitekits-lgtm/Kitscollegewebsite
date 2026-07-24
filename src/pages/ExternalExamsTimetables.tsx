@@ -46,7 +46,7 @@ const ExternalExamsTimetables = () => {
         changes.
       </p>
       <div className="not-prose">
-        <FileListTable
+        <FileListTable docCategory="external-timetables"
           rows={rows}
           columns={["Branch", "Semester", "Exam Type", "Date Range"]}
           emptyMessage="No external exam timetables published right now."

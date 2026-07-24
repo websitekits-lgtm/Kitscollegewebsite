@@ -40,7 +40,7 @@ const AcademicCalendars = () => {
         mid-exam windows, end-semester windows, vacations, and important institutional events.
       </p>
       <div className="not-prose">
-        <FileListTable
+        <FileListTable docCategory="academic-calendars"
           rows={rows}
           columns={["Academic Year", "Programme"]}
           emptyMessage="No calendars uploaded yet. They will be available shortly."

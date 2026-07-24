@@ -72,6 +72,8 @@ import PlacementContact from "./pages/placement/PlacementContact.tsx";
 // Student Life pages
 import StudentLife from "./pages/StudentLife.tsx";
 import Sports from "./pages/studentlife/Sports.tsx";
+import Clubs from "./pages/studentlife/Clubs.tsx";
+import CustomPage from "./pages/CustomPage.tsx";
 import NSS from "./pages/studentlife/NSS.tsx";
 import Hostel from "./pages/studentlife/Hostel.tsx";
 import AntiRagging from "./pages/studentlife/AntiRagging.tsx";
@@ -144,87 +146,87 @@ import NotFound from "./pages/NotFound.tsx";
 // Portal phase — auth, theme, layout, login + role-guarded routes
 import { AuthProvider } from "./portal/lib/auth";
 import { PortalThemeProvider } from "./portal/lib/theme";
-import { RoleGuard } from "./portal/components/RoleGuard";
+// import { RoleGuard } from "./portal/components/RoleGuard";
 import Login from "./portal/pages/Login.tsx";
 
 // Student portal — full module set
-import StudentDashboard from "./portal/pages/student/StudentDashboard.tsx";
-import StudentAcademics from "./portal/pages/student/StudentAcademics.tsx";
-import StudentAttendance from "./portal/pages/student/StudentAttendance.tsx";
-import StudentExaminations from "./portal/pages/student/StudentExaminations.tsx";
-import StudentTimetable from "./portal/pages/student/StudentTimetable.tsx";
-import StudentFees from "./portal/pages/student/StudentFees.tsx";
-import StudentPlacements from "./portal/pages/student/StudentPlacements.tsx";
-import StudentNotifications from "./portal/pages/student/StudentNotifications.tsx";
-import StudentSupport from "./portal/pages/student/StudentSupport.tsx";
-import StudentSettings from "./portal/pages/student/StudentSettings.tsx";
+// import StudentDashboard from "./portal/pages/student/StudentDashboard.tsx";
+// import StudentAcademics from "./portal/pages/student/StudentAcademics.tsx";
+// import StudentAttendance from "./portal/pages/student/StudentAttendance.tsx";
+// import StudentExaminations from "./portal/pages/student/StudentExaminations.tsx";
+// import StudentTimetable from "./portal/pages/student/StudentTimetable.tsx";
+// import StudentFees from "./portal/pages/student/StudentFees.tsx";
+// import StudentPlacements from "./portal/pages/student/StudentPlacements.tsx";
+// import StudentNotifications from "./portal/pages/student/StudentNotifications.tsx";
+// import StudentSupport from "./portal/pages/student/StudentSupport.tsx";
+// import StudentSettings from "./portal/pages/student/StudentSettings.tsx";
 
 // Faculty portal — full module set
-import FacultyDashboard from "./portal/pages/faculty/FacultyDashboard.tsx";
-import FacultyAttendance from "./portal/pages/faculty/FacultyAttendance.tsx";
-import FacultyAcademics from "./portal/pages/faculty/FacultyAcademics.tsx";
-import FacultyStudents from "./portal/pages/faculty/FacultyStudents.tsx";
-import FacultyTimetable from "./portal/pages/faculty/FacultyTimetable.tsx";
-import FacultyNotifications from "./portal/pages/faculty/FacultyNotifications.tsx";
-import FacultySupport from "./portal/pages/faculty/FacultySupport.tsx";
-import FacultySettings from "./portal/pages/faculty/FacultySettings.tsx";
+// import FacultyDashboard from "./portal/pages/faculty/FacultyDashboard.tsx";
+// import FacultyAttendance from "./portal/pages/faculty/FacultyAttendance.tsx";
+// import FacultyAcademics from "./portal/pages/faculty/FacultyAcademics.tsx";
+// import FacultyStudents from "./portal/pages/faculty/FacultyStudents.tsx";
+// import FacultyTimetable from "./portal/pages/faculty/FacultyTimetable.tsx";
+// import FacultyNotifications from "./portal/pages/faculty/FacultyNotifications.tsx";
+// import FacultySupport from "./portal/pages/faculty/FacultySupport.tsx";
+// import FacultySettings from "./portal/pages/faculty/FacultySettings.tsx";
 
 // HOD portal — full module set
-import HodDashboard from "./portal/pages/hod/HodDashboard.tsx";
-import HodStudents from "./portal/pages/hod/HodStudents.tsx";
-import HodFaculty from "./portal/pages/hod/HodFaculty.tsx";
-import HodAcademics from "./portal/pages/hod/HodAcademics.tsx";
-import HodExaminations from "./portal/pages/hod/HodExaminations.tsx";
-import HodPlacements from "./portal/pages/hod/HodPlacements.tsx";
-import HodReports from "./portal/pages/hod/HodReports.tsx";
-import HodNotifications from "./portal/pages/hod/HodNotifications.tsx";
-import HodSupport from "./portal/pages/hod/HodSupport.tsx";
-import HodSettings from "./portal/pages/hod/HodSettings.tsx";
+// import HodDashboard from "./portal/pages/hod/HodDashboard.tsx";
+// import HodStudents from "./portal/pages/hod/HodStudents.tsx";
+// import HodFaculty from "./portal/pages/hod/HodFaculty.tsx";
+// import HodAcademics from "./portal/pages/hod/HodAcademics.tsx";
+// import HodExaminations from "./portal/pages/hod/HodExaminations.tsx";
+// import HodPlacements from "./portal/pages/hod/HodPlacements.tsx";
+// import HodReports from "./portal/pages/hod/HodReports.tsx";
+// import HodNotifications from "./portal/pages/hod/HodNotifications.tsx";
+// import HodSupport from "./portal/pages/hod/HodSupport.tsx";
+// import HodSettings from "./portal/pages/hod/HodSettings.tsx";
 
 // Principal portal — full module set
-import PrincipalDashboard from "./portal/pages/principal/PrincipalDashboard.tsx";
-import PrincipalDepartments from "./portal/pages/principal/PrincipalDepartments.tsx";
-import PrincipalStudents from "./portal/pages/principal/PrincipalStudents.tsx";
-import PrincipalFaculty from "./portal/pages/principal/PrincipalFaculty.tsx";
-import PrincipalExaminations from "./portal/pages/principal/PrincipalExaminations.tsx";
-import PrincipalPlacements from "./portal/pages/principal/PrincipalPlacements.tsx";
-import PrincipalApprovals from "./portal/pages/principal/PrincipalApprovals.tsx";
-import PrincipalReports from "./portal/pages/principal/PrincipalReports.tsx";
-import PrincipalNotifications from "./portal/pages/principal/PrincipalNotifications.tsx";
-import PrincipalSupport from "./portal/pages/principal/PrincipalSupport.tsx";
-import PrincipalSettings from "./portal/pages/principal/PrincipalSettings.tsx";
+// import PrincipalDashboard from "./portal/pages/principal/PrincipalDashboard.tsx";
+// import PrincipalDepartments from "./portal/pages/principal/PrincipalDepartments.tsx";
+// import PrincipalStudents from "./portal/pages/principal/PrincipalStudents.tsx";
+// import PrincipalFaculty from "./portal/pages/principal/PrincipalFaculty.tsx";
+// import PrincipalExaminations from "./portal/pages/principal/PrincipalExaminations.tsx";
+// import PrincipalPlacements from "./portal/pages/principal/PrincipalPlacements.tsx";
+// import PrincipalApprovals from "./portal/pages/principal/PrincipalApprovals.tsx";
+// import PrincipalReports from "./portal/pages/principal/PrincipalReports.tsx";
+// import PrincipalNotifications from "./portal/pages/principal/PrincipalNotifications.tsx";
+// import PrincipalSupport from "./portal/pages/principal/PrincipalSupport.tsx";
+// import PrincipalSettings from "./portal/pages/principal/PrincipalSettings.tsx";
 
 // Exam Cell portal — full module set
-import ExamDashboard from "./portal/pages/exam/ExamDashboard.tsx";
-import ExamRecords from "./portal/pages/exam/ExamRecords.tsx";
-import ExamManagement from "./portal/pages/exam/ExamManagement.tsx";
-import ExamResults from "./portal/pages/exam/ExamResults.tsx";
-import ExamRevaluation from "./portal/pages/exam/ExamRevaluation.tsx";
-import ExamRegulations from "./portal/pages/exam/ExamRegulations.tsx";
-import ExamReports from "./portal/pages/exam/ExamReports.tsx";
-import ExamNotifications from "./portal/pages/exam/ExamNotifications.tsx";
-import ExamSupport from "./portal/pages/exam/ExamSupport.tsx";
-import ExamSettings from "./portal/pages/exam/ExamSettings.tsx";
+// import ExamDashboard from "./portal/pages/exam/ExamDashboard.tsx";
+// import ExamRecords from "./portal/pages/exam/ExamRecords.tsx";
+// import ExamManagement from "./portal/pages/exam/ExamManagement.tsx";
+// import ExamResults from "./portal/pages/exam/ExamResults.tsx";
+// import ExamRevaluation from "./portal/pages/exam/ExamRevaluation.tsx";
+// import ExamRegulations from "./portal/pages/exam/ExamRegulations.tsx";
+// import ExamReports from "./portal/pages/exam/ExamReports.tsx";
+// import ExamNotifications from "./portal/pages/exam/ExamNotifications.tsx";
+// import ExamSupport from "./portal/pages/exam/ExamSupport.tsx";
+// import ExamSettings from "./portal/pages/exam/ExamSettings.tsx";
 
 // Accounts & Finance portal — full module set
-import AccountsDashboard from "./portal/pages/accounts/AccountsDashboard.tsx";
-import AccountsFees from "./portal/pages/accounts/AccountsFees.tsx";
-import AccountsPayments from "./portal/pages/accounts/AccountsPayments.tsx";
-import AccountsScholarships from "./portal/pages/accounts/AccountsScholarships.tsx";
-import AccountsExpenses from "./portal/pages/accounts/AccountsExpenses.tsx";
-import AccountsReports from "./portal/pages/accounts/AccountsReports.tsx";
-import AccountsNotifications from "./portal/pages/accounts/AccountsNotifications.tsx";
-import AccountsSupport from "./portal/pages/accounts/AccountsSupport.tsx";
-import AccountsSettings from "./portal/pages/accounts/AccountsSettings.tsx";
+// import AccountsDashboard from "./portal/pages/accounts/AccountsDashboard.tsx";
+// import AccountsFees from "./portal/pages/accounts/AccountsFees.tsx";
+// import AccountsPayments from "./portal/pages/accounts/AccountsPayments.tsx";
+// import AccountsScholarships from "./portal/pages/accounts/AccountsScholarships.tsx";
+// import AccountsExpenses from "./portal/pages/accounts/AccountsExpenses.tsx";
+// import AccountsReports from "./portal/pages/accounts/AccountsReports.tsx";
+// import AccountsNotifications from "./portal/pages/accounts/AccountsNotifications.tsx";
+// import AccountsSupport from "./portal/pages/accounts/AccountsSupport.tsx";
+// import AccountsSettings from "./portal/pages/accounts/AccountsSettings.tsx";
 
 // Parent portal — full module set
-import ParentDashboard from "./portal/pages/parent/ParentDashboard.tsx";
-import ParentAttendance from "./portal/pages/parent/ParentAttendance.tsx";
-import ParentExaminations from "./portal/pages/parent/ParentExaminations.tsx";
-import ParentFees from "./portal/pages/parent/ParentFees.tsx";
-import ParentNotifications from "./portal/pages/parent/ParentNotifications.tsx";
-import ParentSupport from "./portal/pages/parent/ParentSupport.tsx";
-import ParentSettings from "./portal/pages/parent/ParentSettings.tsx";
+// import ParentDashboard from "./portal/pages/parent/ParentDashboard.tsx";
+// import ParentAttendance from "./portal/pages/parent/ParentAttendance.tsx";
+// import ParentExaminations from "./portal/pages/parent/ParentExaminations.tsx";
+// import ParentFees from "./portal/pages/parent/ParentFees.tsx";
+// import ParentNotifications from "./portal/pages/parent/ParentNotifications.tsx";
+// import ParentSupport from "./portal/pages/parent/ParentSupport.tsx";
+// import ParentSettings from "./portal/pages/parent/ParentSettings.tsx";
 
 // Admin Dashboard — content management, backed by Supabase
 import { AdminAuthProvider } from "./admin/AdminAuthContext";
@@ -234,6 +236,15 @@ import AdminLogin from "./admin/AdminLogin";
 import AdminDashboard from "./admin/pages/Dashboard";
 import AdminMenuManager from "./admin/pages/MenuManager";
 import AdminPageContentManager from "./admin/pages/PageContentManager";
+import AdminFeeStructureManager from "./admin/pages/FeeStructureManager";
+import AdminPagesManager from "./admin/pages/PagesManager";
+import AdminDocumentsManager from "./admin/pages/DocumentsManager";
+import AdminNotificationsManager from "./admin/pages/NotificationsManager";
+import AdminClubsManager from "./admin/pages/ClubsManager";
+import AdminPatentsManager from "./admin/pages/PatentsManager";
+import AdminTablesManager from "./admin/pages/TablesManager";
+import AdminGrievancesManager from "./admin/pages/GrievancesManager";
+import AdminMessagesManager from "./admin/pages/MessagesManager";
 import AdminTestimonialsManager from "./admin/pages/TestimonialsManager";
 import AdminAdmissionSubmissions from "./admin/pages/AdmissionSubmissions";
 import AdminInquiriesManager from "./admin/pages/InquiriesManager";
@@ -340,6 +351,8 @@ const App = () => (
           {/* Student Life */}
           <Route path="/student-life" element={<StudentLife />} />
           <Route path="/student-life/sports" element={<Sports />} />
+          <Route path="/student-life/clubs" element={<Clubs />} />
+          <Route path="/p/:slug" element={<CustomPage />} />
           <Route path="/student-life/nss" element={<NSS />} />
           <Route path="/student-life/hostel" element={<Hostel />} />
           <Route path="/student-life/anti-ragging" element={<AntiRagging />} />
@@ -415,89 +428,98 @@ const App = () => (
           <Route path="/login/:role" element={<Login />} />
 
           {/* Student portal */}
-          <Route path="/portal/student" element={<RoleGuard allow={["student"]}><StudentDashboard /></RoleGuard>} />
-          <Route path="/portal/student/academics" element={<RoleGuard allow={["student"]}><StudentAcademics /></RoleGuard>} />
-          <Route path="/portal/student/attendance" element={<RoleGuard allow={["student"]}><StudentAttendance /></RoleGuard>} />
-          <Route path="/portal/student/examinations" element={<RoleGuard allow={["student"]}><StudentExaminations /></RoleGuard>} />
-          <Route path="/portal/student/timetable" element={<RoleGuard allow={["student"]}><StudentTimetable /></RoleGuard>} />
-          <Route path="/portal/student/fees" element={<RoleGuard allow={["student"]}><StudentFees /></RoleGuard>} />
-          <Route path="/portal/student/placements" element={<RoleGuard allow={["student"]}><StudentPlacements /></RoleGuard>} />
-          <Route path="/portal/student/notifications" element={<RoleGuard allow={["student"]}><StudentNotifications /></RoleGuard>} />
-          <Route path="/portal/student/support" element={<RoleGuard allow={["student"]}><StudentSupport /></RoleGuard>} />
-          <Route path="/portal/student/settings" element={<RoleGuard allow={["student"]}><StudentSettings /></RoleGuard>} />
+          {/* <Route path="/portal/student" element={<RoleGuard allow={["student"]}><StudentDashboard /></RoleGuard>} /> */}
+          {/* <Route path="/portal/student/academics" element={<RoleGuard allow={["student"]}><StudentAcademics /></RoleGuard>} /> */}
+          {/* <Route path="/portal/student/attendance" element={<RoleGuard allow={["student"]}><StudentAttendance /></RoleGuard>} /> */}
+          {/* <Route path="/portal/student/examinations" element={<RoleGuard allow={["student"]}><StudentExaminations /></RoleGuard>} /> */}
+          {/* <Route path="/portal/student/timetable" element={<RoleGuard allow={["student"]}><StudentTimetable /></RoleGuard>} /> */}
+          {/* <Route path="/portal/student/fees" element={<RoleGuard allow={["student"]}><StudentFees /></RoleGuard>} /> */}
+          {/* <Route path="/portal/student/placements" element={<RoleGuard allow={["student"]}><StudentPlacements /></RoleGuard>} /> */}
+          {/* <Route path="/portal/student/notifications" element={<RoleGuard allow={["student"]}><StudentNotifications /></RoleGuard>} /> */}
+          {/* <Route path="/portal/student/support" element={<RoleGuard allow={["student"]}><StudentSupport /></RoleGuard>} /> */}
+          {/* <Route path="/portal/student/settings" element={<RoleGuard allow={["student"]}><StudentSettings /></RoleGuard>} /> */}
 
           {/* Faculty portal */}
-          <Route path="/portal/faculty" element={<RoleGuard allow={["faculty"]}><FacultyDashboard /></RoleGuard>} />
-          <Route path="/portal/faculty/attendance" element={<RoleGuard allow={["faculty"]}><FacultyAttendance /></RoleGuard>} />
-          <Route path="/portal/faculty/academics" element={<RoleGuard allow={["faculty"]}><FacultyAcademics /></RoleGuard>} />
-          <Route path="/portal/faculty/students" element={<RoleGuard allow={["faculty"]}><FacultyStudents /></RoleGuard>} />
-          <Route path="/portal/faculty/timetable" element={<RoleGuard allow={["faculty"]}><FacultyTimetable /></RoleGuard>} />
-          <Route path="/portal/faculty/notifications" element={<RoleGuard allow={["faculty"]}><FacultyNotifications /></RoleGuard>} />
-          <Route path="/portal/faculty/support" element={<RoleGuard allow={["faculty"]}><FacultySupport /></RoleGuard>} />
-          <Route path="/portal/faculty/settings" element={<RoleGuard allow={["faculty"]}><FacultySettings /></RoleGuard>} />
+          {/* <Route path="/portal/faculty" element={<RoleGuard allow={["faculty"]}><FacultyDashboard /></RoleGuard>} /> */}
+          {/* <Route path="/portal/faculty/attendance" element={<RoleGuard allow={["faculty"]}><FacultyAttendance /></RoleGuard>} /> */}
+          {/* <Route path="/portal/faculty/academics" element={<RoleGuard allow={["faculty"]}><FacultyAcademics /></RoleGuard>} /> */}
+          {/* <Route path="/portal/faculty/students" element={<RoleGuard allow={["faculty"]}><FacultyStudents /></RoleGuard>} /> */}
+          {/* <Route path="/portal/faculty/timetable" element={<RoleGuard allow={["faculty"]}><FacultyTimetable /></RoleGuard>} /> */}
+          {/* <Route path="/portal/faculty/notifications" element={<RoleGuard allow={["faculty"]}><FacultyNotifications /></RoleGuard>} /> */}
+          {/* <Route path="/portal/faculty/support" element={<RoleGuard allow={["faculty"]}><FacultySupport /></RoleGuard>} /> */}
+          {/* <Route path="/portal/faculty/settings" element={<RoleGuard allow={["faculty"]}><FacultySettings /></RoleGuard>} /> */}
 
           {/* HOD portal */}
-          <Route path="/portal/hod" element={<RoleGuard allow={["hod"]}><HodDashboard /></RoleGuard>} />
-          <Route path="/portal/hod/students" element={<RoleGuard allow={["hod"]}><HodStudents /></RoleGuard>} />
-          <Route path="/portal/hod/faculty" element={<RoleGuard allow={["hod"]}><HodFaculty /></RoleGuard>} />
-          <Route path="/portal/hod/academics" element={<RoleGuard allow={["hod"]}><HodAcademics /></RoleGuard>} />
-          <Route path="/portal/hod/examinations" element={<RoleGuard allow={["hod"]}><HodExaminations /></RoleGuard>} />
-          <Route path="/portal/hod/placements" element={<RoleGuard allow={["hod"]}><HodPlacements /></RoleGuard>} />
-          <Route path="/portal/hod/reports" element={<RoleGuard allow={["hod"]}><HodReports /></RoleGuard>} />
-          <Route path="/portal/hod/notifications" element={<RoleGuard allow={["hod"]}><HodNotifications /></RoleGuard>} />
-          <Route path="/portal/hod/support" element={<RoleGuard allow={["hod"]}><HodSupport /></RoleGuard>} />
-          <Route path="/portal/hod/settings" element={<RoleGuard allow={["hod"]}><HodSettings /></RoleGuard>} />
+          {/* <Route path="/portal/hod" element={<RoleGuard allow={["hod"]}><HodDashboard /></RoleGuard>} /> */}
+          {/* <Route path="/portal/hod/students" element={<RoleGuard allow={["hod"]}><HodStudents /></RoleGuard>} /> */}
+          {/* <Route path="/portal/hod/faculty" element={<RoleGuard allow={["hod"]}><HodFaculty /></RoleGuard>} /> */}
+          {/* <Route path="/portal/hod/academics" element={<RoleGuard allow={["hod"]}><HodAcademics /></RoleGuard>} /> */}
+          {/* <Route path="/portal/hod/examinations" element={<RoleGuard allow={["hod"]}><HodExaminations /></RoleGuard>} /> */}
+          {/* <Route path="/portal/hod/placements" element={<RoleGuard allow={["hod"]}><HodPlacements /></RoleGuard>} /> */}
+          {/* <Route path="/portal/hod/reports" element={<RoleGuard allow={["hod"]}><HodReports /></RoleGuard>} /> */}
+          {/* <Route path="/portal/hod/notifications" element={<RoleGuard allow={["hod"]}><HodNotifications /></RoleGuard>} /> */}
+          {/* <Route path="/portal/hod/support" element={<RoleGuard allow={["hod"]}><HodSupport /></RoleGuard>} /> */}
+          {/* <Route path="/portal/hod/settings" element={<RoleGuard allow={["hod"]}><HodSettings /></RoleGuard>} /> */}
 
           {/* Principal dashboard */}
-          <Route path="/portal/principal" element={<RoleGuard allow={["principal"]}><PrincipalDashboard /></RoleGuard>} />
-          <Route path="/portal/principal/departments" element={<RoleGuard allow={["principal"]}><PrincipalDepartments /></RoleGuard>} />
-          <Route path="/portal/principal/students" element={<RoleGuard allow={["principal"]}><PrincipalStudents /></RoleGuard>} />
-          <Route path="/portal/principal/faculty" element={<RoleGuard allow={["principal"]}><PrincipalFaculty /></RoleGuard>} />
-          <Route path="/portal/principal/examinations" element={<RoleGuard allow={["principal"]}><PrincipalExaminations /></RoleGuard>} />
-          <Route path="/portal/principal/placements" element={<RoleGuard allow={["principal"]}><PrincipalPlacements /></RoleGuard>} />
-          <Route path="/portal/principal/approvals" element={<RoleGuard allow={["principal"]}><PrincipalApprovals /></RoleGuard>} />
-          <Route path="/portal/principal/reports" element={<RoleGuard allow={["principal"]}><PrincipalReports /></RoleGuard>} />
-          <Route path="/portal/principal/notifications" element={<RoleGuard allow={["principal"]}><PrincipalNotifications /></RoleGuard>} />
-          <Route path="/portal/principal/support" element={<RoleGuard allow={["principal"]}><PrincipalSupport /></RoleGuard>} />
-          <Route path="/portal/principal/settings" element={<RoleGuard allow={["principal"]}><PrincipalSettings /></RoleGuard>} />
+          {/* <Route path="/portal/principal" element={<RoleGuard allow={["principal"]}><PrincipalDashboard /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/departments" element={<RoleGuard allow={["principal"]}><PrincipalDepartments /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/students" element={<RoleGuard allow={["principal"]}><PrincipalStudents /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/faculty" element={<RoleGuard allow={["principal"]}><PrincipalFaculty /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/examinations" element={<RoleGuard allow={["principal"]}><PrincipalExaminations /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/placements" element={<RoleGuard allow={["principal"]}><PrincipalPlacements /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/approvals" element={<RoleGuard allow={["principal"]}><PrincipalApprovals /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/reports" element={<RoleGuard allow={["principal"]}><PrincipalReports /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/notifications" element={<RoleGuard allow={["principal"]}><PrincipalNotifications /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/support" element={<RoleGuard allow={["principal"]}><PrincipalSupport /></RoleGuard>} /> */}
+          {/* <Route path="/portal/principal/settings" element={<RoleGuard allow={["principal"]}><PrincipalSettings /></RoleGuard>} /> */}
 
           {/* Exam cell portal */}
-          <Route path="/portal/exam" element={<RoleGuard allow={["exam"]}><ExamDashboard /></RoleGuard>} />
-          <Route path="/portal/exam/records" element={<RoleGuard allow={["exam"]}><ExamRecords /></RoleGuard>} />
-          <Route path="/portal/exam/examinations" element={<RoleGuard allow={["exam"]}><ExamManagement /></RoleGuard>} />
-          <Route path="/portal/exam/results" element={<RoleGuard allow={["exam"]}><ExamResults /></RoleGuard>} />
-          <Route path="/portal/exam/revaluation" element={<RoleGuard allow={["exam"]}><ExamRevaluation /></RoleGuard>} />
-          <Route path="/portal/exam/regulations" element={<RoleGuard allow={["exam"]}><ExamRegulations /></RoleGuard>} />
-          <Route path="/portal/exam/reports" element={<RoleGuard allow={["exam"]}><ExamReports /></RoleGuard>} />
-          <Route path="/portal/exam/notifications" element={<RoleGuard allow={["exam"]}><ExamNotifications /></RoleGuard>} />
-          <Route path="/portal/exam/support" element={<RoleGuard allow={["exam"]}><ExamSupport /></RoleGuard>} />
-          <Route path="/portal/exam/settings" element={<RoleGuard allow={["exam"]}><ExamSettings /></RoleGuard>} />
+          {/* <Route path="/portal/exam" element={<RoleGuard allow={["exam"]}><ExamDashboard /></RoleGuard>} /> */}
+          {/* <Route path="/portal/exam/records" element={<RoleGuard allow={["exam"]}><ExamRecords /></RoleGuard>} /> */}
+          {/* <Route path="/portal/exam/examinations" element={<RoleGuard allow={["exam"]}><ExamManagement /></RoleGuard>} /> */}
+          {/* <Route path="/portal/exam/results" element={<RoleGuard allow={["exam"]}><ExamResults /></RoleGuard>} /> */}
+          {/* <Route path="/portal/exam/revaluation" element={<RoleGuard allow={["exam"]}><ExamRevaluation /></RoleGuard>} /> */}
+          {/* <Route path="/portal/exam/regulations" element={<RoleGuard allow={["exam"]}><ExamRegulations /></RoleGuard>} /> */}
+          {/* <Route path="/portal/exam/reports" element={<RoleGuard allow={["exam"]}><ExamReports /></RoleGuard>} /> */}
+          {/* <Route path="/portal/exam/notifications" element={<RoleGuard allow={["exam"]}><ExamNotifications /></RoleGuard>} /> */}
+          {/* <Route path="/portal/exam/support" element={<RoleGuard allow={["exam"]}><ExamSupport /></RoleGuard>} /> */}
+          {/* <Route path="/portal/exam/settings" element={<RoleGuard allow={["exam"]}><ExamSettings /></RoleGuard>} /> */}
 
           {/* Accounts & finance portal */}
-          <Route path="/portal/accounts" element={<RoleGuard allow={["accounts"]}><AccountsDashboard /></RoleGuard>} />
-          <Route path="/portal/accounts/fees" element={<RoleGuard allow={["accounts"]}><AccountsFees /></RoleGuard>} />
-          <Route path="/portal/accounts/payments" element={<RoleGuard allow={["accounts"]}><AccountsPayments /></RoleGuard>} />
-          <Route path="/portal/accounts/scholarships" element={<RoleGuard allow={["accounts"]}><AccountsScholarships /></RoleGuard>} />
-          <Route path="/portal/accounts/expenses" element={<RoleGuard allow={["accounts"]}><AccountsExpenses /></RoleGuard>} />
-          <Route path="/portal/accounts/reports" element={<RoleGuard allow={["accounts"]}><AccountsReports /></RoleGuard>} />
-          <Route path="/portal/accounts/notifications" element={<RoleGuard allow={["accounts"]}><AccountsNotifications /></RoleGuard>} />
-          <Route path="/portal/accounts/support" element={<RoleGuard allow={["accounts"]}><AccountsSupport /></RoleGuard>} />
-          <Route path="/portal/accounts/settings" element={<RoleGuard allow={["accounts"]}><AccountsSettings /></RoleGuard>} />
+          {/* <Route path="/portal/accounts" element={<RoleGuard allow={["accounts"]}><AccountsDashboard /></RoleGuard>} /> */}
+          {/* <Route path="/portal/accounts/fees" element={<RoleGuard allow={["accounts"]}><AccountsFees /></RoleGuard>} /> */}
+          {/* <Route path="/portal/accounts/payments" element={<RoleGuard allow={["accounts"]}><AccountsPayments /></RoleGuard>} /> */}
+          {/* <Route path="/portal/accounts/scholarships" element={<RoleGuard allow={["accounts"]}><AccountsScholarships /></RoleGuard>} /> */}
+          {/* <Route path="/portal/accounts/expenses" element={<RoleGuard allow={["accounts"]}><AccountsExpenses /></RoleGuard>} /> */}
+          {/* <Route path="/portal/accounts/reports" element={<RoleGuard allow={["accounts"]}><AccountsReports /></RoleGuard>} /> */}
+          {/* <Route path="/portal/accounts/notifications" element={<RoleGuard allow={["accounts"]}><AccountsNotifications /></RoleGuard>} /> */}
+          {/* <Route path="/portal/accounts/support" element={<RoleGuard allow={["accounts"]}><AccountsSupport /></RoleGuard>} /> */}
+          {/* <Route path="/portal/accounts/settings" element={<RoleGuard allow={["accounts"]}><AccountsSettings /></RoleGuard>} /> */}
 
           {/* Parent portal */}
-          <Route path="/portal/parent" element={<RoleGuard allow={["parent"]}><ParentDashboard /></RoleGuard>} />
-          <Route path="/portal/parent/attendance" element={<RoleGuard allow={["parent"]}><ParentAttendance /></RoleGuard>} />
-          <Route path="/portal/parent/examinations" element={<RoleGuard allow={["parent"]}><ParentExaminations /></RoleGuard>} />
-          <Route path="/portal/parent/fees" element={<RoleGuard allow={["parent"]}><ParentFees /></RoleGuard>} />
-          <Route path="/portal/parent/notifications" element={<RoleGuard allow={["parent"]}><ParentNotifications /></RoleGuard>} />
-          <Route path="/portal/parent/support" element={<RoleGuard allow={["parent"]}><ParentSupport /></RoleGuard>} />
-          <Route path="/portal/parent/settings" element={<RoleGuard allow={["parent"]}><ParentSettings /></RoleGuard>} />
+          {/* <Route path="/portal/parent" element={<RoleGuard allow={["parent"]}><ParentDashboard /></RoleGuard>} /> */}
+          {/* <Route path="/portal/parent/attendance" element={<RoleGuard allow={["parent"]}><ParentAttendance /></RoleGuard>} /> */}
+          {/* <Route path="/portal/parent/examinations" element={<RoleGuard allow={["parent"]}><ParentExaminations /></RoleGuard>} /> */}
+          {/* <Route path="/portal/parent/fees" element={<RoleGuard allow={["parent"]}><ParentFees /></RoleGuard>} /> */}
+          {/* <Route path="/portal/parent/notifications" element={<RoleGuard allow={["parent"]}><ParentNotifications /></RoleGuard>} /> */}
+          {/* <Route path="/portal/parent/support" element={<RoleGuard allow={["parent"]}><ParentSupport /></RoleGuard>} /> */}
+          {/* <Route path="/portal/parent/settings" element={<RoleGuard allow={["parent"]}><ParentSettings /></RoleGuard>} /> */}
 
           {/* Admin Dashboard */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminGuard><AdminLayout><AdminDashboard /></AdminLayout></AdminGuard>} />
           <Route path="/admin/menus" element={<AdminGuard><AdminLayout><AdminMenuManager /></AdminLayout></AdminGuard>} />
           <Route path="/admin/page-content" element={<AdminGuard><AdminLayout><AdminPageContentManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/fees" element={<AdminGuard><AdminLayout><AdminFeeStructureManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/pages" element={<AdminGuard><AdminLayout><AdminPagesManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/documents" element={<AdminGuard><AdminLayout><AdminDocumentsManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/notifications" element={<AdminGuard><AdminLayout><AdminNotificationsManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/clubs" element={<AdminGuard><AdminLayout><AdminClubsManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/patents" element={<AdminGuard><AdminLayout><AdminPatentsManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/tables" element={<AdminGuard><AdminLayout><AdminTablesManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/grievances" element={<AdminGuard><AdminLayout><AdminGrievancesManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/messages" element={<AdminGuard><AdminLayout><AdminMessagesManager /></AdminLayout></AdminGuard>} />
           <Route path="/admin/testimonials" element={<AdminGuard><AdminLayout><AdminTestimonialsManager /></AdminLayout></AdminGuard>} />
           <Route path="/admin/admissions" element={<AdminGuard><AdminLayout><AdminAdmissionSubmissions /></AdminLayout></AdminGuard>} />
           <Route path="/admin/inquiries" element={<AdminGuard><AdminLayout><AdminInquiriesManager /></AdminLayout></AdminGuard>} />

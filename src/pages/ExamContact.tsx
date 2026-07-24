@@ -2,6 +2,7 @@ import { Mail, Phone, MapPin, Clock, ListChecks } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { InfoPage } from "@/components/site/InfoPage";
 import { EXAM_CONTACT } from "@/lib/academicsContent";
+import { usePageTexts } from "@/lib/usePageTexts";
 
 const sidebar = {
   heading: "Examination",
@@ -15,7 +16,16 @@ const sidebar = {
   ],
 };
 
-const ExamContact = () => (
+const ExamContact = () => {
+  const c = usePageTexts("examination/contact", {
+    controllerName: EXAM_CONTACT.controllerName,
+    designation: EXAM_CONTACT.designation,
+    email: EXAM_CONTACT.email,
+    phone: EXAM_CONTACT.phone,
+    address: EXAM_CONTACT.address,
+    officeHours: EXAM_CONTACT.officeHours,
+  });
+  return (
   <InfoPage
     eyebrow="Examination"
     title="Examination Cell — Contact Details"
@@ -31,8 +41,8 @@ const ExamContact = () => (
           </div>
           <h3 className="font-display text-lg font-semibold m-0">Controller of Examinations</h3>
         </div>
-        <p className="font-medium text-foreground mb-1">{EXAM_CONTACT.controllerName}</p>
-        <p className="text-sm text-muted-foreground">{EXAM_CONTACT.designation}</p>
+        <p className="font-medium text-foreground mb-1">{c.controllerName}</p>
+        <p className="text-sm text-muted-foreground">{c.designation}</p>
       </div>
 
       <div className="rounded-2xl border border-border bg-card p-6">
@@ -42,7 +52,7 @@ const ExamContact = () => (
           </div>
           <h3 className="font-display text-lg font-semibold m-0">Office Hours</h3>
         </div>
-        <p className="text-sm text-foreground/85">{EXAM_CONTACT.officeHours}</p>
+        <p className="text-sm text-foreground/85">{c.officeHours}</p>
       </div>
     </div>
 
@@ -51,23 +61,23 @@ const ExamContact = () => (
       <ul className="space-y-4 text-sm">
         <li className="flex gap-3">
           <Mail className="size-4 mt-0.5 shrink-0 text-accent" />
-          <a href={`mailto:${EXAM_CONTACT.email}`} className="text-foreground hover:text-accent break-all">
-            {EXAM_CONTACT.email}
+          <a href={`mailto:${c.email}`} className="text-foreground hover:text-accent break-all">
+            {c.email}
           </a>
         </li>
         <li className="flex gap-3">
           <Phone className="size-4 mt-0.5 shrink-0 text-accent" />
-          <a href={`tel:${EXAM_CONTACT.phone}`} className="text-foreground hover:text-accent">
-            {EXAM_CONTACT.phone}
+          <a href={`tel:${c.phone}`} className="text-foreground hover:text-accent">
+            {c.phone}
           </a>
         </li>
         <li className="flex gap-3">
           <MapPin className="size-4 mt-0.5 shrink-0 text-accent" />
-          <span className="text-foreground/85">{EXAM_CONTACT.address}</span>
+          <span className="text-foreground/85">{c.address}</span>
         </li>
       </ul>
       <Button asChild className="mt-6 rounded-sm">
-        <a href={`mailto:${EXAM_CONTACT.email}`}>Email the Examination Cell</a>
+        <a href={`mailto:${c.email}`}>Email the Examination Cell</a>
       </Button>
     </div>
 
@@ -86,6 +96,7 @@ const ExamContact = () => (
       </ul>
     </div>
   </InfoPage>
-);
+  );
+};
 
 export default ExamContact;

@@ -45,7 +45,7 @@ const InternalExamsTimetables = () => {
         overall semester grade as per JNTUK regulations.
       </p>
       <div className="not-prose">
-        <FileListTable
+        <FileListTable docCategory="internal-timetables"
           rows={rows}
           columns={["Branch", "Semester", "Exam Type", "Date Range"]}
           emptyMessage="No internal exam timetables published right now."

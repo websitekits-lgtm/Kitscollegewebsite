@@ -1,5 +1,6 @@
 import { ShieldAlert, Users, ListChecks, Phone, Mail } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
+import { useCommitteeMembers } from "@/lib/useCommitteeMembers";
 
 const sidebar = {
   heading: "Quick Links",
@@ -21,7 +22,12 @@ const COMMITTEE = [
   { name: "Female Student Rep",      designation: "Student",             role: "Student Member" },
 ];
 
-const InternalComplaintCommittee = () => (
+const InternalComplaintCommittee = () => {
+  const members = useCommitteeMembers(
+    "about/icc",
+    COMMITTEE.map((m) => ({ name: m.name, designation: m.designation, role_label: m.role })),
+  );
+  return (
   <InfoPage
     eyebrow="Compliance"
     title="Internal Complaint Committee (ICC)"
@@ -82,11 +88,11 @@ const InternalComplaintCommittee = () => (
             </tr>
           </thead>
           <tbody>
-            {COMMITTEE.map((m, i) => (
+            {members.map((m, i) => (
               <tr key={i} className="border-b border-border last:border-b-0 hover:bg-secondary/10">
                 <td className="px-4 py-3 font-medium">{m.name}</td>
                 <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">{m.designation}</td>
-                <td className="px-4 py-3 text-accent font-medium">{m.role}</td>
+                <td className="px-4 py-3 text-accent font-medium">{m.role_label}</td>
               </tr>
             ))}
           </tbody>
@@ -102,6 +108,7 @@ const InternalComplaintCommittee = () => (
       </ul>
     </div>
   </InfoPage>
-);
+  );
+};
 
 export default InternalComplaintCommittee;

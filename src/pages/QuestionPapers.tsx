@@ -42,7 +42,7 @@ const QuestionPapers = () => {
         every semester as new exam papers are released.
       </p>
       <div className="not-prose">
-        <FileListTable
+        <FileListTable docCategory="question-papers"
           rows={rows}
           columns={["Branch", "Semester", "Subject", "Year"]}
           emptyMessage="No question papers available yet. They will be uploaded shortly."

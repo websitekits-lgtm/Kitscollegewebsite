@@ -1,5 +1,5 @@
 import { InfoPage } from "@/components/site/InfoPage";
-import { LinkCardGrid, type LinkCard } from "@/components/site/LinkCardGrid";
+import { FileListTable, type FileRow } from "@/components/site/FileListTable";
 import { EXAM_FORMS } from "@/lib/academicsContent";
 
 const sidebar = {
@@ -15,10 +15,10 @@ const sidebar = {
 };
 
 const FormsDownload = () => {
-  const cards: LinkCard[] = EXAM_FORMS.map((f) => ({
-    label: f.title,
-    description: f.description,
-    isPdf: true,
+  const rows: FileRow[] = EXAM_FORMS.map((f, i) => ({
+    id: `form-${i}`,
+    fileName: `${f.title}.pdf`,
+    cells: { Form: f.title, Description: f.description },
   }));
 
   return (
@@ -37,7 +37,7 @@ const FormsDownload = () => {
         the deadline. Late submissions may attract additional charges or rejection.
       </p>
       <div className="not-prose">
-        <LinkCardGrid cards={cards} columns={2} />
+        <FileListTable docCategory="exam-forms" rows={rows} columns={["Form", "Description"]} />
       </div>
     </InfoPage>
   );

@@ -8,6 +8,13 @@ import { supabase } from "@/lib/supabaseClient";
 const PAGES = [
   { slug: "student-life/anti-ragging", label: "Anti-Ragging", path: "/student-life/anti-ragging" },
   { slug: "about/governing-body", label: "Governing Body", path: "/about/governing-body" },
+  { slug: "admissions/fee-refund-policy", label: "Fee Refund Policy", path: "/admissions/fee-refund-policy" },
+  { slug: "research/committee", label: "Research Committee", path: "/research/committee" },
+  { slug: "iqac/committee", label: "IQAC Committee", path: "/iqac/committee" },
+  { slug: "about/icc", label: "Internal Complaint Committee", path: "/about/icc" },
+  { slug: "grievance-cell", label: "Grievance Cell Committee", path: "/grievance-cell" },
+  { slug: "examination/contact", label: "Exam Cell Contact Details", path: "/examination/contact" },
+  { slug: "placements/contact", label: "Placement Cell Contact Details", path: "/placements/contact" },
 ];
 
 interface Member {

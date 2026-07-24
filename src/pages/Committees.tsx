@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Search, Users, Download } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { ALL_COMMITTEES } from "@/lib/committeesContent";
+import { useDocumentsByPrefix } from "@/lib/useDocuments";
 
 const sidebar = {
   heading: "Compliance",
@@ -16,6 +17,7 @@ const sidebar = {
 
 const Committees = () => {
   const [q, setQ] = useState("");
+  const committeeDocs = useDocumentsByPrefix("committee:");
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
     if (!s) return ALL_COMMITTEES;
@@ -68,14 +70,27 @@ const Committees = () => {
             {c.description && (
               <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{c.description}</p>
             )}
-            <button
-              type="button"
-              disabled
-              title={c.fileName}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-70 self-start"
-            >
-              <Download className="size-3.5" /> Coming soon
-            </button>
+            {committeeDocs[`committee:${c.id}`] ? (
+              <a
+                href={committeeDocs[`committee:${c.id}`].file_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                title={committeeDocs[`committee:${c.id}`].file_name}
+                className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground hover:bg-accent/90 self-start transition-colors"
+              >
+                <Download className="size-3.5" /> Members PDF
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                title={c.fileName}
+                className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-70 self-start"
+              >
+                <Download className="size-3.5" /> Coming soon
+              </button>
+            )}
           </div>
         ))}
       </div>

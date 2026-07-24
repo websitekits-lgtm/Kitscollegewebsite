@@ -3,6 +3,7 @@ import { Search, BookOpen } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { PUBLICATIONS } from "@/lib/researchContent";
 import { researchSidebar } from "./ResearchSidebar";
+import { useTableRows } from "@/lib/useTableRows";
 
 const TYPE_STYLE: Record<string, string> = {
   Journal:        "bg-emerald-500/15 text-emerald-700 border-emerald-500/30",
@@ -13,13 +14,20 @@ const TYPE_STYLE: Record<string, string> = {
 
 const Publications = () => {
   const [q, setQ] = useState("");
+  const rows = useTableRows(
+    "faculty-publications",
+    PUBLICATIONS.map((p) => ({
+      faculty: p.faculty, department: p.department, title: p.title,
+      venue: p.venue, year: p.year, type: p.type,
+    })),
+  );
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
-    if (!s) return PUBLICATIONS;
-    return PUBLICATIONS.filter((p) =>
+    if (!s) return rows;
+    return rows.filter((p) =>
       [p.faculty, p.department, p.title, p.venue, p.type, p.year].join(" ").toLowerCase().includes(s),
     );
-  }, [q]);
+  }, [q, rows]);
 
   return (
     <InfoPage
@@ -59,8 +67,8 @@ const Publications = () => {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((p) => (
-                  <tr key={p.id} className="border-b border-border last:border-b-0 hover:bg-secondary/10 align-top">
+                {filtered.map((p, i) => (
+                  <tr key={i} className="border-b border-border last:border-b-0 hover:bg-secondary/10 align-top">
                     <td className="px-4 py-3 font-medium whitespace-nowrap">{p.faculty}</td>
                     <td className="px-4 py-3 text-muted-foreground whitespace-nowrap hidden sm:table-cell">{p.department}</td>
                     <td className="px-4 py-3">

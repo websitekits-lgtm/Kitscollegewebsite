@@ -23,7 +23,7 @@ const AqarReports = () => {
         institution's progress against NAAC criteria and presents quality enhancement actions.
       </p>
       <div className="not-prose">
-        <FileListTable
+        <FileListTable docCategory="aqar-reports"
           rows={rows}
           columns={["Academic Year"]}
           emptyMessage="AQAR reports will be uploaded here as they are published."

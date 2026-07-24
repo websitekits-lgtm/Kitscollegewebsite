@@ -2,6 +2,7 @@ import { FileText, Download, Clock, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHeader } from "@/components/site/PageHeader";
+import { useDocument, docKeyFromTitle } from "@/lib/useDocuments";
 
 interface PdfPageProps {
   eyebrow?: string;
@@ -16,11 +17,14 @@ interface PdfPageProps {
   lastUpdated?: string;
   /** Optional file size label (e.g., "1.2 MB") */
   fileSize?: string;
+  /** Document slot key. Defaults to the slugified title — matches Admin → Documents. */
+  docKey?: string;
 }
 
 /**
  * Document download page template.
- * For now, the download button shows "Coming soon" — admin will upload later.
+ * The download button goes live automatically once the admin uploads a file
+ * into this page's document slot (Admin → Documents); until then "Coming soon".
  */
 export const PdfPage = ({
   eyebrow,
@@ -31,7 +35,14 @@ export const PdfPage = ({
   fileName = "document.pdf",
   lastUpdated,
   fileSize,
+  docKey,
 }: PdfPageProps) => {
+  const doc = useDocument(docKey ?? docKeyFromTitle(title));
+  const shownFileName = doc?.file_name ?? fileName;
+  const shownUpdated = doc
+    ? `Updated ${new Date(doc.updated_at).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}`
+    : lastUpdated;
+  const shownSize = doc?.file_size ?? fileSize;
   return (
     <SiteLayout>
       <PageHeader eyebrow={eyebrow} title={title} subtitle={subtitle} breadcrumb={breadcrumb} />
@@ -69,29 +80,39 @@ export const PdfPage = ({
                   {title}
                 </h3>
                 <p className="text-sm text-muted-foreground mb-5 break-all font-mono bg-secondary/10 px-3 py-1 rounded-md inline-block">
-                  {fileName}
+                  {shownFileName}
                 </p>
 
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-5 gap-y-2 text-xs text-muted-foreground mb-6">
-                  {lastUpdated && (
+                  {shownUpdated && (
                     <span className="inline-flex items-center gap-1.5">
                       <Clock className="size-3.5 text-accent" />
-                      <span className="font-medium">{lastUpdated}</span>
+                      <span className="font-medium">{shownUpdated}</span>
                     </span>
                   )}
-                  {fileSize && (
+                  {shownSize && (
                     <span className="inline-flex items-center gap-1.5 font-medium">
-                      <FileText className="size-3.5 text-accent" /> {fileSize}
+                      <FileText className="size-3.5 text-accent" /> {shownSize}
                     </span>
                   )}
                 </div>
 
-                <Button disabled size="lg" className="rounded-md cursor-not-allowed opacity-80 shadow-md">
-                  <Download className="size-4" /> Coming soon
-                </Button>
-                <p className="mt-3 text-xs text-muted-foreground italic">
-                  Document will be available shortly. Please check back later.
-                </p>
+                {doc ? (
+                  <Button asChild size="lg" className="rounded-md shadow-md">
+                    <a href={doc.file_url} target="_blank" rel="noopener noreferrer" download>
+                      <Download className="size-4" /> Download PDF
+                    </a>
+                  </Button>
+                ) : (
+                  <>
+                    <Button disabled size="lg" className="rounded-md cursor-not-allowed opacity-80 shadow-md">
+                      <Download className="size-4" /> Coming soon
+                    </Button>
+                    <p className="mt-3 text-xs text-muted-foreground italic">
+                      Document will be available shortly. Please check back later.
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>

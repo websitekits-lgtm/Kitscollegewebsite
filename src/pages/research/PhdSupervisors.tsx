@@ -2,8 +2,11 @@ import { GraduationCap } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { PHD_SUPERVISORS } from "@/lib/researchContent";
 import { researchSidebar } from "./ResearchSidebar";
+import { useTableRows } from "@/lib/useTableRows";
 
-const PhdSupervisors = () => (
+const PhdSupervisors = () => {
+  const supervisors = useTableRows("phd-supervisors", PHD_SUPERVISORS);
+  return (
   <InfoPage
     eyebrow="Research & Development"
     title="Ph.D Supervisors"
@@ -17,7 +20,7 @@ const PhdSupervisors = () => (
     </p>
 
     <div className="not-prose grid sm:grid-cols-2 gap-4">
-      {PHD_SUPERVISORS.map((s, i) => (
+      {supervisors.map((s, i) => (
         <div key={i} className="rounded-2xl border border-border bg-card p-5">
           <div className="flex items-center gap-3 mb-3">
             <div className="grid size-10 place-items-center rounded-md bg-accent/10 text-accent">
@@ -40,6 +43,7 @@ const PhdSupervisors = () => (
       ))}
     </div>
   </InfoPage>
-);
+  );
+};
 
 export default PhdSupervisors;

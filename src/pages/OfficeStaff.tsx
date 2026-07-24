@@ -1,5 +1,6 @@
 import { Users } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
+import { useTableRows } from "@/lib/useTableRows";
 
 const sidebar = {
   heading: "About KITS",
@@ -39,9 +40,11 @@ const STAFF: StaffMember[] = [
 ];
 
 const OfficeStaff = () => {
+  const staff = useTableRows("office-staff", STAFF as unknown as Record<string, string>[]);
   // Group by department
-  const grouped = STAFF.reduce<Record<string, StaffMember[]>>((acc, s) => {
-    (acc[s.department] = acc[s.department] || []).push(s);
+  const grouped = staff.reduce<Record<string, StaffMember[]>>((acc, s) => {
+    const dept = s.department || "Administration";
+    (acc[dept] = acc[dept] || []).push(s as unknown as StaffMember);
     return acc;
   }, {});
 

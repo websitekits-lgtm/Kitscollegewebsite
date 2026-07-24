@@ -3,22 +3,10 @@ import { ShieldAlert, FileText, Users, ListChecks, Ban, CheckCircle2 } from "luc
 import { Button } from "@/components/ui/button";
 import { InfoPage } from "@/components/site/InfoPage";
 import { GRIEVANCE_CELL } from "@/lib/aboutContent";
+import { supabase } from "@/lib/supabaseClient";
+import { useCommitteeMembers } from "@/lib/useCommitteeMembers";
 
 type SubmitterType = "Parent" | "Student" | "Teaching Staff" | "Non-Teaching Staff" | "Others";
-
-interface GrievanceSubmission {
-  id: string;
-  submitterType: SubmitterType;
-  name: string;
-  email: string;
-  phone: string;
-  category: string;
-  subject: string;
-  message: string;
-  submittedAt: string;
-}
-
-const STORAGE_KEY = "kits_grievance_submissions";
 
 const sidebar = {
   heading: "Quick Links",
@@ -42,22 +30,20 @@ const GrievanceCell = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const members = useCommitteeMembers(
+    "grievance-cell",
+    GRIEVANCE_CELL.committee.map((m) => ({ name: m.name, designation: m.designation, role_label: m.role })),
+  );
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const submission: GrievanceSubmission = {
-      id: `grv-${Date.now()}`,
-      submitterType,
-      ...form,
-      submittedAt: new Date().toISOString(),
-    };
-
-    // Save to localStorage (admin will read these later)
-    const existing: GrievanceSubmission[] = JSON.parse(
-      localStorage.getItem(STORAGE_KEY) ?? "[]",
-    );
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([submission, ...existing]));
-
+    if (supabase) {
+      await supabase.from("grievance_submissions").insert({
+        submitter_type: submitterType,
+        name: form.name, email: form.email, phone: form.phone,
+        category: form.category, subject: form.subject, message: form.message,
+      });
+    }
     setSubmitted(true);
     setForm({ name: "", email: "", phone: "", category: "Academic", subject: "", message: "" });
   };
@@ -126,11 +112,11 @@ const GrievanceCell = () => {
               </tr>
             </thead>
             <tbody>
-              {GRIEVANCE_CELL.committee.map((m, i) => (
+              {members.map((m, i) => (
                 <tr key={i} className="border-b border-border last:border-b-0">
                   <td className="px-4 sm:px-5 py-3 font-medium">{m.name}</td>
                   <td className="px-4 sm:px-5 py-3 text-muted-foreground hidden sm:table-cell">{m.designation}</td>
-                  <td className="px-4 sm:px-5 py-3 text-accent">{m.role}</td>
+                  <td className="px-4 sm:px-5 py-3 text-accent">{m.role_label}</td>
                 </tr>
               ))}
             </tbody>

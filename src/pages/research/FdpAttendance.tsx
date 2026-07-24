@@ -3,16 +3,24 @@ import { Search } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { FDP_ATTENDANCE } from "@/lib/researchContent";
 import { researchSidebar } from "./ResearchSidebar";
+import { useTableRows } from "@/lib/useTableRows";
 
 const FdpAttendance = () => {
   const [q, setQ] = useState("");
+  const rows = useTableRows(
+    "fdp-attendance",
+    FDP_ATTENDANCE.map((f) => ({
+      faculty: f.faculty, department: f.department, programme: f.programme,
+      organiser: f.organiser, duration: f.duration, year: f.year,
+    })),
+  );
   const filtered = useMemo(() => {
     const s = q.trim().toLowerCase();
-    if (!s) return FDP_ATTENDANCE;
-    return FDP_ATTENDANCE.filter((f) =>
+    if (!s) return rows;
+    return rows.filter((f) =>
       [f.faculty, f.department, f.programme, f.organiser, f.year].join(" ").toLowerCase().includes(s),
     );
-  }, [q]);
+  }, [q, rows]);
 
   return (
     <InfoPage
@@ -47,8 +55,8 @@ const FdpAttendance = () => {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((f) => (
-                <tr key={f.id} className="border-b border-border last:border-b-0 hover:bg-secondary/10">
+              {filtered.map((f, i) => (
+                <tr key={i} className="border-b border-border last:border-b-0 hover:bg-secondary/10">
                   <td className="px-4 py-3 font-medium whitespace-nowrap">{f.faculty}</td>
                   <td className="px-4 py-3 text-muted-foreground whitespace-nowrap hidden sm:table-cell">{f.department}</td>
                   <td className="px-4 py-3 whitespace-nowrap">{f.programme}</td>

@@ -2,8 +2,14 @@ import { Users } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { IQAC_COMMITTEE } from "@/lib/qualityContent";
 import { iqacSidebar } from "./IqacSidebar";
+import { useCommitteeMembers } from "@/lib/useCommitteeMembers";
 
-const IqacCommittee = () => (
+const IqacCommittee = () => {
+  const members = useCommitteeMembers(
+    "iqac/committee",
+    IQAC_COMMITTEE.map((m) => ({ name: m.name, designation: m.designation, role_label: m.role })),
+  );
+  return (
   <InfoPage
     eyebrow="IQAC"
     title="IQAC Committee"
@@ -26,11 +32,11 @@ const IqacCommittee = () => (
             </tr>
           </thead>
           <tbody>
-            {IQAC_COMMITTEE.map((m, i) => (
+            {members.map((m, i) => (
               <tr key={i} className="border-b border-border last:border-b-0 hover:bg-secondary/10">
                 <td className="px-4 py-3 font-medium">{m.name}</td>
                 <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">{m.designation}</td>
-                <td className="px-4 py-3 text-accent font-medium">{m.role}</td>
+                <td className="px-4 py-3 text-accent font-medium">{m.role_label}</td>
               </tr>
             ))}
           </tbody>
@@ -38,6 +44,7 @@ const IqacCommittee = () => (
       </div>
     </div>
   </InfoPage>
-);
+  );
+};
 
 export default IqacCommittee;

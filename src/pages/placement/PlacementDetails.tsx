@@ -2,8 +2,27 @@ import { TrendingUp, Building2, Trophy, BarChart3, FileText, Download, Image as 
 import { InfoPage } from "@/components/site/InfoPage";
 import { YEARLY_STATS, PLACEMENT_PDFS, PLACEMENT_GALLERY_PDF } from "@/lib/placementContent";
 import { placementSidebar } from "./PlacementSidebar";
+import { useTableRows } from "@/lib/useTableRows";
+import { useDocumentsByCategory, useDocument } from "@/lib/useDocuments";
 
-const PlacementDetails = () => (
+const PlacementDetails = () => {
+  // Year-wise stats — Admin → Data Tables → "Year-wise Placement Statistics"
+  const stats = useTableRows(
+    "placement-stats",
+    YEARLY_STATS.map((s) => ({
+      year: s.year,
+      totalOffers: String(s.totalOffers),
+      uniquePlacements: String(s.uniquePlacements),
+      highestPackageLpa: String(s.highestPackageLpa),
+      avgPackageLpa: String(s.avgPackageLpa),
+      topRecruiters: s.topRecruiters.join(", "),
+    })),
+  );
+  // Year-wise PDFs — Admin → Documents & PDFs → "Year-wise Placement Details"
+  const pdfDocs = useDocumentsByCategory("placement-records");
+  const galleryDoc = useDocument("student-placement-gallery");
+
+  return (
   <InfoPage
     eyebrow="Training & Placement"
     title="Placement Details"
@@ -32,22 +51,29 @@ const PlacementDetails = () => (
             </tr>
           </thead>
           <tbody>
-            {PLACEMENT_PDFS.map((p) => (
-              <tr key={p.year} className="border-b border-border last:border-b-0 hover:bg-secondary/10">
-                <td className="px-4 py-3 font-medium whitespace-nowrap">{p.year}</td>
-                <td className="px-4 py-3 text-xs text-muted-foreground hidden md:table-cell break-all">{p.fileName}</td>
-                <td className="px-4 py-3 text-right">
-                  <button
-                    type="button"
-                    disabled
-                    title={p.fileName}
-                    className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-70"
-                  >
-                    <Download className="size-3.5" /> Coming soon
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {pdfDocs.length > 0
+              ? pdfDocs.map((d) => (
+                  <tr key={d.id} className="border-b border-border last:border-b-0 hover:bg-secondary/10">
+                    <td className="px-4 py-3 font-medium whitespace-nowrap">{d.title}{d.label ? ` — ${d.label}` : ""}</td>
+                    <td className="px-4 py-3 text-xs text-muted-foreground hidden md:table-cell break-all">{d.file_name}</td>
+                    <td className="px-4 py-3 text-right">
+                      <a href={d.file_url} target="_blank" rel="noopener noreferrer" download className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground hover:bg-accent/90">
+                        <Download className="size-3.5" /> Download
+                      </a>
+                    </td>
+                  </tr>
+                ))
+              : PLACEMENT_PDFS.map((p) => (
+                  <tr key={p.year} className="border-b border-border last:border-b-0 hover:bg-secondary/10">
+                    <td className="px-4 py-3 font-medium whitespace-nowrap">{p.year}</td>
+                    <td className="px-4 py-3 text-xs text-muted-foreground hidden md:table-cell break-all">{p.fileName}</td>
+                    <td className="px-4 py-3 text-right">
+                      <button type="button" disabled title={p.fileName} className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-70">
+                        <Download className="size-3.5" /> Coming soon
+                      </button>
+                    </td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>
@@ -60,24 +86,26 @@ const PlacementDetails = () => (
       </div>
       <div className="flex-1 min-w-0">
         <h3 className="font-display text-lg font-semibold mb-1">Student Placement Gallery</h3>
-        <p className="text-xs text-muted-foreground break-all mb-3">{PLACEMENT_GALLERY_PDF}</p>
-        <button
-          type="button"
-          disabled
-          className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-70"
-        >
-          <Download className="size-3.5" /> Coming soon
-        </button>
+        <p className="text-xs text-muted-foreground break-all mb-3">{galleryDoc?.file_name ?? PLACEMENT_GALLERY_PDF}</p>
+        {galleryDoc ? (
+          <a href={galleryDoc.file_url} target="_blank" rel="noopener noreferrer" download className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground hover:bg-accent/90">
+            <Download className="size-3.5" /> Download
+          </a>
+        ) : (
+          <button type="button" disabled className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-70">
+            <Download className="size-3.5" /> Coming soon
+          </button>
+        )}
       </div>
     </div>
 
     <div className="not-prose space-y-6">
-      {YEARLY_STATS.map((s) => (
+      {stats.map((s, idx) => (
         <div key={s.year} className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
           <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
             <h3 className="font-display text-xl font-semibold m-0">Academic Year {s.year}</h3>
             <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-medium px-2 py-0.5 rounded-full border border-accent/30 bg-accent/10">
-              {s.year === YEARLY_STATS[0].year ? "Latest" : "Past"}
+              {idx === 0 ? "Latest" : "Past"}
             </span>
           </div>
           <div className="grid sm:grid-cols-4 gap-3 mb-5">
@@ -97,7 +125,7 @@ const PlacementDetails = () => (
           <div>
             <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-2">Top Recruiters</p>
             <div className="flex flex-wrap gap-2">
-              {s.topRecruiters.map((r) => (
+              {s.topRecruiters.split(",").map((r) => r.trim()).filter(Boolean).map((r) => (
                 <span key={r} className="px-3 py-1 rounded-full text-xs font-medium bg-secondary/30 text-foreground/85">
                   {r}
                 </span>
@@ -108,6 +136,7 @@ const PlacementDetails = () => (
       ))}
     </div>
   </InfoPage>
-);
+  );
+};
 
 export default PlacementDetails;

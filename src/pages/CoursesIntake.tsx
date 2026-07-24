@@ -1,6 +1,7 @@
 import { GraduationCap } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { PROGRAMS } from "@/lib/academicsContent";
+import { useTableRows } from "@/lib/useTableRows";
 
 const sidebar = {
   heading: "Admissions",
@@ -14,17 +15,29 @@ const sidebar = {
   ],
 };
 
-const CoursesIntake = () => {
-  const ug = PROGRAMS.filter((p) => p.level === "UG");
-  const pg = PROGRAMS.filter((p) => p.level === "PG");
+interface ProgramRow {
+  level: string; code: string; name: string; duration: string; intake: string; affiliation: string;
+  [key: string]: string;
+}
 
-  const TotalIntake = ({ programs }: { programs: typeof PROGRAMS }) => (
+const CoursesIntake = () => {
+  const rows = useTableRows<ProgramRow>(
+    "courses-intake",
+    PROGRAMS.map((p) => ({
+      level: p.level, code: p.code, name: p.name,
+      duration: p.duration, intake: String(p.intake), affiliation: p.affiliation,
+    })),
+  );
+  const ug = rows.filter((p) => p.level.toUpperCase() === "UG");
+  const pg = rows.filter((p) => p.level.toUpperCase() === "PG");
+
+  const TotalIntake = ({ programs }: { programs: ProgramRow[] }) => (
     <p className="text-xs text-muted-foreground mt-3 italic">
-      Total intake: {programs.reduce((sum, p) => sum + p.intake, 0)} seats
+      Total intake: {programs.reduce((sum, p) => sum + (parseInt(p.intake, 10) || 0), 0)} seats
     </p>
   );
 
-  const Table = ({ programs, label }: { programs: typeof PROGRAMS; label: string }) => (
+  const Table = ({ programs, label }: { programs: ProgramRow[]; label: string }) => (
     <div className="mb-10">
       <div className="flex items-center gap-3 mb-4">
         <GraduationCap className="size-5 text-accent" />

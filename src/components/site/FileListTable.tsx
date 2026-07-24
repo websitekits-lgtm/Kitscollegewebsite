@@ -1,11 +1,14 @@
 import { useMemo, useState } from "react";
 import { Download, FileText, Search } from "lucide-react";
+import { useDocumentsByCategory } from "@/lib/useDocuments";
 
 export interface FileRow {
   id: string;
   fileName: string;
   // Each cell is a key→value pair; keys become column headers in order
   cells: Record<string, string>;
+  /** Real download URL — when present the button is live */
+  url?: string;
 }
 
 interface FileListTableProps {
@@ -16,19 +19,37 @@ interface FileListTableProps {
   searchable?: boolean;
   /** Empty-state message */
   emptyMessage?: string;
+  /**
+   * Admin document category (Admin → Documents). When documents exist for this
+   * category they REPLACE the static rows with real, downloadable files.
+   */
+  docCategory?: string;
 }
 
 /**
  * Generic table for listing downloadable files.
- * Each row has metadata cells + a "Coming soon" download button.
+ * Static fallback rows show "Coming soon"; admin-uploaded documents download live.
  */
 export const FileListTable = ({
-  rows,
-  columns,
+  rows: staticRows,
+  columns: staticColumns,
   searchable = true,
   emptyMessage = "No documents available right now. Please check back later.",
+  docCategory,
 }: FileListTableProps) => {
   const [query, setQuery] = useState("");
+  const docs = useDocumentsByCategory(docCategory);
+
+  const usingDocs = docs.length > 0;
+  const rows: FileRow[] = usingDocs
+    ? docs.map((d) => ({
+        id: d.id,
+        fileName: d.file_name,
+        cells: { Document: d.title, Details: d.label ?? "—" },
+        url: d.file_url,
+      }))
+    : staticRows;
+  const columns = usingDocs ? ["Document", "Details"] : staticColumns;
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -99,14 +120,27 @@ export const FileListTable = ({
                       </td>
                     ))}
                     <td className="px-4 sm:px-5 py-3 text-right">
-                      <button
-                        type="button"
-                        disabled
-                        title={r.fileName}
-                        className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-70 hover:opacity-100 transition-opacity"
-                      >
-                        <Download className="size-3.5" /> Coming soon
-                      </button>
+                      {r.url ? (
+                        <a
+                          href={r.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download
+                          title={r.fileName}
+                          className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground hover:bg-accent/90 transition-colors"
+                        >
+                          <Download className="size-3.5" /> Download
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled
+                          title={r.fileName}
+                          className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-muted-foreground cursor-not-allowed opacity-70 hover:opacity-100 transition-opacity"
+                        >
+                          <Download className="size-3.5" /> Coming soon
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

@@ -21,6 +21,23 @@ create table if not exists public.nav_items (
   created_at     timestamptz not null default now()
 );
 
+-- ── 1b. FEE STRUCTURE (per programme/branch/route) ───────────────────────────
+create table if not exists public.fee_items (
+  id             uuid primary key default gen_random_uuid(),
+  category       text not null check (category in ('other', 'btech', 'diploma', 'mtech', 'hostel', 'transport_a', 'transport_b', 'transport_c')),
+  label          text not null,      -- branch / year / hostel type / bus stop name
+  annual_fee     text not null,      -- kept as text to preserve "₹" formatting
+  admission_fee  text,               -- one-time fee (diploma only)
+  sort_order     integer not null default 0,
+  is_active      boolean not null default true,
+  created_at     timestamptz not null default now()
+);
+alter table public.fee_items enable row level security;
+drop policy if exists "public read active fee_items" on public.fee_items;
+create policy "public read active fee_items" on public.fee_items for select using (is_active = true);
+drop policy if exists "admin full access fee_items" on public.fee_items;
+create policy "admin full access fee_items" on public.fee_items for all using (auth.role() = 'authenticated') with check (auth.role() = 'authenticated');
+
 -- ── 2. TESTIMONIALS ──────────────────────────────────────────────────────────
 create table if not exists public.testimonials (
   id         uuid primary key default gen_random_uuid(),

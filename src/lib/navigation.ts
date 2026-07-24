@@ -142,6 +142,7 @@ export const TOP_NAV: NavItem[] = [
     dropdownAlign: "right",
     links: [
       { label: "Overview",                  to: "/student-life" },
+      { label: "Clubs & Activities",        to: "/student-life/clubs" },
       { label: "Sports & Games",            to: "/student-life/sports" },
       { label: "NSS",                       to: "/student-life/nss" },
       { label: "Hostel",                    to: "/student-life/hostel" },

@@ -2,21 +2,9 @@ import { useState } from "react";
 import { MessageSquare, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { InfoPage } from "@/components/site/InfoPage";
+import { supabase } from "@/lib/supabaseClient";
 
 type SubmitterType = "Student" | "Parent" | "Faculty" | "Alumni" | "Visitor";
-
-interface FeedbackSubmission {
-  id: string;
-  submitterType: SubmitterType;
-  name: string;
-  email: string;
-  category: string;
-  rating: number;
-  message: string;
-  submittedAt: string;
-}
-
-const STORAGE_KEY = "kits_feedback_submissions";
 
 const sidebar = {
   heading: "Feedback",
@@ -38,16 +26,15 @@ const Feedback = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const submission: FeedbackSubmission = {
-      id: `fb-${Date.now()}`,
-      submitterType,
-      ...form,
-      submittedAt: new Date().toISOString(),
-    };
-    const existing: FeedbackSubmission[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([submission, ...existing]));
+    if (supabase) {
+      await supabase.from("feedback_submissions").insert({
+        role: submitterType,
+        name: form.name, email: form.email, category: form.category,
+        rating: String(form.rating), message: form.message,
+      });
+    }
     setSubmitted(true);
     setForm({ name: "", email: "", category: "Academic", rating: 4, message: "" });
   };
