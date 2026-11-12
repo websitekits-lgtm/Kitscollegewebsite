@@ -1,10 +1,23 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { usePageTexts } from "@/lib/usePageTexts";
 
 const heroImgWebp = "/KITS-building-2023.webp";
 const heroImgPng = "/KITS-building-2023-optimized.png";
 
+// Defaults; overridden by Admin → Page Content → Homepage Hero.
+const HERO_DEFAULTS = {
+  tagline: "Established 2008 · Markapur",
+  title_line1: "Krishna Chaitanya",
+  title_line2: "Institute of Technology & Sciences",
+  motto: "Engineering Tomorrow's Leaders",
+  eapcet_code: "KCIT",
+  hero_image: "",
+  partner_logo: "",
+};
+
 export const Hero = () => {
+  const t = usePageTexts("home", HERO_DEFAULTS);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,7 +45,7 @@ export const Hero = () => {
 
       {/* Top-right partner/affiliation logo */}
       <img
-        src="/logo-1700496934.webp"
+        src={t.partner_logo || "/logo-1700496934.webp"}
         alt="Affiliation logo"
         className="absolute top-3 right-3 sm:top-6 sm:right-6 md:top-8 md:right-10 h-14 sm:h-20 md:h-32 lg:h-36 w-auto object-contain z-20"
         loading="eager"
@@ -43,17 +56,17 @@ export const Hero = () => {
         <div data-hero-tag className="inline-flex items-center gap-2 sm:gap-3 mb-5 md:mb-6 max-w-full">
           <span className="h-px w-6 sm:w-8 bg-accent shrink-0" />
           <span className="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-muted-foreground font-medium whitespace-nowrap">
-            Established 2008 · Markapur
+            {t.tagline}
           </span>
           <span className="h-px w-6 sm:w-8 bg-accent shrink-0" />
         </div>
 
         <h1 className="font-display font-semibold tracking-tight text-foreground leading-[0.95]">
           <span data-hero-line className="block text-[28px] sm:text-4xl md:text-6xl lg:text-[5rem] uppercase">
-            Krishna Chaitanya
+            {t.title_line1}
           </span>
           <span data-hero-line className="block text-lg sm:text-2xl md:text-3xl lg:text-4xl mt-2 md:mt-3 italic font-light text-accent px-2">
-            Institute of Technology &amp; Sciences
+            {t.title_line2}
           </span>
         </h1>
 
@@ -61,16 +74,16 @@ export const Hero = () => {
           data-hero-sub
           className="mt-5 md:mt-6 text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.25em] sm:tracking-[0.4em] text-muted-foreground"
         >
-          Engineering Tomorrow&apos;s Leaders
+          {t.motto}
         </p>
       </div>
 
       {/* Bottom: Image */}
       <div data-hero-img className="w-full relative z-10 mt-8 md:mt-0">
         <picture>
-          <source srcSet={heroImgWebp} type="image/webp" />
+          {!t.hero_image && <source srcSet={heroImgWebp} type="image/webp" />}
           <img
-            src={heroImgPng}
+            src={t.hero_image || heroImgPng}
             alt="Krishna Chaitanya Institute of Technology & Sciences campus building"
             className="w-full h-auto block"
             loading="eager"
@@ -89,7 +102,7 @@ export const Hero = () => {
           </span>
           <span className="h-3 sm:h-3.5 w-px bg-foreground/20" />
           <span className="text-xs sm:text-sm md:text-base font-display font-semibold text-foreground tracking-wider">
-            KCIT
+            {t.eapcet_code}
           </span>
         </div>
       </div>

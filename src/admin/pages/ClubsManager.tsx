@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { Plus, Trash2, Pencil, Check, X, Loader2, Upload, ImageIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Plus, Trash2, Pencil, Check, X, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
+import { MediaField } from "../components/MediaPicker";
 
 interface ClubRow {
   id: string;
@@ -23,8 +24,6 @@ const ClubsManager = () => {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
 
   const load = async () => {
     if (!supabase) return setLoading(false);
@@ -52,23 +51,6 @@ const ClubsManager = () => {
     setShowForm(true);
   };
 
-  const uploadImage = async (file: File) => {
-    if (!supabase) return;
-    setUploading(true);
-    try {
-      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const path = `clubs/${Date.now()}-${safeName}`;
-      const { error } = await supabase.storage.from("images").upload(path, file);
-      if (error) throw new Error(error.message);
-      const { data } = supabase.storage.from("images").getPublicUrl(path);
-      setForm((f) => ({ ...f, image_url: data.publicUrl }));
-    } catch (e) {
-      alert(`Image upload failed: ${(e as Error).message}`);
-    } finally {
-      setUploading(false);
-    }
-  };
-
   const handleSubmit = async () => {
     if (!supabase || !form.name.trim()) return;
     setSaving(true);
@@ -79,12 +61,11 @@ const ClubsManager = () => {
       coordinator: form.coordinator.trim() || null,
       image_url: form.image_url || null,
     };
-    if (editingId) {
-      await supabase.from("clubs").update(payload).eq("id", editingId);
-    } else {
-      await supabase.from("clubs").insert({ ...payload, sort_order: rows.length });
-    }
+    const { error } = editingId
+      ? await supabase.from("clubs").update(payload).eq("id", editingId)
+      : await supabase.from("clubs").insert({ ...payload, sort_order: rows.length });
     setSaving(false);
+    if (error) return alert(`Save failed: ${error.message}`);
     resetForm();
     load();
   };
@@ -124,14 +105,7 @@ const ClubsManager = () => {
               <textarea value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={2} placeholder="What does this club do?" className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm" />
             </div>
             <input value={form.coordinator} onChange={(e) => setForm((f) => ({ ...f, coordinator: e.target.value }))} placeholder="Coordinator (e.g. Dept. of CSE)" className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm" />
-            <div className="flex items-center gap-2">
-              <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadImage(f); e.target.value = ""; }} />
-              <button onClick={() => fileRef.current?.click()} disabled={uploading} className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-50 disabled:opacity-50">
-                {uploading ? <Loader2 className="size-3.5 animate-spin" /> : <Upload className="size-3.5" />}
-                {form.image_url ? "Replace Image" : "Upload Image (optional)"}
-              </button>
-              {form.image_url && <ImageIcon className="size-4 text-accent" />}
-            </div>
+            <MediaField value={form.image_url} onChange={(url) => setForm((f) => ({ ...f, image_url: url }))} folder="clubs" />
           </div>
           <div className="flex gap-2">
             <button onClick={handleSubmit} disabled={saving} className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground hover:bg-accent/90 disabled:opacity-50">

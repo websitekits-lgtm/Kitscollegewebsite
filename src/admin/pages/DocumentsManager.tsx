@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Upload, Trash2, Loader2, FileText, ExternalLink, Plus, Check, X } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
+import { uploadMedia, formatBytes, MAX_UPLOAD_BYTES } from "@/lib/media";
 import { SINGLE_DOC_SLOTS, DOC_CATEGORIES } from "@/lib/docRegistry";
 import { ALL_COMMITTEES } from "@/lib/committeesContent";
 
@@ -16,9 +17,6 @@ interface DocRow {
   storage_path: string | null;
   sort_order: number;
 }
-
-const fmtSize = (bytes: number): string =>
-  bytes >= 1048576 ? `${(bytes / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
 
 type Tab = "slots" | "lists" | "committees";
 
@@ -45,18 +43,16 @@ const DocumentsManager = () => {
   const docByKey = (key: string) => docs.find((d) => d.doc_key === key);
   const docsInCategory = (cat: string) => docs.filter((d) => d.category === cat);
 
-  /** Upload file to the documents bucket; returns url + path + size. */
+  /** Upload to the documents bucket (also listed in the Media Library); returns url + path + size. */
   const uploadFile = async (file: File, folder: string) => {
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-    const path = `${folder}/${Date.now()}-${safeName}`;
-    const { error } = await supabase!.storage.from("documents").upload(path, file, { upsert: true });
-    if (error) throw new Error(error.message);
-    const { data } = supabase!.storage.from("documents").getPublicUrl(path);
-    return { url: data.publicUrl, path, size: fmtSize(file.size), name: file.name };
+    const item = await uploadMedia(file, { bucket: "documents", folder });
+    return { url: item.file_url, path: item.storage_path, size: formatBytes(file.size), name: file.name };
   };
 
   const removeStorageObject = async (storagePath: string | null) => {
-    if (storagePath) await supabase!.storage.from("documents").remove([storagePath]);
+    if (!storagePath) return;
+    await supabase!.storage.from("documents").remove([storagePath]);
+    await supabase!.from("media_library").delete().eq("bucket", "documents").eq("storage_path", storagePath);
   };
 
   /** Upload/replace a single-slot document (or a committee slot). */
@@ -67,7 +63,7 @@ const DocumentsManager = () => {
       const existing = docByKey(key);
       if (existing) await removeStorageObject(existing.storage_path); // no orphan files
       const up = await uploadFile(file, key.replace(/[^a-zA-Z0-9-]/g, "-"));
-      await supabase.from("site_documents").upsert(
+      const { error: dbErr } = await supabase.from("site_documents").upsert(
         {
           doc_key: key,
           category: category ?? null,
@@ -80,6 +76,7 @@ const DocumentsManager = () => {
         },
         { onConflict: "doc_key" },
       );
+      if (dbErr) throw new Error(dbErr.message);
       await load();
     } catch (e) {
       alert(`Upload failed: ${(e as Error).message}`);
@@ -106,7 +103,7 @@ const DocumentsManager = () => {
     try {
       const up = await uploadFile(file, listCategory);
       const count = docsInCategory(listCategory).length;
-      await supabase.from("site_documents").insert({
+      const { error: dbErr } = await supabase.from("site_documents").insert({
         category: listCategory,
         title: listForm.title.trim(),
         label: listForm.label.trim() || null,
@@ -116,6 +113,7 @@ const DocumentsManager = () => {
         storage_path: up.path,
         sort_order: count,
       });
+      if (dbErr) throw new Error(dbErr.message);
       setListForm({ title: "", label: "" });
       setShowListForm(false);
       await load();
@@ -145,7 +143,7 @@ const DocumentsManager = () => {
         <input
           ref={inputRef}
           type="file"
-          accept=".pdf,.doc,.docx,.xls,.xlsx"
+          
           className="hidden"
           onChange={(e) => {
             const f = e.target.files?.[0];
@@ -171,7 +169,7 @@ const DocumentsManager = () => {
     <div>
       <h1 className="text-2xl font-bold text-slate-900 mb-1">Documents & PDFs</h1>
       <p className="text-sm text-slate-500 mb-6">
-        Upload the actual files behind every "Coming soon" button on the website. Files are stored in Supabase Storage (PDF/Word/Excel, max 20 MB).
+        Upload the actual files behind every "Coming soon" button on the website. Any file type (PDF, Word, Excel, PowerPoint, images, ZIP…), up to {formatBytes(MAX_UPLOAD_BYTES)} each. Changes show on the website instantly.
       </p>
 
       <div className="flex gap-2 mb-6">
@@ -248,7 +246,7 @@ const DocumentsManager = () => {
               <input
                 ref={listFileRef}
                 type="file"
-                accept=".pdf,.doc,.docx,.xls,.xlsx"
+                
                 className="hidden"
                 onChange={(e) => {
                   const f = e.target.files?.[0];

@@ -251,6 +251,10 @@ import AdminInquiriesManager from "./admin/pages/InquiriesManager";
 import AdminPopupManager from "./admin/pages/PopupManager";
 import AdminSocialLinksManager from "./admin/pages/SocialLinksManager";
 import AdminSiteSettingsManager from "./admin/pages/SiteSettingsManager";
+import AdminMediaLibrary from "./admin/pages/MediaLibrary";
+import AdminPostsManager from "./admin/pages/PostsManager";
+import AdminGalleryManager from "./admin/pages/GalleryManager";
+import News from "./pages/News.tsx";
 
 const queryClient = new QueryClient();
 
@@ -287,6 +291,7 @@ const App = () => (
           <Route path="/research" element={<Research />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/events/:slug" element={<EventDetail />} />
+          <Route path="/news" element={<News />} />
 
           {/* About / Administration sub-pages */}
           <Route path="/about/vision-mission" element={<VisionMission />} />
@@ -526,6 +531,9 @@ const App = () => (
           <Route path="/admin/popup" element={<AdminGuard><AdminLayout><AdminPopupManager /></AdminLayout></AdminGuard>} />
           <Route path="/admin/social" element={<AdminGuard><AdminLayout><AdminSocialLinksManager /></AdminLayout></AdminGuard>} />
           <Route path="/admin/settings" element={<AdminGuard><AdminLayout><AdminSiteSettingsManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/media" element={<AdminGuard><AdminLayout><AdminMediaLibrary /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/posts" element={<AdminGuard><AdminLayout><AdminPostsManager /></AdminLayout></AdminGuard>} />
+          <Route path="/admin/gallery" element={<AdminGuard><AdminLayout><AdminGalleryManager /></AdminLayout></AdminGuard>} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

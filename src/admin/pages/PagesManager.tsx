@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { Plus, Trash2, Pencil, X, Check, Loader2, ExternalLink } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
+import { MediaField } from "../components/MediaPicker";
 
 interface PageSection {
   heading: string;
   body: string;
   button_label: string;
   button_url: string;
+  image_url: string;
+  file_url: string;
+  file_label: string;
 }
 
 interface CustomPageRow {
@@ -25,7 +29,7 @@ interface NavParent {
   groups: { id: string; label: string }[];
 }
 
-const EMPTY_SECTION: PageSection = { heading: "", body: "", button_label: "", button_url: "" };
+const EMPTY_SECTION: PageSection = { heading: "", body: "", button_label: "", button_url: "", image_url: "", file_url: "", file_label: "" };
 const EMPTY_FORM = {
   title: "", eyebrow: "", subtitle: "",
   sections: [{ ...EMPTY_SECTION }] as PageSection[],
@@ -91,7 +95,7 @@ const PagesManager = () => {
     if (!supabase || !form.title.trim()) return;
     setSaving(true);
 
-    const sections = form.sections.filter((s) => s.heading.trim() || s.body.trim());
+    const sections = form.sections.filter((s) => s.heading.trim() || s.body.trim() || s.image_url || s.file_url);
 
     if (editingId) {
       await supabase.from("custom_pages").update({
@@ -164,7 +168,7 @@ const PagesManager = () => {
         </button>
       </div>
       <p className="text-sm text-slate-500 mb-6">
-        Create a complete new page (headings, paragraphs, optional buttons) and place it in any header dropdown — no developer needed.
+        Create a complete new page (headings, paragraphs, images, downloadable files and buttons) and place it in any header dropdown — no developer needed.
       </p>
 
       {showForm && (
@@ -212,6 +216,24 @@ const PagesManager = () => {
                 <div className="grid sm:grid-cols-2 gap-2">
                   <input value={s.button_label} onChange={(e) => updateSection(i, "button_label", e.target.value)} placeholder="Button text (optional)" className="rounded-md border border-slate-300 px-3 py-2 text-sm" />
                   <input value={s.button_url} onChange={(e) => updateSection(i, "button_url", e.target.value)} placeholder="Button link, e.g. /contact or https://…" className="rounded-md border border-slate-300 px-3 py-2 text-sm" />
+                </div>
+                <div className="grid sm:grid-cols-2 gap-2">
+                  <MediaField label="Image (optional)" value={s.image_url} onChange={(url) => updateSection(i, "image_url", url)} folder="pages" />
+                  <div className="space-y-1.5">
+                    <MediaField
+                      label="Downloadable file (optional): PDF, Word, PPT…"
+                      accept="all"
+                      value={s.file_url}
+                      onChange={(url, item) => setForm((f) => ({
+                        ...f,
+                        sections: f.sections.map((sec, idx) => idx === i ? { ...sec, file_url: url, file_label: url ? (sec.file_label || item?.title || "") : "" } : sec),
+                      }))}
+                      folder="pages"
+                    />
+                    {s.file_url && (
+                      <input value={s.file_label} onChange={(e) => updateSection(i, "file_label", e.target.value)} placeholder="Download button text" className="w-full rounded-md border border-slate-300 px-3 py-1.5 text-sm" />
+                    )}
+                  </div>
                 </div>
               </div>
             ))}

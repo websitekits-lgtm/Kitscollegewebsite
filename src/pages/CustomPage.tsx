@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { PageHeader } from "@/components/site/PageHeader";
 import { supabase } from "@/lib/supabaseClient";
+import { useRealtimeRefresh } from "@/lib/useRealtime";
 import NotFound from "./NotFound";
 
 interface PageSection {
@@ -11,6 +12,9 @@ interface PageSection {
   body?: string;
   button_label?: string;
   button_url?: string;
+  image_url?: string;
+  file_url?: string;
+  file_label?: string;
 }
 
 interface CustomPageData {
@@ -27,12 +31,12 @@ const CustomPage = () => {
   const [page, setPage] = useState<CustomPageData | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "missing">("loading");
 
-  useEffect(() => {
+  const load = useCallback((initial: boolean) => {
     if (!supabase || !slug) {
       setStatus("missing");
       return;
     }
-    setStatus("loading");
+    if (initial) setStatus("loading");
     supabase
       .from("custom_pages")
       .select("slug, title, eyebrow, subtitle, sections")
@@ -48,6 +52,10 @@ const CustomPage = () => {
         }
       });
   }, [slug]);
+
+  useEffect(() => { load(true); }, [load]);
+  // Admin edits show up without a reload.
+  useRealtimeRefresh("custom_pages", () => load(false));
 
   if (status === "missing") return <NotFound />;
   if (status === "loading" || !page) {
@@ -75,8 +83,21 @@ const CustomPage = () => {
                 {s.heading && (
                   <h2 className="font-display text-2xl font-semibold tracking-tight mb-3">{s.heading}</h2>
                 )}
+                {s.image_url && (
+                  <img src={s.image_url} alt={s.heading ?? ""} loading="lazy" className="w-full rounded-xl border border-border mb-5 object-cover" />
+                )}
                 {s.body && (
                   <p className="text-base text-foreground/85 leading-relaxed whitespace-pre-line">{s.body}</p>
+                )}
+                {s.file_url && (
+                  <a
+                    href={s.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 mr-3 inline-flex items-center gap-2 rounded-md border border-accent px-5 py-2.5 text-sm font-semibold text-accent hover:bg-accent hover:text-accent-foreground transition-colors"
+                  >
+                    <Download className="size-4" /> {s.file_label || "Download"}
+                  </a>
                 )}
                 {s.button_label && s.button_url && (
                   external ? (

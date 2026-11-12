@@ -3,7 +3,7 @@ import { Map } from "lucide-react";
 import { InfoPage } from "@/components/site/InfoPage";
 import { TOP_NAV } from "@/lib/navigation";
 import { DEPARTMENTS } from "@/lib/college";
-import { EVENTS } from "@/lib/events";
+import { usePosts } from "@/lib/usePosts";
 
 const sidebar = {
   heading: "Legal",
@@ -15,7 +15,9 @@ const sidebar = {
   ],
 };
 
-const Sitemap = () => (
+const Sitemap = () => {
+  const { posts } = usePosts();
+  return (
   <InfoPage
     eyebrow="Find a Page"
     title="Sitemap"
@@ -105,7 +107,7 @@ const Sitemap = () => (
           Event Detail Pages
         </h2>
         <ul className="space-y-1">
-          {EVENTS.map((e) => (
+          {posts.map((e) => (
             <li key={e.slug}>
               <Link to={`/events/${e.slug}`} className="text-sm text-foreground/85 hover:text-accent line-clamp-1">
                 {e.title}
@@ -126,6 +128,7 @@ const Sitemap = () => (
       </section>
     </div>
   </InfoPage>
-);
+  );
+};
 
 export default Sitemap;

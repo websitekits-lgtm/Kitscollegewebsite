@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { useRealtimeRefresh } from "@/lib/useRealtime";
 
 /** Fetches editable text fields for a page as a { field_key: value } map, merged over a fallback map. */
 export const usePageTexts = <T extends Record<string, string>>(
@@ -8,7 +9,7 @@ export const usePageTexts = <T extends Record<string, string>>(
 ): T => {
   const [values, setValues] = useState<T>(fallback);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!supabase) return;
     supabase
       .from("page_texts")
@@ -25,6 +26,8 @@ export const usePageTexts = <T extends Record<string, string>>(
         });
       });
   }, [pageSlug]);
+  useEffect(() => { load(); }, [load]);
+  useRealtimeRefresh("page_texts", load);
 
   return values;
 };

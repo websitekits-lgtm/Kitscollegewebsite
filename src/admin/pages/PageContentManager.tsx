@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Plus, Trash2, Check, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabaseClient";
+import { MediaField } from "../components/MediaPicker";
 
 // Registry of pages wired for content editing. Ask your developer to add an entry
 // here (+ a matching useCommitteeMembers/usePageTexts call on the page itself)
 // to bring another page under dashboard control.
-const PAGES = [
+const PAGES: { slug: string; label: string; path: string; noMembers?: boolean }[] = [
+  { slug: "home", label: "Homepage Hero", path: "/", noMembers: true },
   { slug: "student-life/anti-ragging", label: "Anti-Ragging", path: "/student-life/anti-ragging" },
   { slug: "about/governing-body", label: "Governing Body", path: "/about/governing-body" },
   { slug: "admissions/fee-refund-policy", label: "Fee Refund Policy", path: "/admissions/fee-refund-policy" },
@@ -88,8 +90,9 @@ const PageContentManager = () => {
   const saveText = async (row: TextField) => {
     if (!supabase) return;
     setSavingText(row.id);
-    await supabase.from("page_texts").update({ field_value: row.field_value }).eq("id", row.id);
+    const { error } = await supabase.from("page_texts").update({ field_value: row.field_value }).eq("id", row.id);
     setSavingText(null);
+    if (error) alert(`Save failed: ${error.message}`);
   };
 
   const currentPage = PAGES.find((p) => p.slug === pageSlug)!;
@@ -126,13 +129,23 @@ const PageContentManager = () => {
                 {texts.map((row) => (
                   <div key={row.id}>
                     <label className="block text-xs font-medium text-slate-600 mb-1">{row.field_label}</label>
-                    <div className="flex gap-2">
-                      {row.field_type === "richtext" ? (
+                    <div className="flex gap-2 items-start">
+                      {row.field_type === "image" || row.field_type === "file" ? (
+                        <div className="flex-1">
+                          <MediaField
+                            accept={row.field_type === "image" ? "image" : "all"}
+                            folder={`page-content/${pageSlug}`}
+                            value={row.field_value}
+                            onChange={(url) => updateTextValue(row.id, url)}
+                          />
+                          {!row.field_value && <p className="mt-1 text-[11px] text-slate-400">Empty: the website shows its built-in default.</p>}
+                        </div>
+                      ) : row.field_type === "richtext" ? (
                         <textarea value={row.field_value} onChange={(e) => updateTextValue(row.id, e.target.value)} rows={3} className="flex-1 rounded-md border border-slate-300 px-3 py-2 text-sm" />
                       ) : (
                         <input value={row.field_value} onChange={(e) => updateTextValue(row.id, e.target.value)} className="flex-1 rounded-md border border-slate-300 px-3 py-2 text-sm" />
                       )}
-                      <button onClick={() => saveText(row)} disabled={savingText === row.id} className="shrink-0 inline-flex items-center gap-1 rounded-lg bg-accent px-3 text-xs font-semibold text-accent-foreground hover:bg-accent/90 disabled:opacity-50">
+                      <button onClick={() => saveText(row)} disabled={savingText === row.id} className="shrink-0 self-stretch max-h-10 inline-flex items-center gap-1 rounded-lg bg-accent px-3 text-xs font-semibold text-accent-foreground hover:bg-accent/90 disabled:opacity-50">
                         {savingText === row.id ? <Loader2 className="size-3.5 animate-spin" /> : <Check className="size-3.5" />}
                         Save
                       </button>
@@ -144,7 +157,7 @@ const PageContentManager = () => {
           )}
 
           {/* Committee members */}
-          <div className="rounded-xl border border-slate-200 bg-white p-6">
+          {!currentPage.noMembers && <div className="rounded-xl border border-slate-200 bg-white p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-sm font-semibold text-slate-900">Committee Members</h2>
               <button onClick={() => setShowMemberForm(true)} className="inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline">
@@ -176,7 +189,7 @@ const PageContentManager = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div>}
         </div>
       )}
     </div>

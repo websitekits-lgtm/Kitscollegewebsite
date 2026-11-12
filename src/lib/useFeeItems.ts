@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { useRealtimeRefresh } from "@/lib/useRealtime";
 
 export interface FeeItem {
   category: string;
@@ -18,7 +19,7 @@ export const useFeeItems = (fallback: FeeItem[]): Record<string, FeeItem[]> => {
 
   const [grouped, setGrouped] = useState<Record<string, FeeItem[]>>(group(fallback));
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!supabase) return;
     supabase
       .from("fee_items")
@@ -29,6 +30,8 @@ export const useFeeItems = (fallback: FeeItem[]): Record<string, FeeItem[]> => {
         if (data && data.length > 0) setGrouped(group(data as FeeItem[]));
       });
   }, []);
+  useEffect(() => { load(); }, [load]);
+  useRealtimeRefresh("fee_items", load);
 
   return grouped;
 };

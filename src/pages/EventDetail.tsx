@@ -1,18 +1,29 @@
 import { Link, useParams } from "react-router-dom";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, Tag } from "lucide-react";
-import { EVENTS, formatEventDate } from "@/lib/events";
+import { ArrowLeft, Calendar, Tag, Download } from "lucide-react";
+import { formatEventDate } from "@/lib/events";
+import { usePosts } from "@/lib/usePosts";
 import NotFound from "@/pages/NotFound";
 
 const EventDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const event = EVENTS.find((e) => e.slug === slug);
+  const { posts, loading } = usePosts();
+  const event = posts.find((e) => e.slug === slug);
 
-  if (!event) return <NotFound />;
+  if (!event) {
+    if (loading) {
+      return (
+        <SiteLayout>
+          <div className="min-h-[50vh] grid place-items-center text-sm text-muted-foreground">Loading…</div>
+        </SiteLayout>
+      );
+    }
+    return <NotFound />;
+  }
 
   // Related events: same category, exclude current one
-  const related = EVENTS.filter((e) => e.category === event.category && e.slug !== event.slug).slice(0, 3);
+  const related = posts.filter((e) => e.category === event.category && e.slug !== event.slug).slice(0, 3);
 
   return (
     <SiteLayout>
@@ -25,6 +36,9 @@ const EventDetail = () => {
           >
             <ArrowLeft className="size-4" />
             Back to home
+          </Link>{" "}
+          <Link to="/news" className="ml-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8">
+            All news
           </Link>
 
           {/* Meta */}
@@ -47,13 +61,13 @@ const EventDetail = () => {
           </h1>
 
           {/* Hero image — fixed aspect ratio, properly cropped */}
-          <div className="relative rounded-2xl overflow-hidden border border-border shadow-[var(--shadow-elegant)] mb-10 max-w-3xl mx-auto aspect-[16/9] bg-muted">
+          {event.image && <div className="relative rounded-2xl overflow-hidden border border-border shadow-[var(--shadow-elegant)] mb-10 max-w-3xl mx-auto aspect-[16/9] bg-muted">
             <img
               src={event.image}
               alt={event.title}
               className="w-full h-full object-cover"
             />
-          </div>
+          </div>}
 
           {/* Body */}
           <div className="prose prose-neutral max-w-none">
@@ -64,6 +78,17 @@ const EventDetail = () => {
               </p>
             ))}
           </div>
+
+          {event.attachmentUrl && (
+            <a
+              href={event.attachmentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground hover:bg-accent/90 transition-colors"
+            >
+              <Download className="size-4" /> {event.attachmentName || "Download attachment"}
+            </a>
+          )}
         </div>
       </article>
 

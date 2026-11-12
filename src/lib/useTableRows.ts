@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { useRealtimeRefresh } from "@/lib/useRealtime";
 
 /**
  * Generic admin-editable table rows (Admin → Data Tables).
@@ -12,7 +13,7 @@ export const useTableRows = <T extends Record<string, string>>(
 ): T[] => {
   const [rows, setRows] = useState<T[]>(fallback);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!supabase) return;
     supabase
       .from("data_table_rows")
@@ -24,6 +25,8 @@ export const useTableRows = <T extends Record<string, string>>(
         if (data && data.length > 0) setRows(data.map((r) => r.cells as T));
       });
   }, [tableKey]);
+  useEffect(() => { load(); }, [load]);
+  useRealtimeRefresh("data_table_rows", load);
 
   return rows;
 };

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { useRealtimeRefresh } from "@/lib/useRealtime";
 
 export interface SiteDocument {
   id: string;
@@ -26,7 +27,7 @@ export const docKeyFromTitle = (title: string): string =>
 export const useDocument = (docKey: string | undefined): SiteDocument | null => {
   const [doc, setDoc] = useState<SiteDocument | null>(null);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!supabase || !docKey) return;
     supabase
       .from("site_documents")
@@ -36,6 +37,8 @@ export const useDocument = (docKey: string | undefined): SiteDocument | null => 
       .maybeSingle()
       .then(({ data }) => setDoc((data as SiteDocument) ?? null));
   }, [docKey]);
+  useEffect(() => { load(); }, [load]);
+  useRealtimeRefresh("site_documents", load);
 
   return doc;
 };
@@ -44,7 +47,7 @@ export const useDocument = (docKey: string | undefined): SiteDocument | null => 
 export const useDocumentsByCategory = (category: string | undefined): SiteDocument[] => {
   const [docs, setDocs] = useState<SiteDocument[]>([]);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!supabase || !category) return;
     supabase
       .from("site_documents")
@@ -54,6 +57,8 @@ export const useDocumentsByCategory = (category: string | undefined): SiteDocume
       .order("sort_order")
       .then(({ data }) => setDocs((data as SiteDocument[]) ?? []));
   }, [category]);
+  useEffect(() => { load(); }, [load]);
+  useRealtimeRefresh("site_documents", load);
 
   return docs;
 };
@@ -62,7 +67,7 @@ export const useDocumentsByCategory = (category: string | undefined): SiteDocume
 export const useDocumentsByPrefix = (prefix: string): Record<string, SiteDocument> => {
   const [map, setMap] = useState<Record<string, SiteDocument>>({});
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!supabase) return;
     supabase
       .from("site_documents")
@@ -77,6 +82,8 @@ export const useDocumentsByPrefix = (prefix: string): Record<string, SiteDocumen
         setMap(next);
       });
   }, [prefix]);
+  useEffect(() => { load(); }, [load]);
+  useRealtimeRefresh("site_documents", load);
 
   return map;
 };

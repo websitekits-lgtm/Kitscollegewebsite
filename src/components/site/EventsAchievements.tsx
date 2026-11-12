@@ -1,9 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
-import { EVENTS, formatEventDate } from "@/lib/events";
+import { formatEventDate } from "@/lib/events";
+import { usePosts } from "@/lib/usePosts";
 
 export const EventsAchievements = () => {
+  const { posts } = usePosts();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -25,7 +27,7 @@ export const EventsAchievements = () => {
       el.removeEventListener("scroll", updateScrollState);
       window.removeEventListener("resize", updateScrollState);
     };
-  }, []);
+  }, [posts.length]);
 
   const scrollBy = (direction: "left" | "right") => {
     const el = scrollRef.current;
@@ -45,7 +47,8 @@ export const EventsAchievements = () => {
             Recent Events &amp; <span className="italic font-light text-muted-foreground">Achievements.</span>
           </h2>
           <p className="mt-3 sm:mt-4 text-sm sm:text-base text-muted-foreground leading-relaxed">
-            Wins, milestones and moments from across the campus.
+            Wins, milestones and moments from across the campus.{" "}
+            <Link to="/news" className="font-semibold text-accent hover:underline whitespace-nowrap">View all news →</Link>
           </p>
         </div>
       </div>
@@ -79,7 +82,7 @@ export const EventsAchievements = () => {
           ref={scrollRef}
           className="flex gap-4 sm:gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar px-0 sm:px-12 md:px-16"
         >
-          {EVENTS.map((e) => (
+          {posts.map((e) => (
             <article
               key={e.slug}
               className="group relative shrink-0 snap-start flex flex-col w-[260px] sm:w-[280px] md:w-[300px] rounded-2xl overflow-hidden border-2 border-border bg-card shadow-[0_8px_30px_-12px_hsl(var(--primary)/0.12)] hover:shadow-[0_20px_50px_-12px_hsl(var(--primary)/0.25)] hover:border-accent/40 hover:-translate-y-1 transition-all duration-500"

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { useRealtimeRefresh } from "@/lib/useRealtime";
 import { TOP_NAV, type NavItem } from "@/lib/navigation";
 
 interface NavItemRow {
@@ -56,7 +57,7 @@ const buildTree = (rows: NavItemRow[]): NavItem[] => {
 export const useMergedNav = (): NavItem[] => {
   const [tree, setTree] = useState<NavItem[] | null>(null);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!supabase) return;
     supabase
       .from("nav_items")
@@ -66,6 +67,8 @@ export const useMergedNav = (): NavItem[] => {
         if (data && data.length > 0) setTree(buildTree(data as NavItemRow[]));
       });
   }, []);
+  useEffect(() => { load(); }, [load]);
+  useRealtimeRefresh("nav_items", load);
 
   return tree ?? TOP_NAV;
 };

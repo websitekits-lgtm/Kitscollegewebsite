@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { useRealtimeRefresh } from "@/lib/useRealtime";
 
 export interface CommitteeMember {
   name: string;
@@ -14,7 +15,7 @@ export const useCommitteeMembers = (
 ): CommitteeMember[] => {
   const [rows, setRows] = useState<CommitteeMember[] | null>(null);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!supabase) return;
     supabase
       .from("committee_members")
@@ -24,6 +25,8 @@ export const useCommitteeMembers = (
       .order("sort_order")
       .then(({ data }) => setRows(data && data.length > 0 ? data : null));
   }, [pageSlug]);
+  useEffect(() => { load(); }, [load]);
+  useRealtimeRefresh("committee_members", load);
 
   return rows ?? fallback;
 };
